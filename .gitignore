@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/angular,aspnetcore
 # Edit at https://www.toptal.com/developers/gitignore?templates=angular,aspnetcore
 
+# Otros archivos
+appsettings.json
+
 ### Angular ###
 ## Angular ##
 # compiled output

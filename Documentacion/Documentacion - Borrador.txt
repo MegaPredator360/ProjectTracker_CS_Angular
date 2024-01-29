@@ -1,0 +1,9 @@
+------------ Descripcion de Capas de API
+
+API: Capa que se encargará de inicializar la API
+BLL: Contendra los servicios e interfaces de la API
+DAL: Capa que trabaja los datos
+DTO: Contendrá las clases que interactuarán con la aplicacion de Angular
+IOC (Inversion of Control): Nos permitirá separar la inyeccion de dependencias de la aplicacion, es muy común en aplicaciones de ASP.NET Core
+Model: Contendrá las clases que interactuarán con la base de datos
+Utility: Contendrá clases que ayudarán a la conversion de modelos

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectTracker.DAL\ProjectTracker.DAL.csproj" />
+    <ProjectReference Include="..\ProjectTracker.DTO\ProjectTracker.DTO.csproj" />
+    <ProjectReference Include="..\ProjectTracker.Model\ProjectTracker.Model.csproj" />
+    <ProjectReference Include="..\ProjectTracker.Utility\ProjectTracker.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

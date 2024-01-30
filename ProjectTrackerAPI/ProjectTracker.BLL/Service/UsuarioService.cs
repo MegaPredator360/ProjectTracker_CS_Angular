@@ -6,7 +6,7 @@ using ProjectTracker.DAL.Interface;
 using ProjectTracker.DTO;
 using ProjectTracker.Model;
 
-namespace ProjectTracker.BLL.Services
+namespace ProjectTracker.BLL.Service
 {
     public class UsuarioService : IUsuarioService
     {

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectTracker.BLL.Interface;
-using ProjectTracker.BLL.Services;
+using ProjectTracker.BLL.Service;
 using ProjectTracker.DAL.Context;
 using ProjectTracker.DAL.Interface;
 using ProjectTracker.DAL.Service;
@@ -31,6 +31,8 @@ namespace ProjectTracker.IOC
             // Agregamos los servicios para ser usados
             _service.AddScoped<IOtrosService, OtrosService>();
             _service.AddScoped<IUsuarioService, UsuarioService>();
+            _service.AddScoped<ITareaService, TareaService>();
+            _service.AddScoped<IProyectoService, ProyectoService>();
 
         }
     }

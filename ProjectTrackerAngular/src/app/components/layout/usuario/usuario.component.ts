@@ -13,7 +13,7 @@ import { UtilityService } from '../../../utility/utility.service';
 
 export class UsuarioComponent implements OnInit, AfterViewInit
 {
-  colunmasTabla: string[] = ['cedula', 'nombre', 'correo', 'rolNombre', 'activo', 'acciones'];
+  colunmasTabla: string[] = ['cedula', 'nombre', 'correo', 'telefono', 'permiso', 'acciones'];
   dataInicio: Usuario[] = [];
   dataListaUsuarios = new MatTableDataSource(this.dataInicio);
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;

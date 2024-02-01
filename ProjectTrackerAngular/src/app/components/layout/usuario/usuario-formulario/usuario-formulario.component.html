@@ -27,11 +27,17 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
         <mat-label>Contraseña</mat-label>
-        <input matInput autocomplete="off" formControlName="contrasena">
+        <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'" formControlName="contrasena">
+        <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
+            <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
+        </button>
     </mat-form-field>
     <mat-form-field class="example-full-width" #confirmacionInput>
         <mat-label>Confirmar Contraseña</mat-label>
-        <input matInput autocomplete="off" formControlName="confirmarContrasena">
+        <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'" formControlName="confirmarContrasena">
+        <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
+            <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
+        </button>
     </mat-form-field>
     <mat-checkbox formControlName="primerInicio">Cambiar Contraseña al Iniciar Sesion</mat-checkbox>
     <br>
@@ -46,4 +52,5 @@
     </mat-form-field>
 </form>
 <button mat-raised-button color="warn" routerLink="../">Volver</button>
-<button mat-raised-button color="primary" [disabled]="formularioUsuario.invalid" (click)="submitUsuario()">{{ botonAccion }}</button>
+<button mat-raised-button color="primary" [disabled]="formularioUsuario.invalid" (click)="submitUsuario()">{{
+    botonAccion }}</button>

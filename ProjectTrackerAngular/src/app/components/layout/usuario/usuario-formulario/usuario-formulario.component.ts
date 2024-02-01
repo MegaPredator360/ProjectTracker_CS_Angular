@@ -30,6 +30,9 @@ export class UsuarioFormularioComponent implements OnInit {
   // Titulo del boton del componente
   botonAccion: string = "Guardar"
 
+  // Ocultar Contraseña
+  ocultarContrasena: boolean = true;
+
   constructor(
     private usuarioService: UsuarioService,
     private permisoService: PermisoService,

@@ -5,6 +5,7 @@ import { TareaComponent } from './tarea/tarea.component';
 import { TareaUsuarioComponent } from './tarea-usuario/tarea-usuario.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { ProyectoComponent } from './proyecto/proyecto.component';
+import { UsuarioFormularioComponent } from './usuario/usuario-formulario/usuario-formulario.component';
 //import { RoleGuard } from 'src/app/Services/role-guard.service';
 //import { AccesoDenegadoComponent } from './Pages/acceso-denegado/acceso-denegado.component';
 
@@ -13,6 +14,7 @@ const routes: Routes = [{
   component: LayoutComponent,
   children: [
     { path: 'usuario', component: UsuarioComponent },
+    { path: 'usuario/formulario', component: UsuarioFormularioComponent },
     { path: 'proyecto', component: ProyectoComponent },
     { path: 'tarea', component: TareaComponent },
     { path: 'tareausuario', component: TareaUsuarioComponent }

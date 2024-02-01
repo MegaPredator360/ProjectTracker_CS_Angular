@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { UsuarioService } from '../../../service/usuario.service';
 import { UtilityService } from '../../../utility/utility.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuario',
@@ -11,33 +12,31 @@ import { UtilityService } from '../../../utility/utility.service';
   styleUrl: './usuario.component.scss'
 })
 
-export class UsuarioComponent implements OnInit, AfterViewInit
-{
+export class UsuarioComponent implements OnInit, AfterViewInit {
   colunmasTabla: string[] = ['cedula', 'nombre', 'correo', 'telefono', 'permiso', 'acciones'];
   dataInicio: Usuario[] = [];
   dataListaUsuarios = new MatTableDataSource(this.dataInicio);
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;
+  usuarioVacio!: Usuario
 
-  constructor (
+  constructor(
+    private router: Router,
     private usuarioService: UsuarioService,
     private utilityService: UtilityService
-  ) {}
+  ) { }
 
-  obtenerUsuarios()
-  {
+  obtenerUsuarios() {
     this.usuarioService.Lista().subscribe({
       next: (data) => {
-        if (data.status)
-        {
+        if (data.status) {
           this.dataListaUsuarios.data = data.value;
         }
-        else
-        {
+        else {
           //this.utilityService.mostrarAlerta("No se encontraton datos", "Oops!")
           console.log("No hay datos")
         }
       },
-      error: (e) => {}
+      error: (e) => { }
     });
   }
 
@@ -49,9 +48,20 @@ export class UsuarioComponent implements OnInit, AfterViewInit
     this.dataListaUsuarios.paginator = this.paginacionTabla
   }
 
-  aplicarFiltroTabla(event: Event)
-  {
+  aplicarFiltroTabla(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataListaUsuarios.filter = filterValue.trim().toLocaleLowerCase();
+  }
+
+  usuarioActualizar(usuario: Usuario) {
+    // Almacenar los datos en el servicio
+    this.usuarioService.setDatosUsuario(usuario);
+    this.router.navigate(['/pages/usuario/formulario']);
+  }
+
+  usuarioNuevo() {
+    this.usuarioService.setDatosUsuario(this.usuarioVacio);
+    // Example: Redirect to the 'about' route
+    this.router.navigate(['/pages/usuario/formulario']);
   }
 }

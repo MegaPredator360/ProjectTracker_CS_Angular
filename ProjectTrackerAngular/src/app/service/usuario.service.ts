@@ -12,32 +12,36 @@ import { ResponseAuth } from '../interface/response-auth';
 })
 
 export class UsuarioService {
+    private datosUsuario!: Usuario;
     private urlApi: string = environment.endpoint + "Usuario/";
 
     constructor(private http: HttpClient) { }
 
-    iniciarSesion(request: InicioSesion): Observable<ResponseAuth>
-    {
+    iniciarSesion(request: InicioSesion): Observable<ResponseAuth> {
         return this.http.post<ResponseAuth>(`${this.urlApi}IniciarSesion`, request)
     }
 
-    Lista(): Observable<ResponseApi>
-    {
+    Lista(): Observable<ResponseApi> {
         return this.http.get<ResponseApi>(`${this.urlApi}Lista`)
     }
 
-    Guardar(request: Usuario): Observable<ResponseApi>
-    {
+    Guardar(request: Usuario): Observable<ResponseApi> {
         return this.http.post<ResponseApi>(`${this.urlApi}Guardar`, request)
     }
 
-    Editar(request: Usuario): Observable<ResponseApi>
-    {
+    Editar(request: Usuario): Observable<ResponseApi> {
         return this.http.put<ResponseApi>(`${this.urlApi}Editar`, request)
     }
 
-    Eliminar(Id: number): Observable<ResponseApi>
-    {
+    Eliminar(Id: number): Observable<ResponseApi> {
         return this.http.delete<ResponseApi>(`${this.urlApi}Eliminar/${Id}`)
+    }
+
+    setDatosUsuario(usuario: Usuario) {
+        this.datosUsuario = usuario;
+    }
+
+    getDatosUsuario(): Usuario {
+        return this.datosUsuario;
     }
 }

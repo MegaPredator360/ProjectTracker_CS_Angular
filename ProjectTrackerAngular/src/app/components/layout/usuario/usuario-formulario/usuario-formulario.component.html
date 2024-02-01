@@ -1,0 +1,44 @@
+<h2>{{ tituloAccion }} Usuario</h2>
+<!-- Formulario para usuarios -->
+<form class="example-form" [formGroup]="formularioUsuario">
+    <mat-form-field class="example-full-width">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput autocomplete="off" formControlName="nombre">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Cedula</mat-label>
+        <input matInput autocomplete="off" formControlName="cedula">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Telefono</mat-label>
+        <input matInput autocomplete="off" formControlName="telefono">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Dirección</mat-label>
+        <input matInput autocomplete="off" formControlName="direccion">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Nombre de Usuario</mat-label>
+        <input matInput autocomplete="off" formControlName="username">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Correo Electronico</mat-label>
+        <input matInput autocomplete="off" formControlName="correo">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput autocomplete="off" formControlName="contrasena">
+    </mat-form-field>
+    <mat-checkbox formControlName="primerInicio">Cambiar Contraseña al Iniciar Sesion</mat-checkbox>
+    <br>
+    <mat-form-field>
+        <mat-label>Permisos</mat-label>
+        <mat-select formControlName="permisoId">
+            <mat-option value="0">Administrador</mat-option>
+            <mat-option value="1">Gerente</mat-option>
+            <mat-option value="2">Usuario</mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+<button mat-raised-button mat-dialog-close color="warn">Volver</button>
+<button mat-raised-button mat-dialog-close color="primary" [disabled]="formularioUsuario.invalid">{{ botonAccion }}</button>

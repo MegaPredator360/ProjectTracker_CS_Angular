@@ -26,6 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MomentDateModule } from '@angular/material-moment-adapter'
 
 @NgModule({
@@ -58,6 +60,8 @@ import { MomentDateModule } from '@angular/material-moment-adapter'
         MatAutocompleteModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatSlideToggleModule,
+        MatCheckboxModule,
         MomentDateModule
     ],
     providers: [

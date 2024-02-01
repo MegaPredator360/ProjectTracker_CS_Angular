@@ -6,10 +6,12 @@ import { ProyectoComponent } from './proyecto/proyecto.component';
 import { TareaComponent } from './tarea/tarea.component';
 import { TareaUsuarioComponent } from './tarea-usuario/tarea-usuario.component';
 import { SharedModule } from '../../shared/shared.service';
+import { UsuarioFormularioComponent } from './usuario/usuario-formulario/usuario-formulario.component';
 
 @NgModule({
   declarations: [
     UsuarioComponent,
+    UsuarioFormularioComponent,
     ProyectoComponent,
     TareaComponent,
     TareaUsuarioComponent

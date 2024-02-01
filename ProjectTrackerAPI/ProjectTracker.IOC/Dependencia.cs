@@ -31,6 +31,7 @@ namespace ProjectTracker.IOC
             // Agregamos los servicios para ser usados
             _service.AddScoped<IOtrosService, OtrosService>();
             _service.AddScoped<IUsuarioService, UsuarioService>();
+            _service.AddScoped<IPermisoService, PermisoService>();
             _service.AddScoped<ITareaService, TareaService>();
             _service.AddScoped<IProyectoService, ProyectoService>();
 

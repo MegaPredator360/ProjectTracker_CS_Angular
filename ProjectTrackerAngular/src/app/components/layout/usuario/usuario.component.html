@@ -7,7 +7,7 @@
 
 <mat-form-field style="width: 30%;">
     <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="aplicarFiltroTabla($event)" #input>
+    <input matInput (keyup)="filtroTabla($event)" #input>
 </mat-form-field>
 
 <table mat-table [dataSource]="dataListaUsuarios">

@@ -4,6 +4,7 @@ import { PermisoService } from '../../../../service/permiso.service';
 import { UsuarioService } from '../../../../service/usuario.service';
 import { UtilityService } from '../../../../utility/utility.service';
 import { Usuario } from '../../../../interface/usuario';
+import { Permiso } from '../../../../interface/permiso';
 
 @Component({
   selector: 'app-usuario-formulario',
@@ -12,7 +13,13 @@ import { Usuario } from '../../../../interface/usuario';
 })
 
 export class UsuarioFormularioComponent implements OnInit {
+  // Se usará para verificar o autollenar el formulario con informacion existente
   formularioUsuario: FormGroup;
+
+  // Lista de Permisos
+  listaPermisos: Permiso[] = []
+
+  // Datos de usuario
   datosUsuario!: Usuario
 
   // Ttiulo del componente
@@ -23,6 +30,7 @@ export class UsuarioFormularioComponent implements OnInit {
   
   constructor(
     private usuarioService: UsuarioService,
+    private permisoService: PermisoService,
     private fb: FormBuilder
     ) {
     // Obtener los datos almacenados en el servicio
@@ -45,6 +53,17 @@ export class UsuarioFormularioComponent implements OnInit {
       this.tituloAccion = "Editar";
       this.botonAccion = "Actualizar";
     }
+
+    // Lista de Permisos
+    this.permisoService.Lista().subscribe({
+      next: (data) => {
+        if (data.status)
+        {
+          this.listaPermisos = data.value
+        }
+      },
+      error: (e) => {}
+    });
   }
 
   ngOnInit(): void {

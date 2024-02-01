@@ -48,7 +48,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     this.dataListaUsuarios.paginator = this.paginacionTabla
   }
 
-  aplicarFiltroTabla(event: Event) {
+  filtroTabla(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataListaUsuarios.filter = filterValue.trim().toLocaleLowerCase();
   }
@@ -56,12 +56,13 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   usuarioActualizar(usuario: Usuario) {
     // Almacenar los datos en el servicio
     this.usuarioService.setDatosUsuario(usuario);
+
+    // Se redigire al usuario a la ruta
     this.router.navigate(['/pages/usuario/formulario']);
   }
 
   usuarioNuevo() {
     this.usuarioService.setDatosUsuario(this.usuarioVacio);
-    // Example: Redirect to the 'about' route
     this.router.navigate(['/pages/usuario/formulario']);
   }
 }

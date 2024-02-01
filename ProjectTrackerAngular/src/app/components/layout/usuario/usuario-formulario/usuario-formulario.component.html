@@ -29,13 +29,17 @@
         <mat-label>Contraseña</mat-label>
         <input matInput autocomplete="off" formControlName="contrasena">
     </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <mat-label>Confirmar Contraseña</mat-label>
+        <input matInput autocomplete="off" formControlName="confirmarContrasena">
+    </mat-form-field>
     <mat-checkbox formControlName="primerInicio">Cambiar Contraseña al Iniciar Sesion</mat-checkbox>
     <br>
     <mat-form-field>
         <mat-label>Permisos</mat-label>
         <mat-select formControlName="permisoId">
             <!-- Obtendremos la lista de permisos de la API -->
-            <mat-option *ngFor="let item of listaPermisos" value="item.permId">
+            <mat-option *ngFor="let item of listaPermisos" [value]="item.permId">
                 {{ item.permNombre }}
             </mat-option>
         </mat-select>

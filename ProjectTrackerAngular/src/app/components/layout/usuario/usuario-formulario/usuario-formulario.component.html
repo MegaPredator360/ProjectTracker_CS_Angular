@@ -29,7 +29,7 @@
         <mat-label>Contraseña</mat-label>
         <input matInput autocomplete="off" formControlName="contrasena">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width" #confirmacionInput>
         <mat-label>Confirmar Contraseña</mat-label>
         <input matInput autocomplete="off" formControlName="confirmarContrasena">
     </mat-form-field>
@@ -46,4 +46,4 @@
     </mat-form-field>
 </form>
 <button mat-raised-button color="warn" routerLink="../">Volver</button>
-<button mat-raised-button color="primary" [disabled]="formularioUsuario.invalid">{{ botonAccion }}</button>
+<button mat-raised-button color="primary" [disabled]="formularioUsuario.invalid" (click)="submitUsuario()">{{ botonAccion }}</button>

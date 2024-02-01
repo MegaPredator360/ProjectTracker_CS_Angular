@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PermisoService } from '../../../../service/permiso.service';
 import { UsuarioService } from '../../../../service/usuario.service';
@@ -6,6 +6,7 @@ import { UtilityService } from '../../../../utility/utility.service';
 import { Usuario } from '../../../../interface/usuario';
 import { Permiso } from '../../../../interface/permiso';
 import { Router } from '@angular/router';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-usuario-formulario',
@@ -32,7 +33,9 @@ export class UsuarioFormularioComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private permisoService: PermisoService,
+    private utilityService: UtilityService,
     private fb: FormBuilder,
+    private elementRef: ElementRef,
     private router: Router
   ) {
     // Obtener los datos almacenados en el servicio
@@ -88,11 +91,25 @@ export class UsuarioFormularioComponent implements OnInit {
     }
   }
 
-  guardarEditarUsuario() {
+  submitUsuario() {
 
-    if (this.formularioUsuario.value.contrasena != null)
-    {
+    if (this.formularioUsuario.value.contrasena != null || this.formularioUsuario.value.contrasena != "") {
+
+      // Primero se verifica que la contraseña cumpla con los requisitos: 1 Mayuscula, 1 minuscula, 1 simbolo, 1 numero y 8 caracteres
+      if (!this.utilityService.verificarContrasena(this.formularioUsuario.value.contrasena)) {
+
+        // Se le realizará un focus al input
+        this.elementRef.nativeElement.querySelector('[formcontrolname="contrasena"]').focus()
+        console.log("La contraseña no cumple los caracteres")
+        return
+      }
       
+      if (this.formularioUsuario.value.contrasena != this.formularioUsuario.value.confirmarContrasena) {
+        // Se le realizará un focus al input
+        this.elementRef.nativeElement.querySelector('[formcontrolname="confirmarContrasena"]').focus()
+        console.log("Las contraseñas no son iguales")
+        return
+      }
     }
 
     const usuario: Usuario = {

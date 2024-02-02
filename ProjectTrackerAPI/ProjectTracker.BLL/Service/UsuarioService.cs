@@ -121,20 +121,21 @@ namespace ProjectTracker.BLL.Service
                     throw new TaskCanceledException("El usuario no existe");
                 }
 
-                // Encriptamos la nueva contraseña
-                string contrasenaHash = otrosService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
-
                 // Igualamos los nuevos datos
                 usuarioEncontrado.UsuaCedula = _usuarioDTO.UsuaCedula;
                 usuarioEncontrado.UsuaNombre = _usuarioDTO.UsuaNombre;
                 usuarioEncontrado.UsuaUsername = _usuarioDTO.UsuaUsername;
                 usuarioEncontrado.UsuaCorreo = _usuarioDTO.UsuaCorreo;
-                usuarioEncontrado.UsuaContrasena = contrasenaHash;
                 usuarioEncontrado.UsuaTelefono = _usuarioDTO.UsuaTelefono;
                 usuarioEncontrado.UsuaDireccion = _usuarioDTO.UsuaDireccion;
                 usuarioEncontrado.UsuaPrimerInicio = Convert.ToBoolean(_usuarioDTO.UsuaPrimerInicio);
                 usuarioEncontrado.UsuaPermId = _usuarioDTO.UsuaPermId;
-                
+
+                if (_usuarioDTO.UsuaContrasena != "")
+                {
+                    usuarioEncontrado.UsuaContrasena = otrosService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
+                }
+
                 // Se envian los datos a la base de datos
                 bool respuesta = await usuarioService.Editar(usuarioEncontrado);
 

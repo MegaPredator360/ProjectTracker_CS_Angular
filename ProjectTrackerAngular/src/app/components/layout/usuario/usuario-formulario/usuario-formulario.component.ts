@@ -82,7 +82,7 @@ export class UsuarioFormularioComponent implements OnInit {
     if (this.datosUsuario != null) {
       this.formularioUsuario.patchValue({
         cedula: this.datosUsuario.usuaCedula,
-        nombre: this.datosUsuario.usuaPermNombre,
+        nombre: this.datosUsuario.usuaNombre,
         telefono: this.datosUsuario.usuaTelefono,
         direccion: this.datosUsuario.usuaDireccion,
         username: this.datosUsuario.usuaUsername,
@@ -96,7 +96,7 @@ export class UsuarioFormularioComponent implements OnInit {
 
   submitUsuario() {
 
-    if (this.formularioUsuario.value.contrasena != null || this.formularioUsuario.value.contrasena != "") {
+    if (this.formularioUsuario.value.contrasena != "") {
 
       // Primero se verifica que la contraseña cumpla con los requisitos: 1 Mayuscula, 1 minuscula, 1 simbolo, 1 numero y 8 caracteres
       if (!this.utilityService.verificarContrasena(this.formularioUsuario.value.contrasena)) {
@@ -135,7 +135,7 @@ export class UsuarioFormularioComponent implements OnInit {
           if (data.status) {
             //this.utilityService.mostrarAlerta("El usuario fue registrado", "Exito");
             console.log("Usuario Registrado")
-            this.router.navigate(['../']);
+            this.router.navigate(['../pages/usuario']);
           }
           else {
             //this._utilityService.mostrarAlerta("No se pudo registrar el usuario", "Error")
@@ -150,8 +150,8 @@ export class UsuarioFormularioComponent implements OnInit {
         next: (data) => {
           if (data.status) {
             //this.utilityService.mostrarAlerta("El usuario fue actualizado", "Exito");
-            console.log("Usuario Registrado")
-            this.router.navigate(['../']);
+            console.log("Usuario Actualizado")
+            this.router.navigate(['../pages/usuario']);
           }
           else {
             console.log("Ocurrio un error al registrar")

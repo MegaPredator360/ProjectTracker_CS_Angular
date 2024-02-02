@@ -7,6 +7,7 @@ import { TareaComponent } from './tarea/tarea.component';
 import { TareaUsuarioComponent } from './tarea-usuario/tarea-usuario.component';
 import { SharedModule } from '../../shared/shared.service';
 import { UsuarioFormularioComponent } from './usuario/usuario-formulario/usuario-formulario.component';
+import { UsuarioModalComponent } from './usuario/usuario-modal/usuario-modal.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { UsuarioFormularioComponent } from './usuario/usuario-formulario/usuario
     UsuarioFormularioComponent,
     ProyectoComponent,
     TareaComponent,
-    TareaUsuarioComponent
+    TareaUsuarioComponent,
+    UsuarioModalComponent
   ],
   imports: [
     CommonModule,

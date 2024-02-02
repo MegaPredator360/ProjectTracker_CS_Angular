@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Sesion } from '../interface/sesion';
+import { TooltipComponent } from '@angular/material/tooltip';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root'
@@ -7,28 +9,26 @@ import { Sesion } from '../interface/sesion';
 
 export class UtilityService {
     user!: Sesion;
+    snackBarClass!: string
 
-    guardarSesionUsuario(token: string)
-    {
+    constructor(private snackBar: MatSnackBar) { }
+
+    guardarSesionUsuario(token: string) {
         localStorage.setItem("token", JSON.stringify(token))
     }
 
-    obtenerSesion()
-    {
+    obtenerSesion() {
         const dataCadena = localStorage.getItem("token")
 
-        if (dataCadena != null)
-        {
+        if (dataCadena != null) {
             return JSON.parse(atob(dataCadena!.split('.')[1])) as Sesion
         }
-        else
-        {
+        else {
             return null;
         }
     }
 
-    eliminarSesionUsuario()
-    {
+    eliminarSesionUsuario() {
         localStorage.removeItem("token")
     }
 
@@ -42,9 +42,29 @@ export class UtilityService {
         // Si se cumplen todas las condiciones, retorna un true
         if (hasUppercase && hasLowercase && hasNumber && hasSymbol && _contrasena.length >= 8) {
             return true
-        } 
+        }
         else {
             return false
         }
+    }
+
+    // Se usará para mostrar mensajes de Alerta
+    mostrarAlerta(mensaje: string, tipoMensaje: string) {
+        // Definimos el tipo de mensaje
+        if (tipoMensaje == "exito") {
+            this.snackBarClass = "successSnackBar"
+        }
+        else if (tipoMensaje == "error") {
+            this.snackBarClass = "dangerSnackBar"
+        }
+
+        this.snackBar.open(mensaje, "OK", {
+            // Duracion de 5 segundos
+            duration: 5000,
+            // Clase de SCSS para el color
+            panelClass: [this.snackBarClass],
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+        });
     }
 }

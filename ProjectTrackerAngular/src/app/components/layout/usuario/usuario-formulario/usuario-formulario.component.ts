@@ -103,14 +103,14 @@ export class UsuarioFormularioComponent implements OnInit {
 
         // Se le realizará un focus al input
         this.elementRef.nativeElement.querySelector('[formcontrolname="contrasena"]').focus()
-        console.log("La contraseña no cumple los caracteres")
+        this.utilityService.mostrarAlerta("¡Contraseña no cumple con los requisitos minimos!", "error")
         return
       }
       
       if (this.formularioUsuario.value.contrasena != this.formularioUsuario.value.confirmarContrasena) {
         // Se le realizará un focus al input
         this.elementRef.nativeElement.querySelector('[formcontrolname="confirmarContrasena"]').focus()
-        console.log("Las contraseñas no son iguales")
+        this.utilityService.mostrarAlerta("¡Las contraseñas no son iguales!", "error")
         return
       }
     }
@@ -133,13 +133,11 @@ export class UsuarioFormularioComponent implements OnInit {
       this.usuarioService.Guardar(usuario).subscribe({
         next: (data) => {
           if (data.status) {
-            //this.utilityService.mostrarAlerta("El usuario fue registrado", "Exito");
-            console.log("Usuario Registrado")
+            this.utilityService.mostrarAlerta("El usuario fue registrado", "exito");
             this.router.navigate(['../pages/usuario']);
           }
           else {
-            //this._utilityService.mostrarAlerta("No se pudo registrar el usuario", "Error")
-            console.log("Ocurrio un error al registrar")
+            this.utilityService.mostrarAlerta("No se pudo registrar el usuario", "error")
           }
         },
         error: (e) => { }
@@ -149,12 +147,11 @@ export class UsuarioFormularioComponent implements OnInit {
       this.usuarioService.Editar(usuario).subscribe({
         next: (data) => {
           if (data.status) {
-            //this.utilityService.mostrarAlerta("El usuario fue actualizado", "Exito");
-            console.log("Usuario Actualizado")
+            this.utilityService.mostrarAlerta("El usuario fue actualizado", "exito");
             this.router.navigate(['../pages/usuario']);
           }
           else {
-            console.log("Ocurrio un error al registrar")
+            this.utilityService.mostrarAlerta("Ocurrio un error al actualizar el usuario", "error");
           }
         },
         error: (e) => { }

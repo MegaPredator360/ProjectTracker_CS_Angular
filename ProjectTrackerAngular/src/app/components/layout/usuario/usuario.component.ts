@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { UsuarioService } from '../../../service/usuario.service';
 import { UtilityService } from '../../../utility/utility.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { UsuarioModalComponent } from './usuario-modal/usuario-modal.component';
 
 @Component({
   selector: 'app-usuario',
@@ -22,7 +24,8 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private usuarioService: UsuarioService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private dialog: MatDialog
   ) { }
 
   obtenerUsuarios() {
@@ -64,5 +67,18 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   usuarioNuevo() {
     this.usuarioService.setDatosUsuario(this.usuarioVacio);
     this.router.navigate(['/pages/usuario/formulario']);
+  }
+
+  usuarioEliminar(usuario: Usuario)
+  {
+    this.dialog.open(UsuarioModalComponent, {
+      disableClose: true,
+      data: usuario
+    }).afterClosed().subscribe(resultado => {
+      if (resultado == "true")
+      {
+        this.obtenerUsuarios();
+      }
+    });
   }
 }

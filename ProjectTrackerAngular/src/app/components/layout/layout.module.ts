@@ -8,6 +8,11 @@ import { TareaUsuarioComponent } from './tarea-usuario/tarea-usuario.component';
 import { SharedModule } from '../../shared/shared.service';
 import { UsuarioFormularioComponent } from './usuario/usuario-formulario/usuario-formulario.component';
 import { UsuarioModalComponent } from './usuario/usuario-modal/usuario-modal.component';
+import { ProyectoFormularioComponent } from './proyecto/proyecto-formulario/proyecto-formulario.component';
+import { ProyectoModalComponent } from './proyecto/proyecto-modal/proyecto-modal.component';
+import { TareaFormularioComponent } from './tarea/tarea-formulario/tarea-formulario.component';
+import { TareaModalComponent } from './tarea/tarea-modal/tarea-modal.component';
+import { TareaUsuarioModalComponent } from './tarea-usuario/tarea-usuario-modal/tarea-usuario-modal.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { UsuarioModalComponent } from './usuario/usuario-modal/usuario-modal.com
     ProyectoComponent,
     TareaComponent,
     TareaUsuarioComponent,
-    UsuarioModalComponent
+    UsuarioModalComponent,
+    ProyectoFormularioComponent,
+    ProyectoModalComponent,
+    TareaFormularioComponent,
+    TareaModalComponent,
+    TareaUsuarioModalComponent
   ],
   imports: [
     CommonModule,

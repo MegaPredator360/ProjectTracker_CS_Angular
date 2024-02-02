@@ -26,7 +26,7 @@ namespace ProjectTracker.DAL.Service
             try
             {
                 TModel modelo = await context.Set<TModel>().FirstOrDefaultAsync(filtro);
-                return modelo;
+                return modelo!;
             }
             catch
             {

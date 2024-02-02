@@ -31,7 +31,9 @@ export class UsuarioFormularioComponent implements OnInit {
   botonAccion: string = "Guardar"
 
   // Ocultar Contraseña
-  ocultarContrasena: boolean = true;
+  ocultarContrasena: boolean = true
+
+  _utilityService!: UtilityService
 
   constructor(
     private usuarioService: UsuarioService,

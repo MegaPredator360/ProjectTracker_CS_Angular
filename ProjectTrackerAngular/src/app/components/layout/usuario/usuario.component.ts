@@ -36,6 +36,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
         }
         else {
           //this.utilityService.mostrarAlerta("No se encontraton datos", "Oops!")
+          this.utilityService.mostrarAlerta("¡Las contraseñas no son iguales!", "error")
           console.log("No hay datos")
         }
       },

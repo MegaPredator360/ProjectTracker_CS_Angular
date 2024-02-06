@@ -1,13 +1,15 @@
-<mat-toolbar color="primary">
+
+<mat-toolbar color="primary" class="grad-back ">
     <mat-toolbar-row>
-        <h1 style="margin: 0px;">ProjectTracker</h1>
-        <button mat-icon-button (click)="sidenav.toggle();">
+        <img src="../../resources/logoWF.png" width="16px">
+        <h1 class="font-primary" style="margin: 0px;">WorkFlow</h1>
+        <button mat-icon-button (click)="sidenav.toggle();" class="color-dark">
             <mat-icon>menu</mat-icon>
         </button>
-        <span style="flex: 1 1 auto;"></span>
+        <span style="flex: 1 1 auto;" ></span>
         <!-- Acá se mostrará el nombre de usuario y el nombre del permiso de usuario que inicie sesion -->
-        <label style="font-size: 14px; margin-right: 20px;">{{ userName }} | {{ permisoNombre }}</label>
-        <button mat-icon-button (click)="cerrarSesion()">
+        <label class="color-dark" style="font-size: 14px; margin-right: 20px;">{{ userName }} | {{ permisoNombre }}</label>
+        <button mat-icon-button (click)="cerrarSesion()" class="color-dark">
             <mat-icon>logout</mat-icon>
         </button>
     </mat-toolbar-row>

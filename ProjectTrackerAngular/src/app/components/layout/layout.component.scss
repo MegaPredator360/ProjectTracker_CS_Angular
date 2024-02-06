@@ -1,0 +1,24 @@
+@font-face {
+    font-family: CreatoB ;
+    src: url(../../resources/creato_display/CreatoDisplay-Bold.otf);
+}
+
+@font-face {
+    font-family: GontserratB ;
+    src: url(../../resources/gontserrat/Gontserrat-SemiBold.ttf);
+}
+
+
+.grad-back{
+    background: rgb(166,226,87);
+    background: linear-gradient(45deg, rgba(166,226,87,1) 17%, rgba(249,252,226,1) 50%, rgba(91,183,154,1) 91%);
+}    
+
+.font-primary{
+    font-family: GontserratB!important;
+    color: #0F0D17;
+}
+
+.color-dark{
+    color: #0F0D17!important;
+}

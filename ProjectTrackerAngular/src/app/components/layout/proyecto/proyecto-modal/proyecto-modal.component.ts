@@ -36,7 +36,7 @@ export class ProyectoModalComponent {
           this.utilityService.mostrarAlerta("No se pudo eliminar el proyecto", "error")
         }
       },
-      error: (e) => {}
+      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al eliminar el proyecto", "error") }
     })
   }
 }

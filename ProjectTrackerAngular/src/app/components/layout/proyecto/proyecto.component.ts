@@ -37,11 +37,10 @@ export class ProyectoComponent {
           this.dataListaProyecto.data = data.value;
         }
         else {
-          this.utilityService.mostrarAlerta("¡Las contraseñas no son iguales!", "error")
-          console.log("No hay datos")
+          this.utilityService.mostrarAlerta("Ocurrio un error al cargar los proyectos", "error")
         }
       },
-      error: (e) => { }
+      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al cargar los proyectos", "error") }
     });
   }
 
@@ -56,16 +55,13 @@ export class ProyectoComponent {
   filtroTabla(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
 
-    if (this.dataListaProyecto.data.length == 0 && filterValue == "")
-    {
+    if (this.dataListaProyecto.data.length == 0 && filterValue == "") {
       this.mensajeVacio = "No hay proyectos registrados"
     }
-    else if (this.dataListaProyecto.data.length == 0 && filterValue != "")
-    {
+    else if (this.dataListaProyecto.data.length == 0 && filterValue != "") {
       this.mensajeVacio = "No hay proyectos que coincidan con: " + filterValue
     }
-    else
-    {
+    else {
       this.dataListaProyecto.filter = filterValue.trim().toLocaleLowerCase()
     }
   }
@@ -83,14 +79,12 @@ export class ProyectoComponent {
     this.router.navigate(['/pages/proyecto/formulario'])
   }
 
-  proyectoEliminar(proyecto: Proyecto)
-  {
+  proyectoEliminar(proyecto: Proyecto) {
     this.dialog.open(ProyectoModalComponent, {
       disableClose: true,
       data: proyecto
     }).afterClosed().subscribe(resultado => {
-      if (resultado == "true")
-      {
+      if (resultado == "true") {
         this.obtenerProyectos()
       }
     });

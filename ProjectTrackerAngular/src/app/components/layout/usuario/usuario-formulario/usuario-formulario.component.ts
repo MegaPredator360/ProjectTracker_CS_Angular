@@ -76,7 +76,7 @@ export class UsuarioFormularioComponent implements OnInit {
           this.listaPermisos = data.value
         }
       },
-      error: (e) => { }
+      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al cargar la lista de permisos", "error") }
     })
   }
 
@@ -135,28 +135,28 @@ export class UsuarioFormularioComponent implements OnInit {
       this.usuarioService.Guardar(usuario).subscribe({
         next: (data) => {
           if (data.status) {
-            this.utilityService.mostrarAlerta("El usuario fue registrado", "exito");
-            this.router.navigate(['../pages/usuario']);
+            this.utilityService.mostrarAlerta("El usuario fue registrado", "exito")
+            this.router.navigate(['../pages/usuario'])
           }
           else {
             this.utilityService.mostrarAlerta("No se pudo registrar el usuario", "error")
           }
         },
-        error: (e) => { }
+        error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al registrar el usuario", "error") }
       })
     }
     else {
       this.usuarioService.Editar(usuario).subscribe({
         next: (data) => {
           if (data.status) {
-            this.utilityService.mostrarAlerta("El usuario fue actualizado", "exito");
-            this.router.navigate(['../pages/usuario']);
+            this.utilityService.mostrarAlerta("El usuario fue actualizado", "exito")
+            this.router.navigate(['../pages/usuario'])
           }
           else {
-            this.utilityService.mostrarAlerta("Ocurrio un error al actualizar el usuario", "error");
+            this.utilityService.mostrarAlerta( "Ocurrio un error al actualizar el usuario", "error")
           }
         },
-        error: (e) => { }
+        error: (e) => { this.utilityService.mostrarAlerta( "Ocurrio un error al actualizar el usuario", "error") }
       })
     }
   }

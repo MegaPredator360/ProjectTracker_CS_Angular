@@ -20,6 +20,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   dataListaUsuarios = new MatTableDataSource(this.dataInicio)
   usuarioVacio!: Usuario
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
+  mensajeVacio: string = "No hay usuarios registrados";
 
   constructor(
     private router: Router,
@@ -32,19 +33,15 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     this.usuarioService.Lista().subscribe({
       next: (data) => {
         if (data.status) {
-          this.dataListaUsuarios.data = data.value;
-        }
-        else {
-          this.utilityService.mostrarAlerta("¡Las contraseñas no son iguales!", "error")
-          console.log("No hay datos")
+          this.dataListaUsuarios.data = data.value
         }
       },
-      error: (e) => { }
-    });
+      error: (e) => { this.utilityService.mostrarAlerta("¡Ocurrio un error al obtener los usuarios!", "error") }
+    })
   }
 
   ngOnInit(): void {
-    this.obtenerUsuarios();
+    this.obtenerUsuarios()
   }
 
   ngAfterViewInit(): void {
@@ -53,7 +50,16 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
 
   filtroTabla(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataListaUsuarios.filter = filterValue.trim().toLocaleLowerCase()
+
+    if (this.dataListaUsuarios.data.length == 0 && filterValue == "") {
+      this.mensajeVacio = "No hay usuarios registrados"
+    }
+    else if (this.dataListaUsuarios.data.length == 0 && filterValue != "") {
+      this.mensajeVacio = "No hay usuarios que coincidan con: " + filterValue
+    }
+    else {
+      this.dataListaUsuarios.filter = filterValue.trim().toLocaleLowerCase()
+    }
   }
 
   usuarioActualizar(usuario: Usuario) {

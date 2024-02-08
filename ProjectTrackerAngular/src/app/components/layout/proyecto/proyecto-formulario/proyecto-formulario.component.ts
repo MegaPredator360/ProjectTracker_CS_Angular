@@ -59,7 +59,7 @@ export class ProyectoFormularioComponent {
           this.listaEstado = data.value
         }
       },
-      error: (e) => { }
+      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de estados", "error") }
     })
   }
 
@@ -94,7 +94,7 @@ export class ProyectoFormularioComponent {
             this.utilityService.mostrarAlerta("No se pudo registrar el proyecto", "error")
           }
         },
-        error: (e) => { }
+        error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al registrar el proyecto", "error") }
       })
     }
     else {
@@ -108,7 +108,7 @@ export class ProyectoFormularioComponent {
             this.utilityService.mostrarAlerta("Ocurrio un error al actualizar el proyecto", "error");
           }
         },
-        error: (e) => { }
+        error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al registrar el proyecto", "error") }
       })
     }
   }

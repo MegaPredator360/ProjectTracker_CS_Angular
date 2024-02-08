@@ -4,7 +4,7 @@
         <mat-grid-tile [colspan]="4">
             <mat-form-field style="width: 100%;">
                 <mat-label>Buscar Usuario</mat-label>
-                <input matInput (keyup)="filtroTabla($event)" #input>
+                <input matInput (keyup)="filtroTabla($event)">
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -49,7 +49,7 @@
         <tr mat-row *matRowDef="let row; columns: colunmasTabla;"></tr>
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="5">
-                <p class="filter-no-result">No hay usuarios que coincidan con: "{{ input.value }}"</p>
+                <p class="filter-no-result">{{ mensajeVacio }}</p>
             </td>
         </tr>
     </table>

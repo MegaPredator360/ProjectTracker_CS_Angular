@@ -15,5 +15,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+}
+
+.ventana {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out;
+}
+
+.ventana:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    color: #074339;
+    font-size: 2em;
+    margin-bottom: 20px;
 }

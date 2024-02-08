@@ -38,7 +38,7 @@
         <tr mat-row *matRowDef="let row; columns: colunmasTabla;"></tr>
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="5">
-                <p class="filter-no-result">No hay proyectos que coincidan con: "{{ input.value }}"</p>
+                <p class="filter-no-result">{{ mensajeVacio }}</p>
             </td>
         </tr>
     </table>

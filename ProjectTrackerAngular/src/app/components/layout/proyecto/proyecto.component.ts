@@ -7,18 +7,21 @@ import { Router } from '@angular/router';
 import { UtilityService } from '../../../utility/utility.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProyectoModalComponent } from './proyecto-modal/proyecto-modal.component';
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-proyecto',
   templateUrl: './proyecto.component.html',
   styleUrl: './proyecto.component.scss'
 })
+
 export class ProyectoComponent {
   colunmasTabla: string[] = ['nombre', 'estado', 'acciones']
   dataInicio: Proyecto[] = []
   dataListaProyecto = new MatTableDataSource(this.dataInicio)
   proyectoVacio!: Proyecto
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
+  mensajeVacio: string = ""
 
   constructor(
     private router: Router,
@@ -52,7 +55,19 @@ export class ProyectoComponent {
 
   filtroTabla(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataListaProyecto.filter = filterValue.trim().toLocaleLowerCase()
+
+    if (this.dataListaProyecto.data.length == 0 && filterValue == "")
+    {
+      this.mensajeVacio = "No hay proyectos registrados"
+    }
+    else if (this.dataListaProyecto.data.length == 0 && filterValue != "")
+    {
+      this.mensajeVacio = "No hay proyectos que coincidan con: " + filterValue
+    }
+    else
+    {
+      this.dataListaProyecto.filter = filterValue.trim().toLocaleLowerCase()
+    }
   }
 
   proyectoActualizar(proyecto: Proyecto) {

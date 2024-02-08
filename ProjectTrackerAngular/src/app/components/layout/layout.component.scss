@@ -1,13 +1,18 @@
-@font-face {
-    font-family: CreatoB ;
-    src: url(../../resources/creato_display/CreatoDisplay-Bold.otf);
+.fixed-toolbar{
+    position: sticky;
+    position: -webkit-sticky; /* Para macOS/iOS Safari */
+    top: 0; /* Fija la barra de herramientas en la parte superior */
+    z-index: 1000; /* Asegura que el contenido de tu aplicación no se superponga a la barra de herramientas */
 }
 
-@font-face {
-    font-family: GontserratB ;
-    src: url(../../resources/gontserrat/Gontserrat-SemiBold.ttf);
+.fixed-sidenav{
+    position: fixed;
 }
 
+.content-background{
+    font-family: 'Trebuchet MS', sans-serif;
+    background: linear-gradient(to right, #fff, #979595);
+}
 
 .grad-back{
     background: rgb(166,226,87);

@@ -23,7 +23,12 @@ namespace ProjectTracker.Utility
                 .ForMember(destino => destino.UsuaPerm, opt => opt.Ignore())
                 .ForMember(destino => destino.UsuaPrimerInicio, opt => opt.MapFrom(origen => origen.UsuaPrimerInicio == 1 ? true : false));
 
-            CreateMap<Proyecto, ProyectoDTO>().ReverseMap();
+            // Conversion para Proyectos
+            CreateMap<Proyecto, ProyectoDTO>()
+                .ForMember(destino => destino.ProyEstaNombre, opt => opt.MapFrom(origen => origen.ProyEsta!.EstaNombre));
+
+            CreateMap<ProyectoDTO, Proyecto>()
+                .ForMember(destino => destino.ProyEsta, opt => opt.Ignore());
 
             CreateMap<Tarea, TareaDTO>().ReverseMap();
         }

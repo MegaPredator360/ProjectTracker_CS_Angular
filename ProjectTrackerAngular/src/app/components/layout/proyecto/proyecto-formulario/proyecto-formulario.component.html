@@ -7,7 +7,7 @@
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
                         <mat-label>Nombre</mat-label>
-                        <input matInput numbersOnly autocomplete="off" formControlName="nombre">
+                        <input matInput autocomplete="off" formControlName="nombre">
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
@@ -18,8 +18,8 @@
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
-                        <mat-label>Permisos</mat-label>
-                        <mat-select formControlName="permisoId">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="estadoId">
                             <!-- Obtendremos la lista de permisos de la API -->
                             <mat-option *ngFor="let item of listaEstado" [value]="item.estaId">
                                 {{ item.estaNombre }}

@@ -13,8 +13,8 @@
             <!-- Formulario para usuarios -->
             <form class="example-form" [formGroup]="formularioUsuario">
                 <mat-form-field class="example-full-width">
-                    <mat-label>Nombre Completo</mat-label>
-                    <input matInput autocomplete="off" formControlName="nombre">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAABmklEQVR4nO3Vz4tOURzH8ZcZE5P8KqUMNX+AKYbMgmJhoZRYiNnS2FhTUpSFZucfUJYW1KzYSEqzkB9pFsQeo6wlenh06zN15Xlm7jP3rORT37qd8/5+P/eec+758l9/ajNO4Sbu4hGe44bC2oBb+IZuj/iCtaXM1uNZH6N6nC5leKWB2VKcKWH4ZgDDVyWWsyr0FNtwCCcxg/M4gf3Yg6/oJGfV2hHDiw3Y22HH2hiOp8ixBuy5sOMlDPc2YA+XMJxKkYkG7ETYKmfVuo53A/Dvca2N4WV8xGgDtmI+4VIbw+34nBO4kipmMTmtNJ3/a/cK+9cJ21pDmMdrbOwxvwkLYYYU0i78xOO0qCVtwZPM7SxlJvtSHfnvuVuPJt5mrFti7+o6mKJH8LB2WT/IWDdMEW3FLH5gJGNjtTtzJHOzYQfWGkziag5CJ1/wAcM9+OHMdcPOJ3cytfrqOO7kX+rX7+5hXS2ner6/DL+YmlXtvzTXsMm+yNvvw8uGOXO9DKcH6Oy/Ek35s/2WdSrd/EKhmMGB5fbx39Nvj2OsuxkKX6AAAAAASUVORK5CYII=">
+                    <input matInput autocomplete="off" formControlName="nombre" placeholder="Nombre Completo">
                 </mat-form-field>
             
                 <mat-form-field class="example-full-width">
@@ -28,8 +28,8 @@
                 </mat-form-field>
             
                 <mat-form-field class="example-full-width">
-                    <mat-label>Dirección</mat-label>
-                    <input matInput autocomplete="off" formControlName="direccion">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAABa0lEQVR4nM2WP0vDQBjGf7N/QGnwI/hnMYqfwslRnHRx6CcQdLKgBFdR3HSwIJ3EUermInYsdVEsCIUOHQsKsZHAWziOS5q7JsUHHgjvPXl/4e5yCfxjLQFHwCPQFMfXh8BiniAPuAF+gSjB8dg1UBoXtgJ8pIB0v8tMOKlkCRv6E1hwAdYcYJH4zha2DgxSGn6Jk8YHgG8DPEto9AMEwKw4kJopG9gAXw0N6sCyPPmz2Jda3ZB/sQF2tJufpH4MhEo9lBqSiRTHPTKrZ1iTOaAB9GVD1eS6IWP6mvdsgC3DFHnSvK3k2lLzDPmmDbCaA/DWBriTANwFykquLDUTcNsGOCProzaoAAcJrmjZPjCNpUzTmtVVHOSPOG3STplVHPXgALxnDK1pL/ooh7ZnqEkXFsBzctA80M0A60o2F21m2EBbecGGukqBXVKApoA3A6wlY4VoQ/vgfsvfQaHaU4D7TEinwMmkYGPpD8IcGS3a5TwKAAAAAElFTkSuQmCC">
+                    <input matInput autocomplete="off" formControlName="direccion" placeholder="Dirección">
                 </mat-form-field>
             
                 <mat-form-field class="example-full-width">
@@ -43,7 +43,7 @@
                 </mat-form-field>
             
                 <mat-form-field class="example-full-width">
-                    <i class="fas fa-lock"></i>
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhElEQVR4nO2VzStEURjGf0VRSFHE5F/wsWDHgoXkP/BZIlmZZocyzWZWkshONMm/MDYWFtjYYkUUCRu2vhqdOqeeTpPmXkcs5qmnzn3f9z7Pvb3nvAfK+Ceot/xVVAOLwA1QsLwGFoCq0Ga1wLEY+TwCakIa7nxj5rgVyqwN+BThbaAFaLVrF/8AEiEMx0T0EqiQXCVwJfmREIZJETwFMkDOMmNjLp8MYZgqoX+OqRCG2QiG2Z+a9QFvImg2Tx5Ytsx7G+oV6I1rZjbHuYjdAt1F6nqAO6k78zZWyRgWEfOX7ZJLeEegA3iX+qE4hpsisCvxAfsBhv0S35P6jTiG+yIwLfEliZu1w4zETW8j40AEJiRupsy9pVk7TEq9eTcyciKw5uUOLRXrUm9mb2SMi8Az0CS5LqBTnpuBF6kfjWNYBzyJiLmeGorUNQInUvdgr7NYmPImySOQBgYt095HFbx+x8JqhNG2QiDMeT3yaXo8G8pMe5W05/PCjj1z3uZtroy/wRcxxK7LcQNeEwAAAABJRU5ErkJggg==">
                     <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'" formControlName="contrasena" placeholder="Contraseña">
                     <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
                         <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
@@ -52,7 +52,7 @@
                 </mat-form-field>
             
                 <mat-form-field class="example-full-width" #confirmacionInput>
-                    <i class="fas fa-lock"></i>
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAACXBIWXMAAAsTAAALEwEAmpwYAAABMUlEQVR4nO2VP0vCQRzGP5BiYOLgZNFLKWfpHdifoSWaFDfbBHESF2mLxDeRi201BbVUU2FDRLTUqhiG8D04gju68xs1+MADP+45ng/87h8s9E+UFf+qloEj4AmYiodADUhpw1aASwv03RdAWhPY9cCMT7Rg68CnVXwK5IFV+TbjE2BNA7hjlT4AS1aWAB6tvKQBrFiFV0Ad6InrMmbyigaw+oP1M65qAJsBwOa8sE1gHAAcARuxsNnmuA2AGd/LZgrWlqf0WezKizHAY0fZAEiKzx1zOjHAvqOsYc1pOOacxQAHjrIXuWny8u36C8HqedaoIHbl3XAc7HoKr4EbT74dA8wAbxHH4lWesyjtRwD3mFPtAFgLJR0CHx7QO3CgBTPKyfPTl+vrTs5bWbKF/kZf7NHfgJezeBoAAAAASUVORK5CYII=">
                     <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'" formControlName="confirmarContrasena" placeholder="Confirmar Contraseña">
                     <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
                         <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>

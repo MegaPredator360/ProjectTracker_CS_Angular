@@ -1,11 +1,11 @@
 
-<mat-toolbar color="primary" class="grad-back ">
+<mat-toolbar color="primary" class="grad-back fixed-toolbar">
     <mat-toolbar-row>
-        <img src="../../resources/logoWF.png" width="16px">
-        <h1 class="font-primary" style="margin: 0px;">WorkFlow</h1>
         <button mat-icon-button (click)="sidenav.toggle();" class="color-dark">
             <mat-icon>menu</mat-icon>
         </button>
+        <img src="../../../assets/img/logoWF.png" style="width: 40px; margin: 0px 10px;">
+        <h1 class="font-primary" style="margin: 0px;">WorkFlow</h1>
         <span style="flex: 1 1 auto;" ></span>
         <!-- Acá se mostrará el nombre de usuario y el nombre del permiso de usuario que inicie sesion -->
         <label class="color-dark" style="font-size: 14px; margin-right: 20px;">{{ userName }} | {{ permisoNombre }}</label>
@@ -15,8 +15,12 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav #sidenav opened="false" mode="over" style="width: 200px;">
+    <mat-sidenav #sidenav opened="false" mode="over" class="fixed-sidenav" style="width: 200px;">
         <mat-nav-list>
+            <mat-list-item>
+                <mat-icon matListItemIcon style="color: black;">group</mat-icon>
+                <div mat-line></div>
+            </mat-list-item>
             <mat-list-item routerLink="/pages/usuario">
                 <mat-icon matListItemIcon style="color: black;">group</mat-icon>
                 <div mat-line>Usuarios</div>
@@ -42,7 +46,7 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <div style="height: 90vh;">
+        <div class="content-background">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

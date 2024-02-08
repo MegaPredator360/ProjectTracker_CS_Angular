@@ -15,11 +15,11 @@ import { UsuarioModalComponent } from './usuario-modal/usuario-modal.component';
 })
 
 export class UsuarioComponent implements OnInit, AfterViewInit {
-  colunmasTabla: string[] = ['cedula', 'nombre', 'correo', 'telefono', 'permiso', 'acciones'];
-  dataInicio: Usuario[] = [];
-  dataListaUsuarios = new MatTableDataSource(this.dataInicio);
-  @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;
+  colunmasTabla: string[] = ['cedula', 'nombre', 'correo', 'telefono', 'permiso', 'acciones']
+  dataInicio: Usuario[] = []
+  dataListaUsuarios = new MatTableDataSource(this.dataInicio)
   usuarioVacio!: Usuario
+  @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
 
   constructor(
     private router: Router,
@@ -35,7 +35,6 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
           this.dataListaUsuarios.data = data.value;
         }
         else {
-          //this.utilityService.mostrarAlerta("No se encontraton datos", "Oops!")
           this.utilityService.mostrarAlerta("¡Las contraseñas no son iguales!", "error")
           console.log("No hay datos")
         }
@@ -54,7 +53,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
 
   filtroTabla(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataListaUsuarios.filter = filterValue.trim().toLocaleLowerCase();
+    this.dataListaUsuarios.filter = filterValue.trim().toLocaleLowerCase()
   }
 
   usuarioActualizar(usuario: Usuario) {
@@ -62,12 +61,12 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     this.usuarioService.setDatosUsuario(usuario);
 
     // Se redigire al usuario a la ruta
-    this.router.navigate(['/pages/usuario/formulario']);
+    this.router.navigate(['/pages/usuario/formulario'])
   }
 
   usuarioNuevo() {
-    this.usuarioService.setDatosUsuario(this.usuarioVacio);
-    this.router.navigate(['/pages/usuario/formulario']);
+    this.usuarioService.setDatosUsuario(this.usuarioVacio)
+    this.router.navigate(['/pages/usuario/formulario'])
   }
 
   usuarioEliminar(usuario: Usuario)
@@ -78,7 +77,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     }).afterClosed().subscribe(resultado => {
       if (resultado == "true")
       {
-        this.obtenerUsuarios();
+        this.obtenerUsuarios()
       }
     });
   }

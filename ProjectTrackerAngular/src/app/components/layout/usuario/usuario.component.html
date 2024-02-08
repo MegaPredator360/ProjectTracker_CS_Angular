@@ -1,53 +1,57 @@
-<h1 style="margin: 20px 0px 0px 40px">Usuario</h1>
-
-<button mat-raised-button color="primary" (click)="usuarioNuevo()">
-    <mat-icon matListItemIcon>add</mat-icon>Nuevo Usuario
-</button>
-<br>
-
-<mat-form-field style="width: 30%;">
-    <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="filtroTabla($event)" #input>
-</mat-form-field>
-
-<table mat-table [dataSource]="dataListaUsuarios">
-    <ng-container matColumnDef="cedula">
-        <th mat-header-cell *matHeaderCellDef>Cedula</th>
-        <td mat-cell *matCellDef="let element">{{ element.usuaCedula }}</td>
-    </ng-container>
-    <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let element">{{ element.usuaNombre }}</td>
-    </ng-container>
-    <ng-container matColumnDef="correo">
-        <th mat-header-cell *matHeaderCellDef>Correo</th>
-        <td mat-cell *matCellDef="let element">{{ element.usuaCorreo }}</td>
-    </ng-container>
-    <ng-container matColumnDef="telefono">
-        <th mat-header-cell *matHeaderCellDef>Telefono</th>
-        <td mat-cell *matCellDef="let element">{{ element.usuaTelefono }}</td>
-    </ng-container>
-    <ng-container matColumnDef="permiso">
-        <th mat-header-cell *matHeaderCellDef>Permiso</th>
-        <td mat-cell *matCellDef="let element">{{ element.usuaPermNombre }}</td>
-    </ng-container>
-    <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef style="width: 130px;">Acciones</th>
-        <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" (click)="usuarioActualizar(element)">
-                <mat-icon matListItemIcon>edit</mat-icon>
+<mat-card class="tabla-card">
+    <h1 class="tabla-titulo">Registro de Usuarios</h1>
+    <mat-grid-list cols="5" rowHeight="80px">
+        <mat-grid-tile [colspan]="4">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Buscar</mat-label>
+                <input matInput (keyup)="filtroTabla($event)" #input>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button color="primary" (click)="usuarioNuevo()" class="tabla-boton-nuevo">
+                <mat-icon matListItemIcon>add</mat-icon>Nuevo Usuario
             </button>
-            <button mat-icon-button color="warn" (click)="usuarioEliminar(element)">
-                <mat-icon matListItemIcon>delete</mat-icon>
-            </button>
-        </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="colunmasTabla"></tr>
-    <tr mat-row *matRowDef="let row; columns: colunmasTabla;"></tr>
-    <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="5">
-            <p class="filterNoResult">No hay datos que coincidan con el filtro "{{ input.value }}"</p>
-        </td>
-    </tr>
-</table>
-<mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <table mat-table [dataSource]="dataListaUsuarios">
+        <ng-container matColumnDef="cedula">
+            <th mat-header-cell *matHeaderCellDef>Cedula</th>
+            <td mat-cell *matCellDef="let element">{{ element.usuaCedula }}</td>
+        </ng-container>
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{ element.usuaNombre }}</td>
+        </ng-container>
+        <ng-container matColumnDef="correo">
+            <th mat-header-cell *matHeaderCellDef>Correo</th>
+            <td mat-cell *matCellDef="let element">{{ element.usuaCorreo }}</td>
+        </ng-container>
+        <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef>Telefono</th>
+            <td mat-cell *matCellDef="let element">{{ element.usuaTelefono }}</td>
+        </ng-container>
+        <ng-container matColumnDef="permiso">
+            <th mat-header-cell *matHeaderCellDef>Permiso</th>
+            <td mat-cell *matCellDef="let element">{{ element.usuaPermNombre }}</td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="width: 130px;">Acciones</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="usuarioActualizar(element)" matTooltip="Actualizar Usuario">
+                    <mat-icon matListItemIcon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="usuarioEliminar(element)" matTooltip="Eliminar Usuario">
+                    <mat-icon matListItemIcon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="colunmasTabla"></tr>
+        <tr mat-row *matRowDef="let row; columns: colunmasTabla;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="5">
+                <p class="filter-no-result">No hay datos que coincidan con el filtro "{{ input.value }}"</p>
+            </td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+</mat-card>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Sesion } from '../interface/sesion';
-import { TooltipComponent } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({

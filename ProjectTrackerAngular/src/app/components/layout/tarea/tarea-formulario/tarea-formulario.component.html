@@ -3,6 +3,7 @@
         <h2 class="formulario-titulo">{{ tituloAccion }} Tarea</h2>
         <!-- Formulario para tareas -->
         <form class="example-form" [formGroup]="formularioTarea">
+
             <mat-grid-list cols="2" rowHeight="80px">
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
@@ -10,12 +11,35 @@
                         <input matInput autocomplete="off" formControlName="nombre">
                     </mat-form-field>
                 </mat-grid-tile>
+
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
                         <mat-label>Descripcion</mat-label>
                         <input matInput autocomplete="off" formControlName="descripcion">
                     </mat-form-field>
                 </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 95%">
+                        <mat-label>Fecha de Inicio</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
+                        <mat-hint>MM/DD/AAAA</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 95%;">
+                        <mat-label>Proyectos</mat-label>
+                        <mat-select [formControl]="toppings" multiple>
+                            @for (topping of toppingList; track topping) {
+                            <mat-option [value]="topping">{{topping}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
                         <mat-label>Estado</mat-label>
@@ -27,12 +51,25 @@
                         </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 95%;">
+                        <mat-label>Usuarios</mat-label>
+                        <mat-select [formControl]="toppings" multiple>
+                            @for (topping of toppingList; track topping) {
+                            <mat-option [value]="topping">{{topping}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+
             </mat-grid-list>
         </form>
+
         <mat-card-actions align="end">
             <button mat-raised-button color="primary" routerLink="../" style="margin-right: 10px;">Volver</button>
-            <button mat-raised-button color="primary"[disabled]="formularioTarea.invalid"
-                (click)="submitTarea()">{{ botonAccion }}</button>
+            <button mat-raised-button color="primary" [disabled]="formularioTarea.invalid" (click)="submitTarea()">{{
+                botonAccion }}</button>
         </mat-card-actions>
     </mat-card>
 </div>

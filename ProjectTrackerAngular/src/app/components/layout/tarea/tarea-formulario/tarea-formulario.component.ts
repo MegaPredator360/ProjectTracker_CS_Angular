@@ -6,13 +6,37 @@ import { UtilityService } from '../../../../utility/utility.service';
 import { TareaService } from '../../../../service/tarea.service';
 import { EstadoService } from '../../../../service/estado.service';
 import { Router } from '@angular/router';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+}
 
 @Component({
   selector: 'app-tarea-formulario',
   templateUrl: './tarea-formulario.component.html',
-  styleUrl: './tarea-formulario.component.scss'
+  styleUrl: './tarea-formulario.component.scss',
+  providers: [
+    provideMomentDateAdapter(),
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+  ]
+  
 })
 export class TareaFormularioComponent {
+
+  toppings = new FormControl('');
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
   // Se usará para verificar o autollenar el formulario con informacion existente
   formularioTarea: FormGroup
 
@@ -44,7 +68,9 @@ export class TareaFormularioComponent {
     this.formularioTarea = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
-      estadoId: ['', Validators.required]
+      fechaInicio: ['', Validators.required],
+      estadoId: ['', Validators.required],
+      usuario: ['', Validators.required]
     })
 
     if (this.datosTarea != null) {
@@ -67,7 +93,9 @@ export class TareaFormularioComponent {
     if (this.datosTarea != null) {
       this.formularioTarea.patchValue({
         nombre: this.datosTarea.tareNombre,
-        descripcion: this.datosTarea.tareDescripcion
+        descripcion: this.datosTarea.tareDescripcion,
+        fechaInicio: this.datosTarea.tareFechaInicio,
+        usuario: this.datosTarea.tareUsuario
       })
 
       this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
@@ -80,10 +108,12 @@ export class TareaFormularioComponent {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
       tareNombre: this.formularioTarea.value.nombre,
       tareDescripcion: this.formularioTarea.value.descripcion,
+      tareFechaInicio: this.formularioTarea.value.fechaInicio,
       tareProyId: this.formularioTarea.value.proyectoId,
       tareProyNombre: "",
       tareEstaId: this.formularioTarea.value.estadoId,
-      tareEstaNombre: ""
+      tareEstaNombre: "",
+      tareUsuario: this.formularioTarea.value.usuario,
     }
 
     if (this.datosTarea == null) {

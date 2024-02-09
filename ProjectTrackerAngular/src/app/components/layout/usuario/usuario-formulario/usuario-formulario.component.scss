@@ -24,3 +24,15 @@
     background-size: cover;
     height: 93.1vh;
 }
+
+.mdc-button {
+    background-size: 200%;
+    background-repeat: no-repeat;
+    background-position: left;
+    transition: background-position .5s ease;
+}
+
+.mdc-button:hover {
+    background-image: linear-gradient(90deg, #5bb79a 0%, #5bb79a 50%, #F9FCE2 50%, #A6E257 100%);
+    background-position: right;
+}

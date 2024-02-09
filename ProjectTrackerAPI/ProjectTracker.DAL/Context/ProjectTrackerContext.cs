@@ -102,7 +102,7 @@ public partial class ProjectTrackerContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_TARE_PROY");
 
-            entity.HasMany(d => d.Usuas).WithMany(p => p.Tares)
+            entity.HasMany(d => d.Usuarios).WithMany(p => p.Tares)
                 .UsingEntity<Dictionary<string, object>>(
                     "TareaUsuario",
                     r => r.HasOne<Usuario>().WithMany()

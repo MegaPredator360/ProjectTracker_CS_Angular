@@ -1,1 +1,10 @@
-<p>tarea-modal works!</p>
+<h2 mat-dialog-title>Eliminar Tarea</h2>
+<mat-dialog-content>
+    <p>
+        ¿Deseas eliminar la tarea: {{ nombreTarea }}?<br>
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close color="primary">Cancelar</button>
+    <button mat-raised-button mat-dialog-close color="warn" (click)="tareaEliminar()">Aceptar</button>
+</mat-dialog-actions>

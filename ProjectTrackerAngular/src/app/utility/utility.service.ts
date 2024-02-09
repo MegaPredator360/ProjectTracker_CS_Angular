@@ -73,16 +73,6 @@ export class UtilityService {
             horizontalPosition: 'center',
             verticalPosition: 'bottom'
         })
-        /*
-        this.snackBar.open(mensaje, "OK", {
-            // Duracion de 5 segundos
-            duration: 5000,
-            // Clase de SCSS para el color
-            panelClass: [this.snackBarClass],
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-        });
-        */
     }
 
     obtenerSnackBarMessage(): string {

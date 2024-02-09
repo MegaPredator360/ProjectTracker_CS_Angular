@@ -21,7 +21,7 @@ export class ProyectoComponent {
   dataListaProyecto = new MatTableDataSource(this.dataInicio)
   proyectoVacio!: Proyecto
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
-  mensajeVacio: string = ""
+  mensajeVacio: string = "No hay proyectos registrados"
 
   constructor(
     private router: Router,

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Proyecto } from '../../../interface/proyecto';
 import { ProyectoService } from '../../../service/proyecto.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { UtilityService } from '../../../utility/utility.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,8 +27,11 @@ export class ProyectoComponent {
     private router: Router,
     private proyectoService: ProyectoService,
     private utilityService: UtilityService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private paginator: MatPaginatorIntl
+  ) { 
+    this.paginator.itemsPerPageLabel = 'Proyectos por pagina: ';
+  }
 
   obtenerProyectos() {
     this.proyectoService.Lista().subscribe({

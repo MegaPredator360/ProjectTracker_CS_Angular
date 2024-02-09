@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from '../../../interface/usuario';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { UsuarioService } from '../../../service/usuario.service';
 import { UtilityService } from '../../../utility/utility.service';
 import { Router } from '@angular/router';
@@ -26,8 +26,11 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     private router: Router,
     private usuarioService: UsuarioService,
     private utilityService: UtilityService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private paginator: MatPaginatorIntl
+  ) { 
+    this.paginator.itemsPerPageLabel = 'Usuarios por pagina: ';
+  }
 
   obtenerUsuarios() {
     this.usuarioService.Lista().subscribe({

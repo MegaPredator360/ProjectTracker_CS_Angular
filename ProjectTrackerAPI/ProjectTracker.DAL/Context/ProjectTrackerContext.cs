@@ -69,6 +69,10 @@ public partial class ProjectTrackerContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("PROY_NOMBRE");
+            entity.Property(e => e.ProyFechaInicio)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("PROY_FECHA_INICIO");
 
             entity.HasOne(d => d.ProyEsta).WithMany(p => p.Proyectos)
                 .HasForeignKey(d => d.ProyEstaId)
@@ -91,6 +95,10 @@ public partial class ProjectTrackerContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("TARE_NOMBRE");
+            entity.Property(e => e.TareFechaInicio)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("TARE_FECHA_INICIO");
             entity.Property(e => e.TareProyId).HasColumnName("TARE_PROY_ID");
 
             entity.HasOne(d => d.TareEsta).WithMany(p => p.Tareas)

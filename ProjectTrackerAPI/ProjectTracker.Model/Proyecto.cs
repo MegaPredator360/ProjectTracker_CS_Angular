@@ -10,6 +10,8 @@ public partial class Proyecto
     public string? ProyNombre { get; set; }
 
     public string? ProyDescripcion { get; set; }
+    
+    public string? ProyFechaInicio { get; set; }
 
     public int? ProyEstaId { get; set; }
 

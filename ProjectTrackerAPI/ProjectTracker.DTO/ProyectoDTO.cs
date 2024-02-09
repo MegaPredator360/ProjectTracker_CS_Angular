@@ -14,7 +14,10 @@ namespace ProjectTracker.DTO
 
         public string? ProyDescripcion { get; set; }
 
+        public string? ProyFechaInicio { get; set; }
+
         public int? ProyEstaId { get; set; }
+
         public string? ProyEstaNombre { get; set; }
     }
 }

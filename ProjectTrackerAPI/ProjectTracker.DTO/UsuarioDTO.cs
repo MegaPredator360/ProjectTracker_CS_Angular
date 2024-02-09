@@ -27,6 +27,7 @@ namespace ProjectTracker.DTO
         public int? UsuaPrimerInicio { get; set; }
 
         public int? UsuaPermId { get; set; }
+
         public string? UsuaPermNombre { get; set; }
     }
 }

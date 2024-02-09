@@ -14,11 +14,16 @@ namespace ProjectTracker.DTO
 
         public string? TareDescripcion { get; set; }
 
+        public string? TareFechaInicio { get; set; }
+
         public int? TareProyId { get; set; }
 
         public string? TareProyNombre { get; set; }
 
         public int? TareEstaId { get; set; }
+
         public string? TareEstaNombre { get; set; }
+
+        public virtual ICollection<UsuarioDTO> Usuarios { get; set; } = new List<UsuarioDTO>();
     }
 }

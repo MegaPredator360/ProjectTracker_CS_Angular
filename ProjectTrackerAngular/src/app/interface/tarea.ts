@@ -10,5 +10,6 @@ export interface Tarea
     tareProyNombre: string,
     tareEstaId: number,
     tareEstaNombre: string,
+    tareCantidadUsuario: number,
     tareUsuario: Usuario[]
 }

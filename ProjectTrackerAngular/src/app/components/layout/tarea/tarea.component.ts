@@ -14,7 +14,7 @@ import { TareaModalComponent } from './tarea-modal/tarea-modal.component';
   styleUrl: './tarea.component.scss'
 })
 export class TareaComponent {
-  colunmasTabla: string[] = ['nombre', 'estado', 'acciones']
+  colunmasTabla: string[] = ['nombre', 'proyectoOrigen', 'estado', 'usuariosAsignados', 'acciones']
   dataInicio: Tarea[] = []
   dataListaTarea = new MatTableDataSource(this.dataInicio)
   tareaVacio!: Tarea
@@ -27,7 +27,7 @@ export class TareaComponent {
     private utilityService: UtilityService,
     private dialog: MatDialog,
     private paginator: MatPaginatorIntl
-  ) { 
+  ) {
     this.paginator.itemsPerPageLabel = 'Tareas por pagina: ';
   }
 
@@ -41,7 +41,10 @@ export class TareaComponent {
           this.utilityService.mostrarAlerta("Ocurrio un error al cargar las tareas", "error")
         }
       },
-      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al cargar los tareas", "error") }
+      error: (e) => {
+        this.utilityService.mostrarAlerta("Ocurrio un error al cargar los tareas", "error")
+        console.log(e)
+      }
     });
   }
 

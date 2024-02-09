@@ -113,6 +113,7 @@ export class TareaFormularioComponent {
       tareProyNombre: "",
       tareEstaId: this.formularioTarea.value.estadoId,
       tareEstaNombre: "",
+      tareCantidadUsuario: 0,
       tareUsuario: this.formularioTarea.value.usuario,
     }
 

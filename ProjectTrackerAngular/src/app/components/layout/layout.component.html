@@ -15,11 +15,15 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav #sidenav opened="false" mode="over" class="fixed-sidenav" style="width: 200px;" autoFocus="false">
+    <mat-sidenav #sidenav opened="false" mode="over" class="fixed-sidenav" style="width: 220px;" autoFocus="false">
         <mat-nav-list>
             <mat-list-item>
                 <mat-icon matListItemIcon style="color: black;">group</mat-icon>
                 <div mat-line></div>
+            </mat-list-item>
+            <mat-list-item routerLink="/pages/">
+                <mat-icon matListItemIcon style="color: black;">home</mat-icon>
+                <div mat-line>Inicio</div>
             </mat-list-item>
             <mat-list-item routerLink="/pages/usuario">
                 <mat-icon matListItemIcon style="color: black;">group</mat-icon>

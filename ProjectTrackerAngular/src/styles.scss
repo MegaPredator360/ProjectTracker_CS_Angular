@@ -19,7 +19,7 @@ $my-theme: mat.define-light-theme((
 
 @font-face {
     font-family: GontserratB;
-    src: url(assets/fonts/Gontserrat-Medium.ttf) format('truetype');
+    src: url(assets/fonts/Gontserrat-Regular.ttf) format('truetype');
 }
 
 html,
@@ -27,9 +27,12 @@ body {
     height: 100%;
 }
 
+* {
+    font-family: GontserratB;
+}
+
 body {
     margin: 0;
-    font-family: GontserratB;
 }
 
 .mat-mdc-snack-bar-container {

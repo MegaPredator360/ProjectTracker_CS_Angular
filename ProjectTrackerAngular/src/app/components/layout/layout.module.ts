@@ -14,6 +14,7 @@ import { TareaFormularioComponent } from './tarea/tarea-formulario/tarea-formula
 import { TareaModalComponent } from './tarea/tarea-modal/tarea-modal.component';
 import { TareaUsuarioModalComponent } from './tarea-usuario/tarea-usuario-modal/tarea-usuario-modal.component';
 import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
     ProyectoModalComponent,
     TareaFormularioComponent,
     TareaModalComponent,
-    TareaUsuarioModalComponent
+    TareaUsuarioModalComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

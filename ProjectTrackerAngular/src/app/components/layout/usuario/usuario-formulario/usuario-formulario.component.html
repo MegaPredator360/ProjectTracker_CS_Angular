@@ -74,8 +74,8 @@
             </mat-grid-list>
         </form>
         <mat-card-actions align="end">
-            <button mat-raised-button color="warn" routerLink="../" style="margin-right: 10px;">Volver</button>
-            <button mat-raised-button color="primary" [disabled]="formularioUsuario.invalid"
+            <button mat-raised-button color="primary" [disabled]="formularioUsuario.invalid" routerLink="../" style="margin-right: 10px;">Volver</button>
+            <button mat-raised-button color="primary" 
                 (click)="submitUsuario()">{{ botonAccion }}</button>
         </mat-card-actions>
     </mat-card>

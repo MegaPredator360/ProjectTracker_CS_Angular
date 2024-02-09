@@ -16,7 +16,7 @@ import { DataSource } from '@angular/cdk/collections';
 })
 
 export class ProyectoComponent {
-  colunmasTabla: string[] = ['nombre', 'estado', 'acciones']
+  colunmasTabla: string[] = ['nombre', 'fechaInicio', 'estado', 'cantidadTareas', 'acciones']
   dataInicio: Proyecto[] = []
   dataListaProyecto = new MatTableDataSource(this.dataInicio)
   proyectoVacio!: Proyecto

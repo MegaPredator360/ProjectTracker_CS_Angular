@@ -11,9 +11,10 @@
 
 .content-background{
     font-family: 'Trebuchet MS', sans-serif;
-    background: linear-gradient(to right, #fff, #979595);
+    background: linear-gradient(to right, #fff, #d6dbd5);
     height: 93.1vh;
 }
+
 
 .grad-back{
     background: rgb(166,226,87);
@@ -37,6 +38,6 @@
 
 
 .mat-mdc-list-item:hover{
-    background-image: linear-gradient(90deg, #A6E257 0%, #F9FCE2 49%, #F9FCE2 65%, #A6E257 100%);
+    background-image: linear-gradient(90deg, #A6E257 0%, #F9FCE2 50%, #F9FCE2 65%, #A6E257 100%);
     animation:slidebg 5s linear infinite;
 }

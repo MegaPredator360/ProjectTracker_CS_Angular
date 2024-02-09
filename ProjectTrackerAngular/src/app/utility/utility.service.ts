@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Sesion } from '../interface/sesion';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarTimedComponent } from '../components/material/snack-bar-timed/snack-bar-timed.component';
 
 @Injectable({
     providedIn: 'root'
@@ -9,8 +10,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UtilityService {
     user!: Sesion;
     snackBarClass!: string
+    snackBarMessage!: string
 
-    constructor(private snackBar: MatSnackBar) { }
+    constructor(
+        private snackBar: MatSnackBar
+    ) {
+        this.snackBarMessage = ''
+    }
 
     guardarSesionUsuario(token: string) {
         localStorage.setItem("token", JSON.stringify(token))
@@ -57,6 +63,17 @@ export class UtilityService {
             this.snackBarClass = "dangerSnackBar"
         }
 
+        // Mandamos el mensaje
+        this.snackBarMessage = mensaje
+
+        this.snackBar.openFromComponent(
+            SnackBarTimedComponent, {
+            duration: 5000,
+            panelClass: [this.snackBarClass],
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+        })
+        /*
         this.snackBar.open(mensaje, "OK", {
             // Duracion de 5 segundos
             duration: 5000,
@@ -65,5 +82,10 @@ export class UtilityService {
             horizontalPosition: 'center',
             verticalPosition: 'bottom',
         });
+        */
+    }
+
+    obtenerSnackBarMessage(): string {
+        return this.snackBarMessage;
     }
 }

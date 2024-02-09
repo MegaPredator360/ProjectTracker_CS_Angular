@@ -37,6 +37,7 @@ body {
 
 /* Propiedades del SnackBar */
 .mat-mdc-snack-bar-container {
+    text-align: center;
     &.successSnackBar {
         --mdc-snackbar-container-color: #0faf00;
         --mat-mdc-snack-bar-button-color: white;

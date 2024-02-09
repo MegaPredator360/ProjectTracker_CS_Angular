@@ -7,13 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SharedModule } from './shared/shared.service';
+import { SnackBarTimedComponent } from './components/material/snack-bar-timed/snack-bar-timed.component';
 //import { AuthGuardService } from './Services/auth-guard.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LayoutComponent
+    LayoutComponent,
+    SnackBarTimedComponent
   ],
   imports: [
     BrowserModule,

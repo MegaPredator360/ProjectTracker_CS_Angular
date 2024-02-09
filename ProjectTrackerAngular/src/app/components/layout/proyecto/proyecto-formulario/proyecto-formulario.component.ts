@@ -8,6 +8,7 @@ import { EstadoService } from '../../../../service/estado.service';
 import { Router } from '@angular/router';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import moment from 'moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -87,7 +88,7 @@ export class ProyectoFormularioComponent {
       this.formularioProyecto.patchValue({
         nombre: this.datosProyecto.proyNombre,
         descripcion: this.datosProyecto.proyDescripcion,
-        fechaInicio: this.datosProyecto.proyFechaInicio
+        fechaInicio: moment(this.datosProyecto.proyFechaInicio, "DD/MM/YYYY")
       })
 
       this.formularioProyecto.get('estadoId')?.setValue(this.datosProyecto.proyEstaId)
@@ -99,7 +100,7 @@ export class ProyectoFormularioComponent {
       proyId: this.datosProyecto == null ? 0 : this.datosProyecto.proyId,
       proyNombre: this.formularioProyecto.value.nombre,
       proyDescripcion: this.formularioProyecto.value.descripcion,
-      proyFechaInicio: this.formularioProyecto.value.fechaInicio,
+      proyFechaInicio: moment(this.formularioProyecto.value.fechaInicio).format('DD/MM/YYYY'),
       proyEstaId: this.formularioProyecto.value.estadoId,
       proyEstaNombre: "",
       proyCantidadTarea: 0

@@ -76,14 +76,14 @@ namespace ProjectTracker.API.Controllers
 
         [HttpDelete]
         [Route("Eliminar/{Id:int}")]
-        public async Task<IActionResult> Eliminar(int _proyectoId)
+        public async Task<IActionResult> Eliminar(int Id)
         {
             var response = new Response<bool>();
 
             try
             {
                 response.Status = true;
-                response.value = await proyectoService.Eliminar(_proyectoId);
+                response.value = await proyectoService.Eliminar(Id);
             }
             catch (Exception ex)
             {

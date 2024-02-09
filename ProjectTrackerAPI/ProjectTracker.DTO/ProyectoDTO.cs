@@ -19,5 +19,7 @@ namespace ProjectTracker.DTO
         public int? ProyEstaId { get; set; }
 
         public string? ProyEstaNombre { get; set; }
+
+        public int ProyCantidadTarea { get; set; }
     }
 }

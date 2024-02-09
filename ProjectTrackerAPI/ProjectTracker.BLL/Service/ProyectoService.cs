@@ -61,12 +61,13 @@ namespace ProjectTracker.BLL.Service
 
                 if (proyectoEncontrado == null)
                 {
-                    throw new TaskCanceledException("El producto no existe");
+                    throw new TaskCanceledException("El proyecto no existe");
                 }
 
-                // Asignamos los productos
+                // Asignamos los proyectos
                 proyectoEncontrado.ProyNombre = proyecto.ProyNombre;
                 proyectoEncontrado.ProyDescripcion = proyecto.ProyDescripcion;
+                proyectoEncontrado.ProyFechaInicio = proyecto.ProyFechaInicio;
                 proyectoEncontrado.ProyEstaId = proyecto.ProyEstaId;
 
                 bool respuesta = await proyectoService.Editar(proyectoEncontrado);
@@ -92,7 +93,7 @@ namespace ProjectTracker.BLL.Service
 
                 if (proyectoEncontrado == null)
                 {
-                    throw new TaskCanceledException("El producto no existe");
+                    throw new TaskCanceledException("El proyecto no existe");
                 }
 
                 bool respuesta = await proyectoService.Eliminar(proyectoEncontrado);

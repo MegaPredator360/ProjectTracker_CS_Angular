@@ -25,7 +25,8 @@ namespace ProjectTracker.Utility
 
             // Conversion para Proyectos
             CreateMap<Proyecto, ProyectoDTO>()
-                .ForMember(destino => destino.ProyEstaNombre, opt => opt.MapFrom(origen => origen.ProyEsta!.EstaNombre));
+                .ForMember(destino => destino.ProyEstaNombre, opt => opt.MapFrom(origen => origen.ProyEsta!.EstaNombre))
+                .ForMember(destino => destino.ProyCantidadTarea, opt => opt.MapFrom(origen => origen.Tareas.Count()));
 
             CreateMap<ProyectoDTO, Proyecto>()
                 .ForMember(destino => destino.ProyEsta, opt => opt.Ignore());

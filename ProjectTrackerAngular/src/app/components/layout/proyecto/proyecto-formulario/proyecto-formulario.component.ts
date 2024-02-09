@@ -6,12 +6,31 @@ import { UtilityService } from '../../../../utility/utility.service';
 import { ProyectoService } from '../../../../service/proyecto.service';
 import { EstadoService } from '../../../../service/estado.service';
 import { Router } from '@angular/router';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+}
 
 @Component({
   selector: 'app-proyecto-formulario',
   templateUrl: './proyecto-formulario.component.html',
-  styleUrl: './proyecto-formulario.component.scss'
+  styleUrl: './proyecto-formulario.component.scss',
+  providers: [
+    provideMomentDateAdapter(),
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+  ]
 })
+
 export class ProyectoFormularioComponent {
   // Se usará para verificar o autollenar el formulario con informacion existente
   formularioProyecto: FormGroup
@@ -35,7 +54,6 @@ export class ProyectoFormularioComponent {
     private estadoService: EstadoService,
     private utilityService: UtilityService,
     private fb: FormBuilder,
-    private elementRef: ElementRef,
     private router: Router
   ) {
     // Obtener los datos almacenados en el servicio
@@ -44,6 +62,7 @@ export class ProyectoFormularioComponent {
     this.formularioProyecto = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
+      fechaInicio: ['', Validators.required],
       estadoId: ['', Validators.required]
     })
 
@@ -67,7 +86,8 @@ export class ProyectoFormularioComponent {
     if (this.datosProyecto != null) {
       this.formularioProyecto.patchValue({
         nombre: this.datosProyecto.proyNombre,
-        descripcion: this.datosProyecto.proyDescripcion
+        descripcion: this.datosProyecto.proyDescripcion,
+        fechaInicio: this.datosProyecto.proyFechaInicio
       })
 
       this.formularioProyecto.get('estadoId')?.setValue(this.datosProyecto.proyEstaId)
@@ -79,8 +99,10 @@ export class ProyectoFormularioComponent {
       proyId: this.datosProyecto == null ? 0 : this.datosProyecto.proyId,
       proyNombre: this.formularioProyecto.value.nombre,
       proyDescripcion: this.formularioProyecto.value.descripcion,
+      proyFechaInicio: this.formularioProyecto.value.fechaInicio,
       proyEstaId: this.formularioProyecto.value.estadoId,
-      proyEstaNombre: ""
+      proyEstaNombre: "",
+      proyCantidadTarea: 0
     }
 
     if (this.datosProyecto == null) {

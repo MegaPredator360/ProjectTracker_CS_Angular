@@ -10,10 +10,11 @@
                         <input matInput autocomplete="off" formControlName="nombre">
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field style="width: 95%;">
-                        <mat-label>Descripcion</mat-label>
-                        <input matInput autocomplete="off" formControlName="descripcion">
+                <mat-grid-tile [rowspan]="3">
+                    <mat-form-field style="width: 95%; height: 100%">
+                        <mat-label>Descripción</mat-label>
+                        <textarea matInput #descripcion [cdkTextareaAutosize]="false" maxlength="255" autocomplete="off" formControlName="descripcion" style="height: 185px"></textarea>
+                        <mat-hint align="end">{{descripcion.value.length}} / 255</mat-hint>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
@@ -27,11 +28,20 @@
                         </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field style="width: 95%">
+                        <mat-label>Fecha de Inicio</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
+                        <mat-hint>MM/DD/AAAA</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
             </mat-grid-list>
         </form>
         <mat-card-actions align="end">
             <button mat-raised-button color="primary" routerLink="../" style="margin-right: 10px;">Volver</button>
-            <button mat-raised-button color="primary"[disabled]="formularioProyecto.invalid"
+            <button mat-raised-button color="primary" [disabled]="formularioProyecto.invalid"
                 (click)="submitProyecto()">{{ botonAccion }}</button>
         </mat-card-actions>
     </mat-card>

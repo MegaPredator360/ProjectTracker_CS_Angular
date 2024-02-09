@@ -39,7 +39,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
           this.dataListaUsuarios.data = data.value
         }
       },
-      error: (e) => { this.utilityService.mostrarAlerta("¡Ocurrio un error al obtener los usuarios!", "error") }
+      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al obtener los usuarios", "error") }
     })
   }
 

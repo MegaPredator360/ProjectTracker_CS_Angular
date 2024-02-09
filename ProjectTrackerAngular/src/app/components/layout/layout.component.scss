@@ -30,14 +30,20 @@
     color: #0F0D17!important;
 }
 
-@keyframes slidebg {
-    to {
-      background-position:20vw;
-    }
-}
 
+//animacion de opciones 
 
-.mat-mdc-list-item:hover{
-    background-image: linear-gradient(90deg, #A6E257 0%, #F9FCE2 50%, #F9FCE2 65%, #A6E257 100%);
-    animation:slidebg 5s linear infinite;
-}
+.mat-mdc-list-item{
+ 
+    background-image: linear-gradient(90deg, #ffff 0%, #ffff 60%, #F9FCE2 65%,#A6E257 100%);
+    background-size: 160%;
+    background-repeat: no-repeat;
+    background-position: left;
+    transition: background-position .5s ease;
+  }
+
+  
+  
+  .mat-mdc-list-item:hover {
+    background-position: right;
+  }

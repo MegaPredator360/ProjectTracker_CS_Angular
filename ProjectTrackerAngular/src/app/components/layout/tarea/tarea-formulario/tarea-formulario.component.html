@@ -33,7 +33,7 @@
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
                         <mat-label>Proyecto Perteneciente</mat-label>
-                        <mat-select formControlName="estadoId">
+                        <mat-select formControlName="proyectoId">
                             <!-- Obtendremos la lista de permisos de la API -->
                             <mat-option *ngFor="let item of listaProyecto" [value]="item.proyId">
                                 {{ item.proyNombre }}

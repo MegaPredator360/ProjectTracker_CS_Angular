@@ -78,6 +78,7 @@ export class TareaFormularioComponent {
       descripcion: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       estadoId: ['', Validators.required],
+      proyectoId: ['', Validators.required],
       usuariosId: [[], Validators.required]
     })
 

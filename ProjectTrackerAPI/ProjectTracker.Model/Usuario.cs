@@ -27,5 +27,5 @@ public partial class Usuario
 
     public virtual Permiso? UsuaPerm { get; set; }
 
-    public virtual ICollection<Tarea> Tares { get; set; } = new List<Tarea>();
+    public virtual ICollection<TareaUsuario> TareaUsuarios { get; set; } = new List<TareaUsuario>();
 }

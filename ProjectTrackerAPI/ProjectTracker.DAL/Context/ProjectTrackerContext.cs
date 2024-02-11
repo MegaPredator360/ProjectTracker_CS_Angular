@@ -21,6 +21,8 @@ public partial class ProjectTrackerContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
+    public virtual DbSet<TareaUsuario> TareaUsuarios { get; set; }
+
     // Se encargará de realizar la conexion a la base de datos
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
@@ -111,6 +113,7 @@ public partial class ProjectTrackerContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_TARE_PROY");
 
+            /*
             entity.HasMany(d => d.Usuarios).WithMany(p => p.Tares)
                 .UsingEntity<Dictionary<string, object>>(
                     "TareaUsuario",
@@ -127,6 +130,20 @@ public partial class ProjectTrackerContext : DbContext
                         j.IndexerProperty<int>("TareId").HasColumnName("TARE_ID");
                         j.IndexerProperty<int>("UsuaId").HasColumnName("USUA_ID");
                     });
+            */
+        });
+
+        modelBuilder.Entity<TareaUsuario>(entity => {
+
+            entity.HasOne(u => u.Usuarios)
+                .WithMany(tu => tu.TareaUsuarios)
+                .HasForeignKey("UsuaId")
+                .HasConstraintName("FK_TAUS_USUA");
+
+            entity.HasOne(u => u.Tareas)
+                .WithMany(tu => tu.TareaUsuarios)
+                .HasForeignKey("TareId")
+                .HasConstraintName("FK_TAUS_TARE");
         });
 
         modelBuilder.Entity<Usuario>(entity =>

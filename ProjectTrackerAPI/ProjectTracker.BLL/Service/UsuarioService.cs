@@ -13,14 +13,14 @@ namespace ProjectTracker.BLL.Service
         private readonly IGenericService<Usuario> usuarioService;
         private readonly IMapper mapper;
         private readonly IConfiguration config;
-        private readonly IOtrosService otrosService;
+        private readonly IUtilityService utilityService;
 
-        public UsuarioService(IGenericService<Usuario> _usuarioService, IMapper _mapper, IConfiguration _config, IOtrosService _otrosService)
+        public UsuarioService(IGenericService<Usuario> _usuarioService, IMapper _mapper, IConfiguration _config, IUtilityService _utilityService)
         {
             usuarioService = _usuarioService;
             mapper = _mapper;
             config = _config;
-            otrosService = _otrosService;
+            utilityService = _utilityService;
         }
 
         public async Task<List<UsuarioDTO>> Lista()
@@ -47,7 +47,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Realizamos el proceso de encriptacion de contraseña para verificarla en la base de datos
-                string contrasenaHash = otrosService.EncriptarContrasena(_contrasena);
+                string contrasenaHash = utilityService.EncriptarContrasena(_contrasena);
 
                 // Consultamos los datos en la base de datos y buscamos un usuario que coincida con los datos enviados
                 var queryUsuario = await usuarioService.Consultar(u => u.UsuaCorreo == _correo && u.UsuaContrasena == contrasenaHash);
@@ -63,7 +63,7 @@ namespace ProjectTracker.BLL.Service
                     Usuario usuarioEncontrado = queryUsuario.Include(p => p.UsuaPerm).FirstOrDefault()!;
 
                     // Convertimos los datos en un token encriptado para ser enviado a la aplicacion de Angular
-                    string tokenGenerado = otrosService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaPerm!.PermNombre!, usuarioEncontrado.UsuaPrimerInicio);
+                    string tokenGenerado = utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaPerm!.PermNombre!, usuarioEncontrado.UsuaPrimerInicio);
 
                     return tokenGenerado;
                 }
@@ -79,7 +79,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Encriptamos la contraseña se nos da el usuario
-                string contrasenaHash = otrosService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
+                string contrasenaHash = utilityService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
 
                 // Se la damos al modelo de UsuarioDTO
                 _usuarioDTO.UsuaContrasena = contrasenaHash;
@@ -133,7 +133,7 @@ namespace ProjectTracker.BLL.Service
 
                 if (_usuarioDTO.UsuaContrasena != "")
                 {
-                    usuarioEncontrado.UsuaContrasena = otrosService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
+                    usuarioEncontrado.UsuaContrasena = utilityService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
                 }
 
                 // Se envian los datos a la base de datos

@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Estado } from '../../../../interface/estado';
 import { Tarea } from '../../../../interface/tarea';
 import { UtilityService } from '../../../../utility/utility.service';
@@ -7,8 +7,13 @@ import { TareaService } from '../../../../service/tarea.service';
 import { EstadoService } from '../../../../service/estado.service';
 import { Router } from '@angular/router';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MAT_DATE_FORMATS, MatOptionSelectionChange } from '@angular/material/core';
+import { ProyectoService } from '../../../../service/proyecto.service';
+import { UsuarioService } from '../../../../service/usuario.service';
+import { Proyecto } from '../../../../interface/proyecto';
+import { Usuario } from '../../../../interface/usuario';
+import { MatSelectChange } from '@angular/material/select';
+import moment from 'moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -33,15 +38,16 @@ export const MY_DATE_FORMATS = {
   
 })
 export class TareaFormularioComponent {
-
-  toppings = new FormControl('');
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  // Se usará para agregar a los Usuarios Seleccionados
+  usuarioSeleccionados: number[] = []
 
   // Se usará para verificar o autollenar el formulario con informacion existente
   formularioTarea: FormGroup
 
-  // Lista de Estados
+  // Listas del formulario
   listaEstado: Estado[] = []
+  listaProyecto: Proyecto[] = []
+  listaUsuario: Usuario[] = []
 
   // Datos de Tareas
   datosTarea!: Tarea
@@ -57,9 +63,10 @@ export class TareaFormularioComponent {
   constructor(
     private tareaService: TareaService,
     private estadoService: EstadoService,
+    private proyectoService: ProyectoService,
+    private usuarioService: UsuarioService,
     private utilityService: UtilityService,
     private fb: FormBuilder,
-    private elementRef: ElementRef,
     private router: Router
   ) {
     // Obtener los datos almacenados en el servicio
@@ -70,7 +77,7 @@ export class TareaFormularioComponent {
       descripcion: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       estadoId: ['', Validators.required],
-      usuario: ['', Validators.required]
+      usuariosId: [[], Validators.required]
     })
 
     if (this.datosTarea != null) {
@@ -85,37 +92,79 @@ export class TareaFormularioComponent {
           this.listaEstado = data.value
         }
       },
-      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de estados", "error") }
+      error: (e) => { 
+        this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de estados", "error")
+        console.log(e)
+      }
+    })
+
+    // Lista de Proyectos
+    this.proyectoService.Lista().subscribe({
+      next: (data) => {
+        if (data.status) {
+          this.listaProyecto = data.value
+        }
+      },
+      error: (e) => { 
+        this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de proyectos", "error")
+        console.log(e)
+      }
+    })
+
+    // Lista de Usuarios
+    this.usuarioService.Lista().subscribe({
+      next: (data) => {
+        if (data.status) {
+          this.listaUsuario = data.value
+        }
+      },
+      error: (e) => { 
+        this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de usuarios", "error")
+        console.log(e)
+      }
     })
   }
+
+  onSelectChange(event: MatSelectChange) {
+    if (event.source.selected) {
+      // El array de usuarios seleccionados contendrá el Id, de los usuarios en el event.value
+      this.usuarioSeleccionados = event.value
+    }
+  }
+
+
+  //this.usuarioSeleccionados.push(this.listaUsuario.find((u) => u.usuaId === parseInt(usuarioId, 10))!)
 
   ngOnInit(): void {
     if (this.datosTarea != null) {
       this.formularioTarea.patchValue({
         nombre: this.datosTarea.tareNombre,
         descripcion: this.datosTarea.tareDescripcion,
-        fechaInicio: this.datosTarea.tareFechaInicio,
-        usuario: this.datosTarea.tareUsuario
+        fechaInicio: moment(this.datosTarea.tareFechaInicio, "DD/MM/YYYY")
       })
 
       this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
       this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
-    }
+      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.usuarios)
+0    }
   }
 
   submitTarea() {
+
     const tarea: Tarea = {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
       tareNombre: this.formularioTarea.value.nombre,
       tareDescripcion: this.formularioTarea.value.descripcion,
-      tareFechaInicio: this.formularioTarea.value.fechaInicio,
+      tareFechaInicio: moment(this.formularioTarea.value.fechaInicio).format('DD/MM/YYYY'),
       tareProyId: this.formularioTarea.value.proyectoId,
       tareProyNombre: "",
       tareEstaId: this.formularioTarea.value.estadoId,
       tareEstaNombre: "",
       tareCantidadUsuario: 0,
-      tareUsuario: this.formularioTarea.value.usuario,
+      usuarios: this.listaUsuario.filter((item) => this.usuarioSeleccionados.includes(item.usuaId))
     }
+
+    console.log(tarea)
 
     if (this.datosTarea == null) {
       this.tareaService.Guardar(tarea).subscribe({

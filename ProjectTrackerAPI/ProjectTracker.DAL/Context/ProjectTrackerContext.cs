@@ -99,6 +99,7 @@ public partial class ProjectTrackerContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("TARE_FECHA_INICIO");
+                
             entity.Property(e => e.TareProyId).HasColumnName("TARE_PROY_ID");
 
             entity.HasOne(d => d.TareEsta).WithMany(p => p.Tareas)

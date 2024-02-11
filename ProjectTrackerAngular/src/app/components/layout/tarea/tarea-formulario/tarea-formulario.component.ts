@@ -147,7 +147,7 @@ export class TareaFormularioComponent {
 
       this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
       this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
-      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareaUsuarios)
+      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareaUsuarios.map((usuario) => usuario.usuaId))
     }
   }
 

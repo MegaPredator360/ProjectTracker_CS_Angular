@@ -9,11 +9,11 @@ using System.Text;
 
 namespace ProjectTracker.DAL.Service
 {
-    public class OtrosService : IOtrosService
+    public class UtilityService : IUtilityService
     {
         private readonly IConfiguration config;
 
-        public OtrosService(IConfiguration _config)
+        public UtilityService(IConfiguration _config)
         {
             config = _config;
         }
@@ -73,5 +73,7 @@ namespace ProjectTracker.DAL.Service
 
             return tokenCreado;
         }
+
+        
     }
 }

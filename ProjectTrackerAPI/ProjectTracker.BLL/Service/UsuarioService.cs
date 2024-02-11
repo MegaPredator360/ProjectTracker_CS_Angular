@@ -13,9 +13,9 @@ namespace ProjectTracker.BLL.Service
         private readonly IGenericService<Usuario> usuarioService;
         private readonly IMapper mapper;
         private readonly IConfiguration config;
-        private readonly IUtilityService utilityService;
+        private readonly IOtrosService utilityService;
 
-        public UsuarioService(IGenericService<Usuario> _usuarioService, IMapper _mapper, IConfiguration _config, IUtilityService _utilityService)
+        public UsuarioService(IGenericService<Usuario> _usuarioService, IMapper _mapper, IConfiguration _config, IOtrosService _utilityService)
         {
             usuarioService = _usuarioService;
             mapper = _mapper;

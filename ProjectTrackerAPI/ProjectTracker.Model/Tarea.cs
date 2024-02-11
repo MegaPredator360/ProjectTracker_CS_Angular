@@ -21,5 +21,5 @@ public partial class Tarea
 
     public virtual Proyecto? TareProy { get; set; }
 
-    public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
+    public virtual ICollection<TareaUsuario> TareaUsuarios { get; set; } = new List<TareaUsuario>();
 }

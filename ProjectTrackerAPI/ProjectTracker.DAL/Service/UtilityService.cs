@@ -9,11 +9,11 @@ using System.Text;
 
 namespace ProjectTracker.DAL.Service
 {
-    public class UtilityService : IUtilityService
+    public class OtrosService : IOtrosService
     {
         private readonly IConfiguration config;
 
-        public UtilityService(IConfiguration _config)
+        public OtrosService(IConfiguration _config)
         {
             config = _config;
         }

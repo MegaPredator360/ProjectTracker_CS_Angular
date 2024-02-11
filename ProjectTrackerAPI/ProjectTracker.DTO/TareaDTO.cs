@@ -26,6 +26,6 @@ namespace ProjectTracker.DTO
 
         public int TareCantidadUsuario { get; set; }
 
-        public virtual ICollection<UsuarioDTO> Usuarios { get; set; } = new List<UsuarioDTO>();
+        public virtual ICollection<TareaUsuarioDTO> TareaUsuarios { get; set; } = new List<TareaUsuarioDTO>();
     }
 }

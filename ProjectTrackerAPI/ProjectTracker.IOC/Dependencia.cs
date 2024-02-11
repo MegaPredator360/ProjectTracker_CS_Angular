@@ -29,7 +29,7 @@ namespace ProjectTracker.IOC
             _service.AddAutoMapper(typeof(AutoMapperProfile));
 
             // Agregamos los servicios para ser usados
-            _service.AddScoped<IUtilityService, UtilityService>();
+            _service.AddScoped<IOtrosService, OtrosService>();
             _service.AddScoped<IUsuarioService, UsuarioService>();
             _service.AddScoped<IPermisoService, PermisoService>();
             _service.AddScoped<IEstadoService, EstadoService>();

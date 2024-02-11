@@ -135,6 +135,13 @@ public partial class ProjectTrackerContext : DbContext
 
         modelBuilder.Entity<TareaUsuario>(entity => {
 
+            entity.HasKey(e => e.TareId);
+
+            entity.HasKey(e => e.UsuaId);
+
+            entity.Property(e => e.TareId).HasColumnName("TARE_ID");
+            entity.Property(e => e.UsuaId).HasColumnName("USUA_ID");
+
             entity.HasOne(u => u.Usuarios)
                 .WithMany(tu => tu.TareaUsuarios)
                 .HasForeignKey("UsuaId")

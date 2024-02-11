@@ -2,7 +2,7 @@ namespace ProjectTracker.Model
 {
     public class TareaUsuario
     {
-        public string? UsuaId { get; set; }
+        public int UsuaId { get; set; }
         public virtual Usuario? Usuarios { get; set; }
 
         public int TareId { get; set; }

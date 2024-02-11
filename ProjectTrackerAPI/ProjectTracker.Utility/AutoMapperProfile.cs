@@ -31,7 +31,18 @@ namespace ProjectTracker.Utility
             CreateMap<ProyectoDTO, Proyecto>()
                 .ForMember(destino => destino.ProyEsta, opt => opt.Ignore());
 
-            CreateMap<Tarea, TareaDTO>().ReverseMap();
+            // Conversion para Tareas
+            CreateMap<Tarea, TareaDTO>()
+                .ForMember(destino => destino.TareProyNombre, opt => opt.MapFrom(origen => origen.TareProy!.ProyNombre))
+                .ForMember(destino => destino.TareEstaNombre, opt => opt.MapFrom(origen => origen.TareEsta!.EstaNombre))
+                .ForMember(destino => destino.TareCantidadUsuario, opt => opt.MapFrom(origen => origen.TareaUsuarios.Count()));
+
+            CreateMap<TareaDTO, Tarea>()
+                .ForMember(destino => destino.TareProy, opt => opt.Ignore())
+                .ForMember(destino => destino.TareEsta, opt => opt.Ignore());
+
+            // Conversion de TareaUsuario
+            CreateMap<TareaUsuario, TareaUsuarioDTO>().ReverseMap();
         }
     }
 }

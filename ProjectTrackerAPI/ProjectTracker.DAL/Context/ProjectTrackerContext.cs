@@ -112,28 +112,11 @@ public partial class ProjectTrackerContext : DbContext
                 .HasForeignKey(d => d.TareProyId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_TARE_PROY");
-
-            /*
-            entity.HasMany(d => d.Usuarios).WithMany(p => p.Tares)
-                .UsingEntity<Dictionary<string, object>>(
-                    "TareaUsuario",
-                    r => r.HasOne<Usuario>().WithMany()
-                        .HasForeignKey("UsuaId")
-                        .HasConstraintName("FK_TAUS_USUA"),
-                    l => l.HasOne<Tarea>().WithMany()
-                        .HasForeignKey("TareId")
-                        .HasConstraintName("FK_TAUS_TARE"),
-                    j =>
-                    {
-                        j.HasKey("TareId", "UsuaId").HasName("PK_TARE_USUA");
-                        j.ToTable("TAREA_USUARIO");
-                        j.IndexerProperty<int>("TareId").HasColumnName("TARE_ID");
-                        j.IndexerProperty<int>("UsuaId").HasColumnName("USUA_ID");
-                    });
-            */
         });
 
         modelBuilder.Entity<TareaUsuario>(entity => {
+
+            entity.ToTable("TAREA_USUARIO");
 
             entity.HasKey(e => e.TareId);
 

@@ -1,4 +1,4 @@
-import { Usuario } from "./usuario";
+import { TareaUsuario } from "./tarea-usuario";
 
 export interface Tarea
 {
@@ -11,5 +11,5 @@ export interface Tarea
     tareEstaId: number,
     tareEstaNombre: string,
     tareCantidadUsuario: number,
-    usuarios: Usuario[]
+    tareaUsuarios: TareaUsuario[]
 }

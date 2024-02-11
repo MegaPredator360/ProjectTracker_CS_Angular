@@ -23,7 +23,10 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 var queryProyecto = await proyectoService.Consultar();
-                var listaProyectos = await queryProyecto.Include(e => e.ProyEsta).ToListAsync();
+                var listaProyectos = await queryProyecto
+                    .Include(e => e.ProyEsta)
+                    .Include(t => t.Tareas)
+                    .ToListAsync();
 
                 return mapper.Map<List<ProyectoDTO>>(listaProyectos.ToList());
             }

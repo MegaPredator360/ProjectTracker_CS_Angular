@@ -171,8 +171,6 @@ export class TareaFormularioComponent {
       tareaUsuarios: tareaUsuarioSeleccionado
     }
 
-    console.log(tarea)
-
     if (this.datosTarea == null) {
       this.tareaService.Guardar(tarea).subscribe({
         next: (data) => {
@@ -197,9 +195,13 @@ export class TareaFormularioComponent {
           }
           else {
             this.utilityService.mostrarAlerta("Ocurrio un error al actualizar la tarea", "error")
+            console.log(data.msg)
           }
         },
-        error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al actualizar", "error") }
+        error: (e) => { 
+          this.utilityService.mostrarAlerta("Ocurrio un error al actualizar la tarea", "error")
+          console.log(e)
+        }
       })
     }
   }

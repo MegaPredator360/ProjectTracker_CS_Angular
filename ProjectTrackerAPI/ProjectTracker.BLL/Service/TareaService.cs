@@ -10,11 +10,13 @@ namespace ProjectTracker.BLL.Service
     public class TareaService: ITareaService
     {
         private readonly IGenericService<Tarea> tareaService;
+        private readonly IGenericService<TareaUsuario> tareaUsuarioService;
         private readonly IMapper mapper;
 
-        public TareaService(IGenericService<Tarea> _tareaService, IMapper _mapper)
+        public TareaService(IGenericService<Tarea> _tareaService, IGenericService<TareaUsuario> _tareaUsuarioService, IMapper _mapper)
         {
             tareaService = _tareaService;
+            tareaUsuarioService = _tareaUsuarioService;
             mapper = _mapper;
         }
 
@@ -60,25 +62,52 @@ namespace ProjectTracker.BLL.Service
         {
             try
             {
-                var tarea = mapper.Map<Tarea>(_tareaDTO);
+                var tareaActualizada = mapper.Map<Tarea>(_tareaDTO);
                 var tareaEncontrada = await tareaService.Obtener(t => t.TareId == _tareaDTO.TareId);
 
                 if (tareaEncontrada == null)
                 {
-                    throw new TaskCanceledException("El producto no existe");
+                    throw new TaskCanceledException("La tarea no existe");
                 }
 
-                // Asignamos los productos
-                tareaEncontrada.TareNombre = tarea.TareNombre;
-                tareaEncontrada.TareDescripcion = tarea.TareDescripcion;
-                tareaEncontrada.TareProyId = tarea.TareProyId;
-                tareaEncontrada.TareEstaId = tarea.TareEstaId;
+                // Asignamos los datos de la tarea actualziados
+                tareaEncontrada.TareNombre = tareaActualizada.TareNombre;
+                tareaEncontrada.TareDescripcion = tareaActualizada.TareDescripcion;
+                tareaEncontrada.TareFechaInicio = tareaActualizada.TareFechaInicio;
+                tareaEncontrada.TareProyId = tareaActualizada.TareProyId;
+                tareaEncontrada.TareEstaId = tareaActualizada.TareEstaId;
 
                 bool respuesta = await tareaService.Editar(tareaEncontrada);
 
                 if (!respuesta)
                 {
-                    throw new TaskCanceledException("No se pudo editar");
+                    throw new TaskCanceledException("No actualizar datos de tarea");
+                }
+                
+                // Elimina los usuarios que fueron desmarcados de la base de datos
+                var tareaUsuarioBD = await tareaUsuarioService.Consultar(tu => tu.TareId == tareaActualizada.TareId);
+                var usuariosDesmarcados = await tareaUsuarioBD.ToListAsync();
+
+                foreach (var usuario in usuariosDesmarcados)
+                {
+                    bool respuestaDesmarcados = await tareaUsuarioService.Eliminar(usuario);
+
+                    if (!respuestaDesmarcados)
+                    {
+                        throw new TaskCanceledException("No se pudo eliminar los usuarios desmarcados");
+                    }
+                }
+
+                // Obtenemos los IDs de usuarios que ya están asociados a la tarea
+                tareaUsuarioBD = await tareaUsuarioService.Consultar(tu => tu.TareId == tareaActualizada.TareId);
+                var usuariosAsociados = await tareaUsuarioBD.ToListAsync();
+
+                // Filtramos los usuarios actualizados que aún no están asociados a la tarea
+                var usuariosNuevos = tareaActualizada.TareaUsuarios.Where(u => !usuariosAsociados.Contains(u));
+                
+                foreach (var usuario in usuariosNuevos)
+                {
+                    await tareaUsuarioService.Crear(usuario);
                 }
 
                 return respuesta;

@@ -14,6 +14,7 @@ import { Proyecto } from '../../../../interface/proyecto';
 import { Usuario } from '../../../../interface/usuario';
 import { MatSelectChange } from '@angular/material/select';
 import moment from 'moment';
+import { TareaUsuario } from '../../../../interface/tarea-usuario';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -145,11 +146,16 @@ export class TareaFormularioComponent {
 
       this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
       this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
-      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.usuarios)
-0    }
+      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareaUsuarios)
+    }
   }
 
   submitTarea() {
+
+    const tareaUsuarioSeleccionado: TareaUsuario[] = this.usuarioSeleccionados.map((usuarioId) => ({
+      usuaId: usuarioId,
+      tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId
+    }))
 
     const tarea: Tarea = {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
@@ -161,7 +167,7 @@ export class TareaFormularioComponent {
       tareEstaId: this.formularioTarea.value.estadoId,
       tareEstaNombre: "",
       tareCantidadUsuario: 0,
-      usuarios: this.listaUsuario.filter((item) => this.usuarioSeleccionados.includes(item.usuaId))
+      tareaUsuarios: tareaUsuarioSeleccionado
     }
 
     console.log(tarea)
@@ -175,6 +181,7 @@ export class TareaFormularioComponent {
           }
           else {
             this.utilityService.mostrarAlerta("No se pudo registrar la tarea", "error")
+            console.log(data.msg)
           }
         },
         error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al registrar la tarea", "error") }

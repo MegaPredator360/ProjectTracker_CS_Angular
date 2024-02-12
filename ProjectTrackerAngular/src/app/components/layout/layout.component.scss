@@ -13,12 +13,29 @@
 }
 
 .content-background {
+    padding-top: 20px;
     font-family: 'Trebuchet MS', sans-serif;
-    background-image: url("../../../assets/img/background-grad-v4-03.jpg");
-    background-size: cover;
-    min-height: 93.1vh;
+    min-height: 90vh;
 }
 
+.content-image {
+    background-image: url("../../../assets/img/background-grad-v4-03.jpg");
+    background-size: cover;
+}
+
+.footer-content {
+    background-color: rgb(91, 183, 154);
+    padding-top: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    background-color: rgb(138, 255, 218);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
 .grad-back {
     background: rgb(166, 226, 87);

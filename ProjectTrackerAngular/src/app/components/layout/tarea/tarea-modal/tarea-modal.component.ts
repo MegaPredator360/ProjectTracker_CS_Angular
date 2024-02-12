@@ -34,9 +34,13 @@ export class TareaModalComponent {
         else
         {
           this.utilityService.mostrarAlerta("No se pudo eliminar la tarea", "error")
+          console.log(data.msg)
         }
       },
-      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al eliminar la tarea", "error") }
+      error: (e) => { 
+        this.utilityService.mostrarAlerta("Ocurrio un error al eliminar la tarea", "error")
+        console.log(e)
+      }
     })
   }
 }

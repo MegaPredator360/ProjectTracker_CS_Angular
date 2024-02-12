@@ -126,7 +126,7 @@ namespace ProjectTracker.BLL.Service
 
                 if (tareaEncontrada == null)
                 {
-                    throw new TaskCanceledException("El producto no existe");
+                    throw new TaskCanceledException("La tarea no existe");
                 }
 
                 bool respuesta = await tareaService.Eliminar(tareaEncontrada);

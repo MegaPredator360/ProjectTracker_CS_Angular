@@ -58,14 +58,15 @@ namespace ProjectTracker.BLL.Service
                     throw new TaskCanceledException("El usuario no existe");
                 }
                 else
-                {
+                {                    
+                    SesionDTO sesionDTO = new SesionDTO();
+
                     // Una vez encontrado el usuario, obtenemos el los permisos del usuario
                     Usuario usuarioEncontrado = queryUsuario.Include(p => p.UsuaPerm).FirstOrDefault()!;
 
                     // Convertimos los datos en un token encriptado para ser enviado a la aplicacion de Angular
-                    string tokenGenerado = utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaPerm!.PermNombre!, usuarioEncontrado.UsuaPrimerInicio);
+                    return utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaPerm!.PermNombre!, usuarioEncontrado.UsuaPrimerInicio);
 
-                    return tokenGenerado;
                 }
             }
             catch

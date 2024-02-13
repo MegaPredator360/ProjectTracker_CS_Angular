@@ -14,26 +14,23 @@ export class LayoutComponent {
   constructor(
     private router: Router,
     private utilityService: UtilityService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const usuario = this.utilityService.obtenerSesion();
 
-    if (usuario != null)
-    {
-      this.permisoNombre = usuario.usuaPermNombre;
-      this.userName = usuario.usuaUsername;
+    if (usuario != null) {
+      this.permisoNombre = usuario.role;
+      this.userName = usuario.family_name;
     }
-    else
-    {
+    else {
       this.permisoNombre = '';
       this.userName = '';
     }
   }
 
-  cerrarSesion()
-  {
+  cerrarSesion() {
     this.utilityService.eliminarSesionUsuario();
-    this.router.navigate(['Login']);
+    this.router.navigate(['./login']);
   }
 }

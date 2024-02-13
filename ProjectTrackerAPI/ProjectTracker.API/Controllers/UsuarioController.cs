@@ -40,16 +40,16 @@ namespace ProjectTracker.API.Controllers
         [Route("IniciarSesion")]
         public async Task<IActionResult> IniciarSesion([FromBody] IniciarSesionDTO _iniciarSesionDTO)
         {
-            var response = new AuthResponse();
+            var response = new Response<string>();
 
             try
             {
-                response.Resultado = true;
-                response.Token = await usuarioService.ValidarCredenciales(_iniciarSesionDTO.Correo!, _iniciarSesionDTO.Contrasena!);
+                response.Status = true;
+                response.value = await usuarioService.ValidarCredenciales(_iniciarSesionDTO.Correo!, _iniciarSesionDTO.Contrasena!);
             }
             catch (Exception ex)
             {
-                response.Resultado = false;
+                response.Status = false;
                 response.msg = ex.Message;
             }
 

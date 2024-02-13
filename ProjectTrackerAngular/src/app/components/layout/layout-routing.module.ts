@@ -10,21 +10,21 @@ import { ProyectoFormularioComponent } from './proyecto/proyecto-formulario/proy
 import { TareaFormularioComponent } from './tarea/tarea-formulario/tarea-formulario.component';
 import { HomeComponent } from './home/home.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-//import { RoleGuard } from 'src/app/Services/role-guard.service';
-//import { AccesoDenegadoComponent } from './Pages/acceso-denegado/acceso-denegado.component';
+import { GuardRoleService } from '../../service/guard-role.service';
 
 const routes: Routes = [{
   path: '',
   component: LayoutComponent,
   children: [
     { path: '', component: HomeComponent },
-    { path: 'usuario', component: UsuarioComponent },
-    { path: 'usuario/formulario', component: UsuarioFormularioComponent },
-    { path: 'proyecto', component: ProyectoComponent },
-    { path: 'proyecto/formulario', component: ProyectoFormularioComponent },
-    { path: 'tarea', component: TareaComponent },
-    { path: 'tarea/formulario', component: TareaFormularioComponent },
-    { path: 'tareausuario', component: TareaUsuarioComponent },
+    { path: '*', component: HomeComponent },
+    { path: 'usuario', component: UsuarioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador'] } },
+    { path: 'usuario/formulario', component: UsuarioFormularioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador'] } },
+    { path: 'proyecto', component: ProyectoComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
+    { path: 'proyecto/formulario', component: ProyectoFormularioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
+    { path: 'tarea', component: TareaComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
+    { path: 'tarea/formulario', component: TareaFormularioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
+    { path: 'tareausuario', component: TareaUsuarioComponent, canActivate: [GuardRoleService], data: {roles: ['Usuario'] }  },
     { path: 'accessdenied', component: AccessDeniedComponent }
     //{ path: 'Producto', component: ProductoComponent, canActivate: [RoleGuard], data: {roles: ['Administrador', 'Supervisor'] } },
   ]

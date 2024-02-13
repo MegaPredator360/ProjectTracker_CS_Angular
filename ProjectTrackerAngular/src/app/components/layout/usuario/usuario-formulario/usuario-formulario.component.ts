@@ -98,21 +98,28 @@ export class UsuarioFormularioComponent implements OnInit {
 
   submitUsuario() {
 
+    // Se verificará que el correo ingresado sea un correo valido
+    if (!this.utilityService.verificarCorreo(this.formularioUsuario.value.correo)) {
+      // Se le realizará un focus al input
+      this.elementRef.nativeElement.querySelector('[formcontrolname="correo"]').focus()
+      this.utilityService.mostrarAlerta("El correo ingresado no es valido", "error")
+      return
+    }
+
     if (this.formularioUsuario.value.contrasena != "") {
 
-      // Primero se verifica que la contraseña cumpla con los requisitos: 1 Mayuscula, 1 minuscula, 1 simbolo, 1 numero y 8 caracteres
+      // Se verifica que la contraseña cumpla con los requisitos: 1 Mayuscula, 1 minuscula, 1 simbolo, 1 numero y 8 caracteres
       if (!this.utilityService.verificarContrasena(this.formularioUsuario.value.contrasena)) {
 
-        // Se le realizará un focus al input
         this.elementRef.nativeElement.querySelector('[formcontrolname="contrasena"]').focus()
-        this.utilityService.mostrarAlerta("¡Contraseña no cumple con los requisitos minimos!", "error")
+        this.utilityService.mostrarAlerta("La contraseña no cumple con los requisitos minimos", "error")
         return
       }
-      
+
       if (this.formularioUsuario.value.contrasena != this.formularioUsuario.value.confirmarContrasena) {
         // Se le realizará un focus al input
         this.elementRef.nativeElement.querySelector('[formcontrolname="confirmarContrasena"]').focus()
-        this.utilityService.mostrarAlerta("¡Las contraseñas no son iguales!", "error")
+        this.utilityService.mostrarAlerta("Las contraseñas no son iguales", "error")
         return
       }
     }
@@ -139,10 +146,26 @@ export class UsuarioFormularioComponent implements OnInit {
             this.router.navigate(['../pages/usuario'])
           }
           else {
-            this.utilityService.mostrarAlerta("No se pudo registrar el usuario", "error")
+            // Mostrará un mensaje indicando que ya un usuario existe con la informacion ingresada
+            if (data.msg == "usuaCedulaExiste") {
+              this.utilityService.mostrarAlerta("Ya existe un usuario con la cedula ingresada", "error")
+            }
+            else if (data.msg == "usuaCorreoExiste") {
+              this.utilityService.mostrarAlerta("Ya existe un usuario con el correo ingresado", "error")
+            }
+            else if (data.msg == "usuaUsernameExiste") {
+              this.utilityService.mostrarAlerta("Ya existe un usuario con el nombre de usuario ingresado", "error")
+            }
+            else {
+              this.utilityService.mostrarAlerta("No se pudo registrar el usuario", "error")
+              console.log(data.msg)
+            }
           }
         },
-        error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al registrar el usuario", "error") }
+        error: (e) => {
+          this.utilityService.mostrarAlerta("Ocurrio un error al registrar el usuario", "error")
+          console.log(e)
+        }
       })
     }
     else {
@@ -153,10 +176,14 @@ export class UsuarioFormularioComponent implements OnInit {
             this.router.navigate(['../pages/usuario'])
           }
           else {
-            this.utilityService.mostrarAlerta( "Ocurrio un error al actualizar el usuario", "error")
+            this.utilityService.mostrarAlerta("Ocurrio un error al actualizar el usuario", "error")
+            console.log(data.msg)
           }
         },
-        error: (e) => { this.utilityService.mostrarAlerta( "Ocurrio un error al actualizar el usuario", "error") }
+        error: (e) => {
+          this.utilityService.mostrarAlerta("Ocurrio un error al actualizar el usuario", "error")
+          console.log(e)
+        }
       })
     }
   }

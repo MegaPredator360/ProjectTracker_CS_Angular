@@ -53,6 +53,11 @@ export class UtilityService {
         }
     }
 
+    verificarCorreo(correo: string): boolean {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailPattern.test(correo);
+    }
+
     // Se usará para mostrar mensajes de Alerta
     mostrarAlerta(mensaje: string, tipoMensaje: string) {
         // Definimos el tipo de mensaje

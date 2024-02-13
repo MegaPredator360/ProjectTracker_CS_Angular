@@ -79,6 +79,20 @@ namespace ProjectTracker.BLL.Service
         {
             try
             {
+                // Verificaremos si un usuario existe
+                if (await usuarioService.Obtener(u => u.UsuaCedula == _usuarioDTO.UsuaCedula) != null)
+                {
+                    throw new TaskCanceledException("usuaCedulaExiste");
+                }
+                else if (await usuarioService.Obtener(u => u.UsuaCorreo == _usuarioDTO.UsuaCorreo) != null)
+                {
+                    throw new TaskCanceledException("usuaCorreoExiste");
+                }
+                else if (await usuarioService.Obtener(u => u.UsuaUsername == _usuarioDTO.UsuaUsername) != null)
+                {
+                    throw new TaskCanceledException("usuaUsernameExiste");
+                }
+
                 // Encriptamos la contraseña se nos da el usuario
                 string contrasenaHash = utilityService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
 

@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SharedModule } from './shared/shared.service';
 import { SnackBarTimedComponent } from './components/material/snack-bar-timed/snack-bar-timed.component';
+import { LoginModalComponent } from './components/login/login-modal/login-modal.component';
 //import { AuthGuardService } from './Services/auth-guard.service';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SnackBarTimedComponent } from './components/material/snack-bar-timed/sn
     AppComponent,
     LoginComponent,
     LayoutComponent,
-    SnackBarTimedComponent
+    SnackBarTimedComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,

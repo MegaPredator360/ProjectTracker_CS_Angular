@@ -15,6 +15,7 @@ import { TareaModalComponent } from './tarea/tarea-modal/tarea-modal.component';
 import { TareaUsuarioModalComponent } from './tarea-usuario/tarea-usuario-modal/tarea-usuario-modal.component';
 import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
 import { HomeComponent } from './home/home.component';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HomeComponent } from './home/home.component';
     TareaFormularioComponent,
     TareaModalComponent,
     TareaUsuarioModalComponent,
-    HomeComponent
+    HomeComponent,
+    AccessDeniedComponent
   ],
   imports: [
     CommonModule,

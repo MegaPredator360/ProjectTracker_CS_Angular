@@ -12,10 +12,10 @@ import { ProyectoFormularioComponent } from './proyecto/proyecto-formulario/proy
 import { ProyectoModalComponent } from './proyecto/proyecto-modal/proyecto-modal.component';
 import { TareaFormularioComponent } from './tarea/tarea-formulario/tarea-formulario.component';
 import { TareaModalComponent } from './tarea/tarea-modal/tarea-modal.component';
-import { TareaUsuarioModalComponent } from './tarea-usuario/tarea-usuario-modal/tarea-usuario-modal.component';
 import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
 import { HomeComponent } from './home/home.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { TareaUsuarioFormularioComponent } from './tarea-usuario/tarea-usuario-formulario/tarea-usuario-formulario.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +25,12 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     ProyectoComponent,
     TareaComponent,
     TareaUsuarioComponent,
+    TareaUsuarioFormularioComponent,
     UsuarioModalComponent,
     ProyectoFormularioComponent,
     ProyectoModalComponent,
     TareaFormularioComponent,
     TareaModalComponent,
-    TareaUsuarioModalComponent,
     HomeComponent,
     AccessDeniedComponent
   ],

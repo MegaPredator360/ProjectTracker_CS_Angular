@@ -9,6 +9,7 @@ import { UsuarioFormularioComponent } from './usuario/usuario-formulario/usuario
 import { ProyectoFormularioComponent } from './proyecto/proyecto-formulario/proyecto-formulario.component';
 import { TareaFormularioComponent } from './tarea/tarea-formulario/tarea-formulario.component';
 import { HomeComponent } from './home/home.component';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 //import { RoleGuard } from 'src/app/Services/role-guard.service';
 //import { AccesoDenegadoComponent } from './Pages/acceso-denegado/acceso-denegado.component';
 
@@ -23,7 +24,8 @@ const routes: Routes = [{
     { path: 'proyecto/formulario', component: ProyectoFormularioComponent },
     { path: 'tarea', component: TareaComponent },
     { path: 'tarea/formulario', component: TareaFormularioComponent },
-    { path: 'tareausuario', component: TareaUsuarioComponent }
+    { path: 'tareausuario', component: TareaUsuarioComponent },
+    { path: 'accessdenied', component: AccessDeniedComponent }
     //{ path: 'Producto', component: ProductoComponent, canActivate: [RoleGuard], data: {roles: ['Administrador', 'Supervisor'] } },
   ]
 }];

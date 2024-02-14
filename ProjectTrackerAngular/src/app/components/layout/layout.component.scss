@@ -1,7 +1,5 @@
 .fixed-toolbar {
-    position: sticky;
-    position: -webkit-sticky;
-    /* Para macOS/iOS Safari */
+    position: fixed;
     top: 0;
     /* Fija la barra de herramientas en la parte superior */
     z-index: 640;
@@ -14,7 +12,7 @@
 
 .content-background {
     font-family: 'Trebuchet MS', sans-serif;
-    min-height: 90vh;
+    min-height: 100vh;
 }
 
 .content-image {

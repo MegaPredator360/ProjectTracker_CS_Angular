@@ -17,6 +17,9 @@ namespace ProjectTracker.DAL.Interface
         // Se utiilizará para eliminar usuarios, proyectos o tareas
         Task<bool> Eliminar(TModel modelo);
 
+        // Se utiilizará para eliminar usuarios, proyectos o tareas
+        Task<bool> EliminarRango(Expression<Func<TModel, bool>> filtro);
+
         // Obtendrá la lista de usuarios, proyectos o tareas y además contará con una opcion para poder filtrar resultados
         Task<IQueryable<TModel>> Consultar(Expression<Func<TModel, bool>> filtro = null!);
     }

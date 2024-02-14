@@ -76,6 +76,21 @@ namespace ProjectTracker.DAL.Service
             }
         }
 
+        public async Task<bool> EliminarRango(Expression<Func<TModel, bool>> filtro)
+        {
+            try
+            {
+                var elementosEliminar = context.Set<TModel>().Where(filtro);
+                context.Set<TModel>().RemoveRange(elementosEliminar);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<IQueryable<TModel>> Consultar(Expression<Func<TModel, bool>> filtro = null)
         {
             try

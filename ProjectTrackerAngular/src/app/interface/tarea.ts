@@ -1,5 +1,3 @@
-import { TareaUsuario } from "./tarea-usuario";
-
 export interface Tarea
 {
     tareId: number,
@@ -11,5 +9,5 @@ export interface Tarea
     tareEstaId: number,
     tareEstaNombre: string,
     tareCantidadUsuario: number,
-    tareaUsuarios: TareaUsuario[]
+    tareUsuaId: number[]
 }

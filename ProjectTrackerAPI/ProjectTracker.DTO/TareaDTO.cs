@@ -20,6 +20,6 @@
 
         public int TareCantidadUsuario { get; set; }
 
-        public virtual ICollection<TareaUsuarioDTO> TareaUsuarios { get; set; } = new List<TareaUsuarioDTO>();
+        public virtual ICollection<int> TareUsuaId { get; set; } = new List<int>();
     }
 }

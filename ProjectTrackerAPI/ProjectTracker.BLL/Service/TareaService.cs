@@ -7,7 +7,7 @@ using ProjectTracker.Model;
 
 namespace ProjectTracker.BLL.Service
 {
-    public class TareaService: ITareaService
+    public class TareaService : ITareaService
     {
         private readonly IGenericService<Tarea> tareaService;
         private readonly IGenericService<TareaUsuario> tareaUsuarioService;
@@ -74,6 +74,17 @@ namespace ProjectTracker.BLL.Service
                     throw new TaskCanceledException("No se pudo crear");
                 }
 
+                //Añadir a la tabla relacional
+                foreach (var usuarioId in _tareaDTO.TareUsuaId)
+                {
+                    var tareaUsuario = new TareaUsuario()
+                    {
+                        TareId = tareaCreada.TareId,
+                        UsuaId = usuarioId
+                    };
+                    await tareaUsuarioService.Crear(tareaUsuario);
+                }
+
                 return mapper.Map<TareaDTO>(tareaCreada);
             }
             catch
@@ -86,7 +97,6 @@ namespace ProjectTracker.BLL.Service
         {
             try
             {
-                var tareaActualizada = mapper.Map<Tarea>(_tareaDTO);
                 var tareaEncontrada = await tareaService.Obtener(t => t.TareId == _tareaDTO.TareId);
 
                 if (tareaEncontrada == null)
@@ -95,11 +105,11 @@ namespace ProjectTracker.BLL.Service
                 }
 
                 // Asignamos los datos de la tarea actualziados
-                tareaEncontrada.TareNombre = tareaActualizada.TareNombre;
-                tareaEncontrada.TareDescripcion = tareaActualizada.TareDescripcion;
-                tareaEncontrada.TareFechaInicio = tareaActualizada.TareFechaInicio;
-                tareaEncontrada.TareProyId = tareaActualizada.TareProyId;
-                tareaEncontrada.TareEstaId = tareaActualizada.TareEstaId;
+                tareaEncontrada.TareNombre = _tareaDTO.TareNombre;
+                tareaEncontrada.TareDescripcion = _tareaDTO.TareDescripcion;
+                tareaEncontrada.TareFechaInicio = _tareaDTO.TareFechaInicio;
+                tareaEncontrada.TareProyId = _tareaDTO.TareProyId;
+                tareaEncontrada.TareEstaId = _tareaDTO.TareEstaId;
 
                 bool respuesta = await tareaService.Editar(tareaEncontrada);
 
@@ -107,31 +117,19 @@ namespace ProjectTracker.BLL.Service
                 {
                     throw new TaskCanceledException("No actualizar datos de tarea");
                 }
-                
-                // Elimina los usuarios que fueron desmarcados de la base de datos
-                var tareaUsuarioBD = await tareaUsuarioService.Consultar(tu => tu.TareId == tareaActualizada.TareId);
-                var usuariosDesmarcados = await tareaUsuarioBD.ToListAsync();
 
-                foreach (var usuario in usuariosDesmarcados)
+                // Elimina los usuarios que asignados de la base de datos
+                await tareaUsuarioService.EliminarRango(tu => tu.TareId == _tareaDTO.TareId);
+
+                // Agregamos los usuarios actualizados que fueron asociados a la tarea
+                foreach (var usuarioId in _tareaDTO.TareUsuaId)
                 {
-                    bool respuestaDesmarcados = await tareaUsuarioService.Eliminar(usuario);
-
-                    if (!respuestaDesmarcados)
+                    var tareaUsuario = new TareaUsuario()
                     {
-                        throw new TaskCanceledException("No se pudo eliminar los usuarios desmarcados");
-                    }
-                }
-
-                // Obtenemos los IDs de usuarios que ya están asociados a la tarea
-                tareaUsuarioBD = await tareaUsuarioService.Consultar(tu => tu.TareId == tareaActualizada.TareId);
-                var usuariosAsociados = await tareaUsuarioBD.ToListAsync();
-
-                // Filtramos los usuarios actualizados que aún no están asociados a la tarea
-                var usuariosNuevos = tareaActualizada.TareaUsuarios.Where(u => !usuariosAsociados.Contains(u));
-                
-                foreach (var usuario in usuariosNuevos)
-                {
-                    await tareaUsuarioService.Crear(usuario);
+                        TareId = _tareaDTO.TareId,
+                        UsuaId = usuarioId
+                    };
+                    await tareaUsuarioService.Crear(tareaUsuario);
                 }
 
                 return respuesta;

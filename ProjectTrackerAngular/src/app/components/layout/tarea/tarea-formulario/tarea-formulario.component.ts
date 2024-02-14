@@ -14,7 +14,6 @@ import { Proyecto } from '../../../../interface/proyecto';
 import { Usuario } from '../../../../interface/usuario';
 import { MatSelectChange } from '@angular/material/select';
 import moment from 'moment';
-import { TareaUsuario } from '../../../../interface/tarea-usuario';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -147,17 +146,11 @@ export class TareaFormularioComponent {
 
       this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
       this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
-      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareaUsuarios.map((usuario) => usuario.usuaId))
+      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareUsuaId.map((usuario) => usuario))
     }
   }
 
   submitTarea() {
-
-    const tareaUsuarioSeleccionado: TareaUsuario[] = this.usuarioSeleccionados.map((usuarioId) => ({
-      usuaId: usuarioId,
-      tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId
-    }))
-
     const tarea: Tarea = {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
       tareNombre: this.formularioTarea.value.nombre,
@@ -168,7 +161,7 @@ export class TareaFormularioComponent {
       tareEstaId: this.formularioTarea.value.estadoId,
       tareEstaNombre: "",
       tareCantidadUsuario: 0,
-      tareaUsuarios: tareaUsuarioSeleccionado
+      tareUsuaId: this.usuarioSeleccionados
     }
 
     if (this.datosTarea == null) {

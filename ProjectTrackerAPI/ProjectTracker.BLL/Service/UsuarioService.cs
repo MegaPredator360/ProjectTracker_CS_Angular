@@ -58,14 +58,15 @@ namespace ProjectTracker.BLL.Service
                     throw new TaskCanceledException("El usuario no existe");
                 }
                 else
-                {
+                {                    
+                    SesionDTO sesionDTO = new SesionDTO();
+
                     // Una vez encontrado el usuario, obtenemos el los permisos del usuario
                     Usuario usuarioEncontrado = queryUsuario.Include(p => p.UsuaPerm).FirstOrDefault()!;
 
                     // Convertimos los datos en un token encriptado para ser enviado a la aplicacion de Angular
-                    string tokenGenerado = utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaPerm!.PermNombre!, usuarioEncontrado.UsuaPrimerInicio);
+                    return utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaPerm!.PermNombre!, usuarioEncontrado.UsuaPrimerInicio);
 
-                    return tokenGenerado;
                 }
             }
             catch
@@ -78,6 +79,20 @@ namespace ProjectTracker.BLL.Service
         {
             try
             {
+                // Verificaremos si un usuario existe
+                if (await usuarioService.Obtener(u => u.UsuaCedula == _usuarioDTO.UsuaCedula) != null)
+                {
+                    throw new TaskCanceledException("usuaCedulaExiste");
+                }
+                else if (await usuarioService.Obtener(u => u.UsuaCorreo == _usuarioDTO.UsuaCorreo) != null)
+                {
+                    throw new TaskCanceledException("usuaCorreoExiste");
+                }
+                else if (await usuarioService.Obtener(u => u.UsuaUsername == _usuarioDTO.UsuaUsername) != null)
+                {
+                    throw new TaskCanceledException("usuaUsernameExiste");
+                }
+
                 // Encriptamos la contraseña se nos da el usuario
                 string contrasenaHash = utilityService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
 

@@ -17,8 +17,8 @@ export class UsuarioService {
 
     constructor(private http: HttpClient) { }
 
-    iniciarSesion(request: InicioSesion): Observable<ResponseAuth> {
-        return this.http.post<ResponseAuth>(`${this.urlApi}IniciarSesion`, request)
+    iniciarSesion(request: InicioSesion): Observable<ResponseApi> {
+        return this.http.post<ResponseApi>(`${this.urlApi}IniciarSesion`, request)
     }
 
     Lista(): Observable<ResponseApi> {

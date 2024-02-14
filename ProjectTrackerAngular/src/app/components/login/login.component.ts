@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../service/usuario.service';
@@ -11,7 +11,7 @@ import { InicioSesion } from '../../interface/inicio-sesion';
   styleUrl: './login.component.scss'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   formularioLogin: FormGroup
   ocultarContrasena: boolean = true
   mostrarProgressBar: boolean = false
@@ -28,6 +28,16 @@ export class LoginComponent {
     })
   }
 
+  ngOnInit() {
+    const usuario = this.utilityService.obtenerSesion()
+
+    if (usuario != null)
+    {
+      this.utilityService.mostrarAlerta("Debes de cerrar sesion para acceder a esta pagina", "error")
+      this.router.navigate(["pages/"])
+    }
+  }
+
   iniciarSesion() {
     this.mostrarProgressBar = true
     const request: InicioSesion = {
@@ -37,12 +47,13 @@ export class LoginComponent {
 
     this.usuarioService.iniciarSesion(request).subscribe({
       next: (data) => {
-        if (data.resultado) {
-          this.utilityService.guardarSesionUsuario(data.token)
+        if (data.status) {
+          this.utilityService.guardarSesionUsuario(data.value)
           this.router.navigate(["pages/"])
         }
         else {
           this.utilityService.mostrarAlerta("El usuario / contraseña es incorrecta", "error")
+          console.log(data.msg)
         }
       },
       complete: () => {

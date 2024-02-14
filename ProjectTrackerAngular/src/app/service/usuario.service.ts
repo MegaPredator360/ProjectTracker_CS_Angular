@@ -5,7 +5,6 @@ import { environment } from '../../environment/environment';
 import { ResponseApi } from '../interface/response-api';
 import { InicioSesion } from '../interface/inicio-sesion';
 import { Usuario } from '../interface/usuario';
-import { ResponseAuth } from '../interface/response-auth';
 
 @Injectable({
     providedIn: 'root'

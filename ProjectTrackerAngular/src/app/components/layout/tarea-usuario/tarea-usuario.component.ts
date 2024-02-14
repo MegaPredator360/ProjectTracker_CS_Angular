@@ -31,7 +31,9 @@ export class TareaUsuarioComponent {
   }
 
   obtenerTareas() {
-    this.tareaService.Lista().subscribe({
+    const usuario = this.utilityService.obtenerSesion()
+
+    this.tareaService.ListaUsuario(parseInt(usuario?.nameid!)).subscribe({
       next: (data) => {
         if (data.status) {
           this.dataListaTarea.data = data.value;

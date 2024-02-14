@@ -39,6 +39,30 @@ namespace ProjectTracker.BLL.Service
             }
         }
 
+        public async Task<List<TareaDTO>> ListaUsuario(int _usuarioId)
+        {
+            try
+            {
+                // Obtenermos los Id de las tareas asociadas al usuario
+                var queryTareaUsuario = await tareaUsuarioService.Consultar(u => u.UsuaId == _usuarioId);
+                var listaTareaUsuario = await queryTareaUsuario.ToListAsync();
+
+                // Obtendremos la lista de tareas
+                var queryTarea = await tareaService.Consultar(t => listaTareaUsuario.Select(tu => tu.TareId).Contains(t.TareId));
+                var listaTarea = await queryTarea
+                    .Include(e => e.TareEsta)
+                    .Include(p => p.TareProy)
+                    .Include(tu => tu.TareaUsuarios)
+                    .ToListAsync();
+
+                return mapper.Map<List<TareaDTO>>(listaTarea.ToList());
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<TareaDTO> Crear(TareaDTO _tareaDTO)
         {
             try

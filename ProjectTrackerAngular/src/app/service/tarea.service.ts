@@ -20,6 +20,10 @@ export class TareaService
         return this.http.get<ResponseApi>(`${this.urlApi}Lista`)
     }
 
+    ListaUsuario(Id: number): Observable<ResponseApi> {
+        return this.http.get<ResponseApi>(`${this.urlApi}ListaUsuario/${Id}`)
+    }
+
     Guardar(request: Tarea): Observable<ResponseApi> {
         return this.http.post<ResponseApi>(`${this.urlApi}Guardar`, request)
     }

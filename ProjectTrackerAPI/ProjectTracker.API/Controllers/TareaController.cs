@@ -36,6 +36,25 @@ namespace ProjectTracker.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("ListaUsuario/{Id:int}")]
+        public async Task<IActionResult> ListaUsuario(int Id)
+        {
+            var response = new Response<List<TareaDTO>>();
+
+            try
+            {
+                response.Status = true;
+                response.value = await tareaService.ListaUsuario(Id);
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.msg = ex.Message;
+            }
+            return Ok(response);
+        }
+
         [HttpPost]
         [Route("Guardar")]
         public async Task<IActionResult> Guardar([FromBody] TareaDTO _tareaDTO)

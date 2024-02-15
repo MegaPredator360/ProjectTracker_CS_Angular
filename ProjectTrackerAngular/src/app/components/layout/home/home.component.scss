@@ -1,3 +1,14 @@
+.home-body {
+  background-image: url("../../../../assets/img/home-picture.jpg");
+  background-size: cover;
+  height: 71vh;
+  color: white;
+  text-align: center;
+  padding-top: 15%;
+  font-size: 40px;
+  text-shadow: 2px 2px 2px black;
+}
+
 .footer {
     background: linear-gradient(45deg, rgb(141, 170, 104) 17%, rgba(249,252,226,1) 50%, rgba(91,183,154,1) 91%);
     color: rgb(0, 0, 0);

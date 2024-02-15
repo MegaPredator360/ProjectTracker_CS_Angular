@@ -59,8 +59,6 @@ namespace ProjectTracker.BLL.Service
                 }
                 else
                 {                    
-                    SesionDTO sesionDTO = new SesionDTO();
-
                     // Una vez encontrado el usuario, obtenemos el los permisos del usuario
                     Usuario usuarioEncontrado = queryUsuario.Include(p => p.UsuaPerm).FirstOrDefault()!;
 

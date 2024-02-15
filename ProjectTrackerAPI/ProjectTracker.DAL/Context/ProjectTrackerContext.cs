@@ -115,26 +115,24 @@ public partial class ProjectTrackerContext : DbContext
         });
 
         modelBuilder.Entity<TareaUsuario>(entity => {
-
             entity.ToTable("TAREA_USUARIO");
-
-            entity.HasKey(e => e.TareId);
-
-            entity.HasKey(e => e.UsuaId);
 
             entity.Property(e => e.TareId).HasColumnName("TARE_ID");
             entity.Property(e => e.UsuaId).HasColumnName("USUA_ID");
 
+            entity.HasKey(e => new { e.TareId, e.UsuaId });
+
             entity.HasOne(u => u.Usuarios)
                 .WithMany(tu => tu.TareaUsuarios)
-                .HasForeignKey("UsuaId")
+                .HasForeignKey(u => u.UsuaId) 
                 .HasConstraintName("FK_TAUS_USUA");
 
-            entity.HasOne(u => u.Tareas)
+            entity.HasOne(t => t.Tareas)
                 .WithMany(tu => tu.TareaUsuarios)
-                .HasForeignKey("TareId")
+                .HasForeignKey(t => t.TareId)  // Use lambda expression
                 .HasConstraintName("FK_TAUS_TARE");
         });
+
 
         modelBuilder.Entity<Usuario>(entity =>
         {

@@ -19,7 +19,8 @@ namespace ProjectTracker.IOC
             // Realizará la conexion a la base de datos
             _service.AddDbContext<ProjectTrackerContext>(options =>
             {
-                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
+                    options => options.EnableRetryOnFailure());
             });
 
             // Para poder hacer uso de las dependencias generales en cada servicio de los modelos

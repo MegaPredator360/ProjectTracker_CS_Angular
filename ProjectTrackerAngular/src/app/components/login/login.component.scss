@@ -24,7 +24,7 @@
 }
 
 .mdc-button {
-    background-image: linear-gradient(90deg, #5bb79a 0%, #5bb79a 50%, #F9FCE2 50%, #A6E257 100%);
+    background-image: linear-gradient(90deg, #8399b6 0%, #5bb79a 50%, #F9FCE2 50%, #A6E257 100%);
     background-size: 200%;
     background-repeat: no-repeat;
     background-position: left;
@@ -33,6 +33,10 @@
 
 .mdc-button:hover {
     background-position: right;
+}
+
+h2{
+    color: #477a5a;
 }
 
 /*===========Media QUERIAS Pantalla Extra-SM==========*/

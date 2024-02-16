@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../../service/usuario.service';
 import { UtilityService } from '../../utility/utility.service';
 import { InicioSesion } from '../../interface/inicio-sesion';
+import { LoginModalComponent } from './login-modal/login-modal.component';
+import { Sesion } from '../../interface/sesion';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +20,11 @@ export class LoginComponent implements OnInit {
   mostrarProgressBar: boolean = false
 
   constructor(
-    private fb: FormBuilder, 
-    private router: Router, 
-    private usuarioService: UsuarioService, 
-    private utilityService: UtilityService
+    private fb: FormBuilder,
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private utilityService: UtilityService,
+    private dialog: MatDialog
   ) {
     this.formularioLogin = this.fb.group({
       correo: ['', Validators.required],
@@ -31,8 +35,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     const usuario = this.utilityService.obtenerSesion()
 
-    if (usuario != null)
-    {
+    if (usuario != null) {
       this.utilityService.mostrarAlerta("Debes de cerrar sesion para acceder a esta pagina", "error")
       this.router.navigate(["pages/"])
     }
@@ -48,8 +51,23 @@ export class LoginComponent implements OnInit {
     this.usuarioService.iniciarSesion(request).subscribe({
       next: (data) => {
         if (data.status) {
-          this.utilityService.guardarSesionUsuario(data.value)
-          this.router.navigate(["pages/"])
+          const sesion = JSON.parse(atob(data.value!.split('.')[1])) as Sesion
+          console.log(sesion)
+
+          if (sesion?.unique_name == "True") {
+            this.dialog.open(LoginModalComponent, {
+              disableClose: true,
+              data: sesion
+            }).afterClosed().subscribe((resultado: string) => {
+              if (resultado == "true") {
+                // Se valida si el resultado de cierre es verdadero o no
+              }
+            });
+          }
+          else {
+            this.utilityService.guardarSesionUsuario(data.value)
+            this.router.navigate(["pages/"])
+          }
         }
         else {
           this.utilityService.mostrarAlerta("El usuario / contraseña es incorrecta", "error")

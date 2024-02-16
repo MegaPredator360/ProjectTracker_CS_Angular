@@ -11,6 +11,7 @@ import { TareaFormularioComponent } from './tarea/tarea-formulario/tarea-formula
 import { HomeComponent } from './home/home.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { GuardRoleService } from '../../service/guard-role.service';
+import { TareaUsuarioFormularioComponent } from './tarea-usuario/tarea-usuario-formulario/tarea-usuario-formulario.component';
 
 const routes: Routes = [{
   path: '',
@@ -25,8 +26,8 @@ const routes: Routes = [{
     { path: 'tarea', component: TareaComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
     { path: 'tarea/formulario', component: TareaFormularioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
     { path: 'tareausuario', component: TareaUsuarioComponent, canActivate: [GuardRoleService], data: {roles: ['Usuario'] }  },
+    { path: 'tareausuario/formulario', component: TareaUsuarioFormularioComponent, canActivate: [GuardRoleService], data: {roles: ['Usuario'] }  },
     { path: 'accessdenied', component: AccessDeniedComponent }
-    //{ path: 'Producto', component: ProductoComponent, canActivate: [RoleGuard], data: {roles: ['Administrador', 'Supervisor'] } },
   ]
 }];
 

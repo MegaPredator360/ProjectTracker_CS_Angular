@@ -9,3 +9,24 @@
   font-size: 40px;
   text-shadow: 2px 2px 2px black;
 }
+
+/*===========Media QUERIAS Pantalla Extra-SM==========*/
+@media (max-width:768px) {
+
+  #intro,
+  #equipo {
+      width: 90% !important;
+  }
+
+  .servicio-fila {
+      width: 100% !important;
+      text-align: center;
+  }
+}
+
+@media (max-width:576px) {
+  .icono-wrap {
+      flex-wrap: wrap;
+      justify-content: center !important;
+  }
+}

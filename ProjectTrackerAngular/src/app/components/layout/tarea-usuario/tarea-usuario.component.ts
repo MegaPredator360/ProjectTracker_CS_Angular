@@ -5,7 +5,6 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { TareaService } from '../../../service/tarea.service';
 import { UtilityService } from '../../../utility/utility.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tarea-usuario',
@@ -16,7 +15,6 @@ export class TareaUsuarioComponent {
   colunmasTabla: string[] = ['nombre', 'proyectoOrigen', 'estado', 'usuariosAsignados', 'acciones']
   dataInicio: Tarea[] = []
   dataListaTarea = new MatTableDataSource(this.dataInicio)
-  tareaVacio!: Tarea
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
   mensajeVacio: string = "No hay tareas registradas"
 
@@ -24,7 +22,6 @@ export class TareaUsuarioComponent {
     private router: Router,
     private tareaService: TareaService,
     private utilityService: UtilityService,
-    private dialog: MatDialog,
     private paginator: MatPaginatorIntl
   ) {
     this.paginator.itemsPerPageLabel = 'Tareas por pagina: ';
@@ -76,11 +73,6 @@ export class TareaUsuarioComponent {
     this.tareaService.setDatosTarea(tarea);
 
     // Se redigire al usuario a la ruta
-    this.router.navigate(['/pages/tarea/formulario'])
-  }
-
-  tareaNueva() {
-    this.tareaService.setDatosTarea(this.tareaVacio)
-    this.router.navigate(['/pages/tarea/formulario'])
+    this.router.navigate(['/pages/tareausuario/formulario'])
   }
 }

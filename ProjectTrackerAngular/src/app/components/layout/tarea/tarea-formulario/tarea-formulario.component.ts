@@ -133,9 +133,6 @@ export class TareaFormularioComponent {
     }
   }
 
-
-  //this.usuarioSeleccionados.push(this.listaUsuario.find((u) => u.usuaId === parseInt(usuarioId, 10))!)
-
   ngOnInit(): void {
     if (this.datosTarea != null) {
       this.formularioTarea.patchValue({
@@ -151,6 +148,7 @@ export class TareaFormularioComponent {
   }
 
   submitTarea() {
+    console.log(this.usuarioSeleccionados)
     const tarea: Tarea = {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
       tareNombre: this.formularioTarea.value.nombre,
@@ -161,7 +159,7 @@ export class TareaFormularioComponent {
       tareEstaId: this.formularioTarea.value.estadoId,
       tareEstaNombre: "",
       tareCantidadUsuario: 0,
-      tareUsuaId: this.usuarioSeleccionados
+      tareUsuaId: this.usuarioSeleccionados.length === 0 ? this.datosTarea.tareUsuaId : this.usuarioSeleccionados
     }
 
     if (this.datosTarea == null) {

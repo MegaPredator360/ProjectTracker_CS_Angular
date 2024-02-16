@@ -1,84 +1,11 @@
 .home-body {
   background-image: url("../../../../assets/img/home-picture.jpg");
   background-size: cover;
-  height: 100%;
+  height: 100vh;
   margin-top: 50px;
   color: white;
   text-align: center;
   padding-top: 15%;
   font-size: 40px;
   text-shadow: 2px 2px 2px black;
-}
-
-.footer {
-    background: linear-gradient(45deg, rgb(141, 170, 104) 17%, rgba(249,252,226,1) 50%, rgba(91,183,154,1) 91%);
-    color: rgb(0, 0, 0);
-    text-align: center;
-    padding: 20px 0;
-  }
-  
-  .footer-content {
-    margin-bottom: 20px;
-  }
-  
-  .footer-content h3 {
-    margin: 0;
-    margin-bottom: 10px;
-  }
-  
-  .footer-content p {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .footer-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .footer-links li a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .footer-links li a:hover {
-    color: #3498db;
-  }
-  
-  .footer-bottom p {
-    font-size: 14px;
-    margin: 0;
-  }
-  
-  .footer-bottom a {
-    color: #3498db;
-    text-decoration: none;
-  }
-  
-  .footer-bottom a:hover {
-    text-decoration: underline;
-  }
-
-  /*===========Media QUERIAS Pantalla Extra-SM==========*/
-@media (max-width:768px) {
-  #intro, #equipo {
-      width: 90% !important;
-  }
-
-  .servicio-fila{
-      width: 100% !important;
-      text-align: center;
-  }
-}
-
-@media (max-width:576px){
-  .icono-wrap {
-      flex-wrap: wrap;
-      justify-content: center !important;
-  }
 }

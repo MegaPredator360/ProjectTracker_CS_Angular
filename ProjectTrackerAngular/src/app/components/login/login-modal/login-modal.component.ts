@@ -4,6 +4,7 @@ import { Sesion } from '../../../interface/sesion';
 import { UsuarioService } from '../../../service/usuario.service';
 import { UtilityService } from '../../../utility/utility.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Usuario } from '../../../interface/usuario';
 
 @Component({
   selector: 'app-login-modal',
@@ -28,10 +29,6 @@ export class LoginModalComponent {
     })
   }
 
-  ngOnInit(): void {
-
-  }
-
   cambiarContrasena() {
 
     if (!this.utilityService.verificarContrasena(this.formularioUsuario.value.contrasena)) {
@@ -48,15 +45,27 @@ export class LoginModalComponent {
       return
     }
 
-    this.usuarioService.CambiarContraseña(parseInt(this.datoSesion.nameid), this.formularioUsuario.value.constrasena).subscribe({
+    const usuario: Usuario = {
+      usuaId: parseInt(this.datoSesion.nameid),
+      usuaCedula: "",
+      usuaNombre: "",
+      usuaUsername: "",
+      usuaTelefono: "",
+      usuaDireccion: "",
+      usuaCorreo: "",
+      usuaContrasena: this.formularioUsuario.value.contrasena,
+      usuaPermId: 0,
+      usuaPermNombre: "",
+      usuaPrimerInicio: 0
+    }
+
+    this.usuarioService.CambiarContraseña(usuario).subscribe({
       next: (data) => {
-        if (data.status)
-        {
-          this.utilityService.mostrarAlerta("La contraseña fue actualizada. Inicia sesion nuevamente", "exito");
-          this.modalActual.close("true");
+        if (data.status) {
+          this.utilityService.mostrarAlerta("La contraseña fue actualizada. Inicia sesion nuevamente", "exito")
+          this.modalActual.close("true")
         }
-        else
-        {
+        else {
           this.utilityService.mostrarAlerta("Ocurrio un error al cambiar la contraseña", "error")
           console.log(data.msg)
         }

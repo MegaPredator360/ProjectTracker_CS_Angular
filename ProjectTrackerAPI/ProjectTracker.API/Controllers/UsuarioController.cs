@@ -96,6 +96,26 @@ namespace ProjectTracker.API.Controllers
             return Ok(response);
         }
 
+        [HttpPut]
+        [Route("CambiarContrasena")]
+        public async Task<IActionResult> CambiarContrasena([FromBody] UsuarioDTO usuario)
+        {
+            var response = new Response<bool>();
+
+            try
+            {
+                response.Status = true;
+                response.value = await usuarioService.CambiarContrasena(usuario);
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.msg = ex.Message;
+            }
+
+            return Ok(response);
+        }
+
         [HttpDelete]
         [Route("Eliminar/{Id:int}")]
         public async Task<IActionResult> Eliminar(int Id)

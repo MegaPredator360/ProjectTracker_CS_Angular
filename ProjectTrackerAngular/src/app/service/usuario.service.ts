@@ -36,8 +36,8 @@ export class UsuarioService {
         return this.http.delete<ResponseApi>(`${this.urlApi}Eliminar/${Id}`)
     }
 
-    CambiarContraseña(Id: number, request: string): Observable<ResponseApi> {
-        return this.http.put<ResponseApi>(`${this.urlApi}CambiarContrasena/${Id}`, request)
+    CambiarContraseña(request: Usuario): Observable<ResponseApi> {
+        return this.http.put<ResponseApi>(`${this.urlApi}CambiarContrasena`, request)
     }
 
     setDatosUsuario(usuario: Usuario) {

@@ -165,6 +165,38 @@ namespace ProjectTracker.BLL.Service
             }
         }
 
+        public async Task<bool> CambiarContrasena(UsuarioDTO _usuarioDTO)
+        {
+            try
+            {
+                // Obtenemos el usuario por el Id
+                var usuarioEncontrado = await usuarioService.Obtener(u => u.UsuaId == _usuarioDTO.UsuaId);
+
+                if (usuarioEncontrado == null)
+                {
+                    throw new TaskCanceledException("El usuario no existe");
+                }
+
+                // Encriptamos y actualizamos la contraseña del usuario
+                usuarioEncontrado.UsuaContrasena = utilityService.EncriptarContrasena(_usuarioDTO.UsuaContrasena!);
+                usuarioEncontrado.UsuaPrimerInicio = Convert.ToBoolean(_usuarioDTO.UsuaPrimerInicio);
+
+                // Se envian los datos a la base de datos
+                bool respuesta = await usuarioService.Editar(usuarioEncontrado);
+
+                if (!respuesta)
+                {
+                    throw new TaskCanceledException("No se pudo editar");
+                }
+
+                return respuesta;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<bool> Eliminar(int _usuarioId)
         {
             try

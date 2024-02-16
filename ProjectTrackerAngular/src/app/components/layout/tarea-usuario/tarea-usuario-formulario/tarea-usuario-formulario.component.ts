@@ -123,26 +123,31 @@ export class TareaUsuarioFormularioComponent {
   }
 
   ngOnInit(): void {
-    if (this.datosTarea != null) {
-      this.formularioTarea.patchValue({
-        nombre: this.datosTarea.tareNombre,
-        descripcion: this.datosTarea.tareDescripcion,
-        fechaInicio: moment(this.datosTarea.tareFechaInicio, "DD/MM/YYYY")
-      })
+    this.formularioTarea.patchValue({
+      nombre: this.datosTarea.tareNombre,
+      descripcion: this.datosTarea.tareDescripcion,
+      fechaInicio: moment(this.datosTarea.tareFechaInicio, "DD/MM/YYYY")
+    })
 
-      this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
-      this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
-      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareUsuaId.map((usuario) => usuario))
-    }
+    this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
+    this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
+    this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareUsuaId.map((usuario) => usuario))
+
+    // Deshabilitar los campos para que no puedan ser editados por el el usuario
+    this.formularioTarea.get('nombre')?.disable()
+    this.formularioTarea.get('descripcion')?.disable()
+    this.formularioTarea.get('fechaInicio')?.disable()
+    this.formularioTarea.get('proyectoId')?.disable()
+    this.formularioTarea.get('usuariosId')?.disable()
   }
 
   submitTarea() {
     const tarea: Tarea = {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
-      tareNombre: this.formularioTarea.value.nombre,
-      tareDescripcion: this.formularioTarea.value.descripcion,
+      tareNombre: this.datosTarea.tareNombre,
+      tareDescripcion: this.datosTarea.tareDescripcion,
       tareFechaInicio: moment(this.formularioTarea.value.fechaInicio).format('DD/MM/YYYY'),
-      tareProyId: this.formularioTarea.value.proyectoId,
+      tareProyId: this.datosTarea.tareProyId,
       tareProyNombre: "",
       tareEstaId: this.formularioTarea.value.estadoId,
       tareEstaNombre: "",

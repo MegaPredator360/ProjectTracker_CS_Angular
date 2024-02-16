@@ -30,6 +30,15 @@
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
+                        <mat-label>Telefono</mat-label>
+                        <input matInput numbersOnly autocomplete="off" formControlName="telefono">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-checkbox formControlName="primerInicio">Cambiar Contraseña al Iniciar Sesion</mat-checkbox>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field style="width: 95%;">
                         <mat-label>Correo Electronico</mat-label>
                         <input matInput autocomplete="off" formControlName="correo">
                     </mat-form-field>
@@ -67,15 +76,6 @@
                             <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field style="width: 95%;">
-                        <mat-label>Telefono</mat-label>
-                        <input matInput autocomplete="off" formControlName="telefono">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-checkbox formControlName="primerInicio">Cambiar Contraseña al Iniciar Sesion</mat-checkbox>
                 </mat-grid-tile>
             </mat-grid-list>
         </form>

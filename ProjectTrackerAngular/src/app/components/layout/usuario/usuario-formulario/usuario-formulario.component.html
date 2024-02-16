@@ -34,24 +34,11 @@
                         <input matInput numbersOnly autocomplete="off" formControlName="telefono">
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-checkbox formControlName="primerInicio">Cambiar Contraseña al Iniciar Sesion</mat-checkbox>
-                </mat-grid-tile>
+                
                 <mat-grid-tile>
                     <mat-form-field style="width: 95%;">
                         <mat-label>Correo Electronico</mat-label>
                         <input matInput autocomplete="off" formControlName="correo">
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field style="width: 95%;">
-                        <mat-label>Permisos</mat-label>
-                        <mat-select formControlName="permisoId">
-                            <!-- Obtendremos la lista de permisos de la API -->
-                            <mat-option *ngFor="let item of listaPermisos" [value]="item.permId">
-                                {{ item.permNombre }}
-                            </mat-option>
-                        </mat-select>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
@@ -76,6 +63,20 @@
                             <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field style="width: 95%;">
+                        <mat-label>Permisos</mat-label>
+                        <mat-select formControlName="permisoId">
+                            <!-- Obtendremos la lista de permisos de la API -->
+                            <mat-option *ngFor="let item of listaPermisos" [value]="item.permId">
+                                {{ item.permNombre }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-checkbox formControlName="primerInicio">Cambiar Contraseña al Iniciar Sesion</mat-checkbox>
                 </mat-grid-tile>
             </mat-grid-list>
         </form>

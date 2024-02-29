@@ -1,12 +1,6 @@
 ﻿using ProjectTracker.DAL.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
 using ProjectTracker.DAL.Interface;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ProjectTracker.DAL.Service
@@ -21,11 +15,11 @@ namespace ProjectTracker.DAL.Service
             context = _context;
         }
 
-        public async Task<TModel> Obtener(Expression<Func<TModel, bool>> filtro)
+        public async Task<TModel> Obtener(Expression<Func<TModel, bool>> _filtro)
         {
             try
             {
-                TModel modelo = await context.Set<TModel>().FirstOrDefaultAsync(filtro);
+                TModel? modelo = await context.Set<TModel>().FirstOrDefaultAsync(_filtro);
                 return modelo!;
             }
             catch
@@ -34,13 +28,13 @@ namespace ProjectTracker.DAL.Service
             }
         }
 
-        public async Task<TModel> Crear(TModel modelo)
+        public async Task<TModel> Crear(TModel _modelo)
         {
             try
             {
-                context.Set<TModel>().Add(modelo);
+                context.Set<TModel>().Add(_modelo);
                 await context.SaveChangesAsync();
-                return modelo;
+                return _modelo;
             }
             catch
             {
@@ -48,25 +42,11 @@ namespace ProjectTracker.DAL.Service
             }
         }
 
-        public async Task<bool> Editar(TModel modelo)
+        public async Task<bool> Editar(TModel _modelo)
         {
             try
             {
-                context.Set<TModel>().Update(modelo);
-                await context.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public async Task<bool> Eliminar(TModel modelo)
-        {
-            try
-            {
-                context.Set<TModel>().Remove(modelo);
+                context.Set<TModel>().Update(_modelo);
                 await context.SaveChangesAsync();
                 return true;
             }
@@ -76,11 +56,25 @@ namespace ProjectTracker.DAL.Service
             }
         }
 
-        public async Task<bool> EliminarRango(Expression<Func<TModel, bool>> filtro)
+        public async Task<bool> Eliminar(TModel _modelo)
         {
             try
             {
-                var elementosEliminar = context.Set<TModel>().Where(filtro);
+                context.Set<TModel>().Remove(_modelo);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> EliminarRango(Expression<Func<TModel, bool>> _filtro)
+        {
+            try
+            {
+                var elementosEliminar = context.Set<TModel>().Where(_filtro);
                 context.Set<TModel>().RemoveRange(elementosEliminar);
                 await context.SaveChangesAsync();
                 return true;
@@ -91,11 +85,13 @@ namespace ProjectTracker.DAL.Service
             }
         }
 
-        public async Task<IQueryable<TModel>> Consultar(Expression<Func<TModel, bool>> filtro = null)
+        public IQueryable<TModel> Consultar(Expression<Func<TModel, bool>>? _filtro = null)
         {
             try
             {
-                IQueryable<TModel> queryModelo = filtro == null ? context.Set<TModel>() : context.Set<TModel>().Where(filtro);
+                IQueryable<TModel> queryModelo = _filtro == null
+                    ? context.Set<TModel>()
+                    : context.Set<TModel>().Where(_filtro);
                 return queryModelo;
             }
             catch

@@ -24,7 +24,7 @@ namespace ProjectTracker.BLL.Service
         {
             try
             {
-                var queryTarea = await tareaService.Consultar();
+                var queryTarea = tareaService.Consultar();
                 var listaTarea = await queryTarea
                     .Include(e => e.TareEsta)
                     .Include(p => p.TareProy)
@@ -44,11 +44,11 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Obtenermos los Id de las tareas asociadas al usuario
-                var queryTareaUsuario = await tareaUsuarioService.Consultar(u => u.UsuaId == _usuarioId);
+                var queryTareaUsuario = tareaUsuarioService.Consultar(u => u.UsuaId == _usuarioId);
                 var listaTareaUsuario = await queryTareaUsuario.ToListAsync();
 
                 // Obtendremos la lista de tareas
-                var queryTarea = await tareaService.Consultar(t => listaTareaUsuario.Select(tu => tu.TareId).Contains(t.TareId));
+                var queryTarea = tareaService.Consultar(t => listaTareaUsuario.Select(tu => tu.TareId).Contains(t.TareId));
                 var listaTarea = await queryTarea
                     .Include(e => e.TareEsta)
                     .Include(p => p.TareProy)

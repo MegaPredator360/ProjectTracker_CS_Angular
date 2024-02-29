@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProjectTracker.BLL.Interface;
 using ProjectTracker.DAL.Interface;
 using ProjectTracker.DTO;
@@ -21,8 +22,7 @@ namespace ProjectTracker.BLL.Service
         {
             try 
             {
-                var listaEstado = await estadoService.Consultar();
-                return mapper.Map<List<EstadoDTO>>(listaEstado.ToList());
+                return mapper.Map<List<EstadoDTO>>(await estadoService.Consultar().ToListAsync());
             }
             catch
             {

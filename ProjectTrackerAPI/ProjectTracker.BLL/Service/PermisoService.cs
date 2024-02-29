@@ -1,4 +1,6 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using ProjectTracker.BLL.Interface;
 using ProjectTracker.DAL.Interface;
 using ProjectTracker.DTO;
@@ -21,8 +23,7 @@ namespace ProjectTracker.BLL.Service
         {
             try 
             {
-                var listaPermiso = await permisoService.Consultar();
-                return mapper.Map<List<PermisoDTO>>(listaPermiso.ToList());
+                return mapper.Map<List<PermisoDTO>>(await permisoService.Consultar().ToListAsync());
             }
             catch
             {

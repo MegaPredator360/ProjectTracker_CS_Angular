@@ -28,7 +28,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Obtenemos la lista de usuarios
-                var queryUsuario = await usuarioService.Consultar();
+                var queryUsuario = usuarioService.Consultar();
 
                 // Incluimos el permiso a la lista de usuarios
                 var listaUsuario = await queryUsuario.Include(p => p.UsuaPerm).ToListAsync();
@@ -50,7 +50,7 @@ namespace ProjectTracker.BLL.Service
                 string contrasenaHash = utilityService.EncriptarContrasena(_contrasena);
 
                 // Consultamos los datos en la base de datos y buscamos un usuario que coincida con los datos enviados
-                var queryUsuario = await usuarioService.Consultar(u => u.UsuaCorreo == _correo && u.UsuaContrasena == contrasenaHash);
+                var queryUsuario = usuarioService.Consultar(u => u.UsuaCorreo == _correo && u.UsuaContrasena == contrasenaHash);
 
                 // Si el resultado es nulo enviamos un mensaje diciendo que el usuario no existe
                 if (await queryUsuario.FirstOrDefaultAsync() == null)
@@ -110,7 +110,7 @@ namespace ProjectTracker.BLL.Service
                 }
 
                 // Consultamos los datos de el usuario creado
-                var query = await usuarioService.Consultar(u => u.UsuaId == usuarioCreado.UsuaId);
+                var query = usuarioService.Consultar(u => u.UsuaId == usuarioCreado.UsuaId);
                 usuarioCreado = query.Include(p => p.UsuaPerm).FirstOrDefault();
 
                 return mapper.Map<UsuarioDTO>(usuarioCreado);

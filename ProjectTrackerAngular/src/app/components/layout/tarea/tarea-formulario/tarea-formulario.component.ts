@@ -1,5 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Estado } from '../../../../interface/estado';
 import { Tarea } from '../../../../interface/tarea';
 import { UtilityService } from '../../../../utility/utility.service';
@@ -35,7 +35,7 @@ export const MY_DATE_FORMATS = {
     provideMomentDateAdapter(),
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
   ]
-  
+
 })
 export class TareaFormularioComponent {
   // Se usará para agregar a los Usuarios Seleccionados
@@ -49,6 +49,9 @@ export class TareaFormularioComponent {
   listaProyecto: Proyecto[] = []
   listaUsuario: Usuario[] = []
 
+  // Listas Filtradas
+  filtroListaProyecto: Proyecto[] = []
+
   // Datos de Tareas
   datosTarea!: Tarea
 
@@ -59,6 +62,7 @@ export class TareaFormularioComponent {
   botonAccion: string = "Guardar"
 
   _utilityService!: UtilityService
+  @ViewChild("filtroProyecto") filtroProyecto!: ElementRef;
 
   constructor(
     private tareaService: TareaService,
@@ -93,7 +97,7 @@ export class TareaFormularioComponent {
           this.listaEstado = data.value
         }
       },
-      error: (e) => { 
+      error: (e) => {
         this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de estados", "error")
         console.log(e)
       }
@@ -104,9 +108,10 @@ export class TareaFormularioComponent {
       next: (data) => {
         if (data.status) {
           this.listaProyecto = data.value
+          this.filtroListaProyecto = data.value
         }
       },
-      error: (e) => { 
+      error: (e) => {
         this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de proyectos", "error")
         console.log(e)
       }
@@ -119,14 +124,30 @@ export class TareaFormularioComponent {
           this.listaUsuario = data.value
         }
       },
-      error: (e) => { 
+      error: (e) => {
         this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de usuarios", "error")
         console.log(e)
       }
     })
   }
 
-  onSelectChange(event: MatSelectChange) {
+  limpiarBusquedaProyecto() {
+    this.filtroProyecto.nativeElement.value = "";
+    this.filtroListaProyecto = this.listaProyecto
+  }
+
+  buscarProyecto(event: Event) {
+    const filtro = (event.target as HTMLInputElement).value.toLowerCase();
+
+    if (filtro == "") {
+      this.filtroListaProyecto = this.listaProyecto
+    }
+    else {
+      this.filtroListaProyecto = this.listaProyecto.filter(opcion => opcion.proyNombre.toLowerCase().includes(filtro));
+    }
+  }
+
+  seleccionUsuarios(event: MatSelectChange) {
     if (event.source.selected) {
       // El array de usuarios seleccionados contendrá el Id, de los usuarios en el event.value
       this.usuarioSeleccionados = event.value
@@ -189,7 +210,7 @@ export class TareaFormularioComponent {
             console.log(data.msg)
           }
         },
-        error: (e) => { 
+        error: (e) => {
           this.utilityService.mostrarAlerta("Ocurrio un error al actualizar la tarea", "error")
           console.log(e)
         }

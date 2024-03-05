@@ -30,6 +30,18 @@
     background-position: right;
 }
 
+.mat-Select-Filter {
+    padding: 0 16px;
+    height: 48px;
+    width: 82%;
+    border: 0;
+    font-size: 17px;
+}
+
+.mat-Select-Filter:focus {
+    outline: none;
+}
+
 /*===========Media QUERIAS Pantalla Extra-SM==========*/
 @media (max-width:768px) {
 

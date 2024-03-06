@@ -117,20 +117,21 @@ public partial class ProjectTrackerContext : DbContext
         modelBuilder.Entity<TareaUsuario>(entity => {
             entity.ToTable("TAREA_USUARIO");
 
+            entity.Property(e => e.TareUsuaId).HasColumnName("TARE_USUA_ID");
             entity.Property(e => e.TareId).HasColumnName("TARE_ID");
             entity.Property(e => e.UsuaId).HasColumnName("USUA_ID");
 
-            entity.HasKey(e => new { e.TareId, e.UsuaId });
+            entity.HasKey(e => new { e.TareUsuaId });
 
             entity.HasOne(u => u.Usuarios)
                 .WithMany(tu => tu.TareaUsuarios)
                 .HasForeignKey(u => u.UsuaId) 
-                .HasConstraintName("FK_TAUS_USUA");
+                .HasConstraintName("FK_TARE_USUA_USUA");
 
             entity.HasOne(t => t.Tareas)
                 .WithMany(tu => tu.TareaUsuarios)
                 .HasForeignKey(t => t.TareId)  // Use lambda expression
-                .HasConstraintName("FK_TAUS_TARE");
+                .HasConstraintName("FK_TARE_USUA_TARE");
         });
 
 

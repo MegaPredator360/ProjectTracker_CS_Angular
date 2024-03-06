@@ -34,11 +34,6 @@
                     <mat-form-field style="width: 95%;">
                         <mat-label>Proyecto Perteneciente</mat-label>
                         <mat-select formControlName="proyectoId">
-                            <input #filtroProyecto class="mat-Select-Filter" placeholder="Buscar Proyectos" (keyup)="buscarProyecto($event)">
-                            <button mat-icon-button type="button" (click)="limpiarBusquedaProyecto()">
-                                <mat-icon>close</mat-icon>
-                            </button>
-                            <mat-divider></mat-divider>
                             <!-- Obtendremos la lista de permisos de la API -->
                             <mat-option *ngFor="let item of filtroListaProyecto" [value]="item.proyId">
                                 {{ item.proyNombre }}

@@ -4,7 +4,6 @@ GO
 USE ProjectTracker
 GO
 
-
 -- Creacion de Tabla para los permisos de los usuarios
 CREATE TABLE PERMISO(
     PERM_ID INT IDENTITY(1, 1),

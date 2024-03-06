@@ -62,7 +62,6 @@ export class TareaFormularioComponent {
   botonAccion: string = "Guardar"
 
   _utilityService!: UtilityService
-  @ViewChild("filtroProyecto") filtroProyecto!: ElementRef;
 
   constructor(
     private tareaService: TareaService,
@@ -129,22 +128,6 @@ export class TareaFormularioComponent {
         console.log(e)
       }
     })
-  }
-
-  limpiarBusquedaProyecto() {
-    this.filtroProyecto.nativeElement.value = "";
-    this.filtroListaProyecto = this.listaProyecto
-  }
-
-  buscarProyecto(event: Event) {
-    const filtro = (event.target as HTMLInputElement).value.toLowerCase();
-
-    if (filtro == "") {
-      this.filtroListaProyecto = this.listaProyecto
-    }
-    else {
-      this.filtroListaProyecto = this.listaProyecto.filter(opcion => opcion.proyNombre.toLowerCase().includes(filtro));
-    }
   }
 
   seleccionUsuarios(event: MatSelectChange) {

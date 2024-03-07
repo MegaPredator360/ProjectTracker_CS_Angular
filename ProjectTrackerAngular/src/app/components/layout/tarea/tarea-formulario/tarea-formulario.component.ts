@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Estado } from '../../../../interface/estado';
 import { Tarea } from '../../../../interface/tarea';
 import { UtilityService } from '../../../../utility/utility.service';
@@ -14,6 +14,7 @@ import { Proyecto } from '../../../../interface/proyecto';
 import { Usuario } from '../../../../interface/usuario';
 import { MatSelectChange } from '@angular/material/select';
 import moment from 'moment';
+import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -60,6 +61,21 @@ export class TareaFormularioComponent {
 
   // Titulo del boton del componente
   botonAccion: string = "Guardar"
+
+  // Controla los usuarios seleccionados para seleccion multiple
+  public usuarioCtrl: FormControl<Usuario[] | null> = new FormControl<Usuario[]>([]);
+
+
+  // Controla el filtrador del MatSelect para seleccion multiple
+  public usuarioFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
+
+  // Obtiene la lista de usuarios filtrados por la busqueda
+  public filtradoUsuario: ReplaySubject<Usuario[]> = new ReplaySubject<Usuario[]>(1);
+
+  // Emite un "Subject" (Emisores de Eventos) cuando el componente del select es cerrado
+  protected _onDestroy = new Subject<void>();
+
+
 
   _utilityService!: UtilityService
 
@@ -121,6 +137,7 @@ export class TareaFormularioComponent {
       next: (data) => {
         if (data.status) {
           this.listaUsuario = data.value
+          this.filtrarUsuarios()
         }
       },
       error: (e) => {
@@ -149,10 +166,19 @@ export class TareaFormularioComponent {
       this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
       this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareUsuaId.map((usuario) => usuario))
     }
+
+    // Carga la lista inicial de Usuarios
+    this.filtradoUsuario.next(this.listaUsuario.slice())
+
+    // Toma el valor del campo de busqueda por cambios
+    this.usuarioFiltroCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filtrarUsuarios()
+      });
   }
 
   submitTarea() {
-    console.log(this.usuarioSeleccionados)
     const tarea: Tarea = {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
       tareNombre: this.formularioTarea.value.nombre,
@@ -199,5 +225,27 @@ export class TareaFormularioComponent {
         }
       })
     }
+  }
+
+  protected filtrarUsuarios() {
+    if (!this.listaUsuario) {
+      return;
+    }
+
+    // Obtiene el texto de busqueda
+    let search = this.usuarioFiltroCtrl.value;
+
+    if (!search) {
+      this.filtradoUsuario.next(this.listaUsuario.slice());
+      return;
+    } 
+    else {
+      search = search.toLowerCase();
+    }
+
+    // Filtra los usuarios
+    this.filtradoUsuario.next(
+      this.listaUsuario.filter(usuario => usuario.usuaNombre.toLowerCase().indexOf(search!) > -1)
+    );
   }
 }

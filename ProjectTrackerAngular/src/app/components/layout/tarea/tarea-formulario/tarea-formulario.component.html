@@ -35,9 +35,13 @@
                     <mat-form-field style="width: 95%;">
                         <mat-label>Proyecto Perteneciente</mat-label>
                         <mat-select formControlName="proyectoId">
-                            <!-- Obtendremos la lista de permisos de la API -->
-                            <mat-option *ngFor="let item of filtroListaProyecto" [value]="item.proyId">
-                                {{ item.proyNombre }}
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="proyectoFiltroCtrl"
+                                    placeholderLabel="Buscar Proyecto"
+                                    noEntriesFoundLabel="'No se encontraron resultados'"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filtradoProyecto | async" [value]="item.proyId">
+                                {{item.proyNombre}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -47,9 +51,13 @@
                     <mat-form-field style="width: 95%;">
                         <mat-label>Estado</mat-label>
                         <mat-select formControlName="estadoId">
-                            <!-- Obtendremos la lista de permisos de la API -->
-                            <mat-option *ngFor="let item of listaEstado" [value]="item.estaId">
-                                {{ item.estaNombre }}
+                            <mat-option>
+                                <ngx-mat-select-search [formControl]="estadoFiltroCtrl"
+                                    placeholderLabel="Buscar Estado"
+                                    noEntriesFoundLabel="'No se encontraron resultados'"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filtradoEstado | async" [value]="item.estaId">
+                                {{item.estaNombre}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -60,7 +68,9 @@
                         <mat-label>Asignar Usuarios</mat-label>
                         <mat-select formControlName="usuariosId" (selectionChange)="seleccionUsuarios($event)" multiple>
                             <mat-option>
-                                <ngx-mat-select-search [formControl]="usuarioFiltroCtrl" placeholderLabel="Buscar Usuario" noEntriesFoundLabel="'No se encontraron resultados'" ></ngx-mat-select-search>
+                                <ngx-mat-select-search [formControl]="usuarioFiltroCtrl"
+                                    placeholderLabel="Buscar Usuario"
+                                    noEntriesFoundLabel="'No se encontraron resultados'"></ngx-mat-select-search>
                             </mat-option>
                             <mat-option *ngFor="let item of filtradoUsuario | async" [value]="item.usuaId">
                                 {{item.usuaNombre}}

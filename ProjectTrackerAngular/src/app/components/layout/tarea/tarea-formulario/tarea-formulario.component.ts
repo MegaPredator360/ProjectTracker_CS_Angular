@@ -50,9 +50,6 @@ export class TareaFormularioComponent {
   listaProyecto: Proyecto[] = []
   listaUsuario: Usuario[] = []
 
-  // Listas Filtradas
-  filtroListaProyecto: Proyecto[] = []
-
   // Datos de Tareas
   datosTarea!: Tarea
 
@@ -62,15 +59,15 @@ export class TareaFormularioComponent {
   // Titulo del boton del componente
   botonAccion: string = "Guardar"
 
-  // Controla los usuarios seleccionados para seleccion multiple
-  public usuarioCtrl: FormControl<Usuario[] | null> = new FormControl<Usuario[]>([]);
-
-
   // Controla el filtrador del MatSelect para seleccion multiple
   public usuarioFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
+  public proyectoFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
+  public estadoFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
 
-  // Obtiene la lista de usuarios filtrados por la busqueda
+  // Obtiene la lista de filtrada por la busqueda
   public filtradoUsuario: ReplaySubject<Usuario[]> = new ReplaySubject<Usuario[]>(1);
+  public filtradoProyecto: ReplaySubject<Proyecto[]> = new ReplaySubject<Proyecto[]>(1);
+  public filtradoEstado: ReplaySubject<Estado[]> = new ReplaySubject<Estado[]>(1);
 
   // Emite un "Subject" (Emisores de Eventos) cuando el componente del select es cerrado
   protected _onDestroy = new Subject<void>();
@@ -110,6 +107,7 @@ export class TareaFormularioComponent {
       next: (data) => {
         if (data.status) {
           this.listaEstado = data.value
+          this.filtrarEstados()
         }
       },
       error: (e) => {
@@ -123,7 +121,7 @@ export class TareaFormularioComponent {
       next: (data) => {
         if (data.status) {
           this.listaProyecto = data.value
-          this.filtroListaProyecto = data.value
+          this.filtrarProyectos()
         }
       },
       error: (e) => {
@@ -167,14 +165,28 @@ export class TareaFormularioComponent {
       this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareUsuaId.map((usuario) => usuario))
     }
 
-    // Carga la lista inicial de Usuarios
+    // Carga la lista inicial
     this.filtradoUsuario.next(this.listaUsuario.slice())
+    this.filtradoProyecto.next(this.listaProyecto.slice())
+    this.filtradoEstado.next(this.listaEstado.slice())
 
     // Toma el valor del campo de busqueda por cambios
     this.usuarioFiltroCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
         this.filtrarUsuarios()
+      });
+
+    this.proyectoFiltroCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filtrarProyectos()
+      });
+
+    this.estadoFiltroCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filtrarEstados()
       });
   }
 
@@ -238,7 +250,7 @@ export class TareaFormularioComponent {
     if (!search) {
       this.filtradoUsuario.next(this.listaUsuario.slice());
       return;
-    } 
+    }
     else {
       search = search.toLowerCase();
     }
@@ -246,6 +258,50 @@ export class TareaFormularioComponent {
     // Filtra los usuarios
     this.filtradoUsuario.next(
       this.listaUsuario.filter(usuario => usuario.usuaNombre.toLowerCase().indexOf(search!) > -1)
+    );
+  }
+
+  protected filtrarProyectos() {
+    if (!this.listaProyecto) {
+      return;
+    }
+
+    // Obtiene el texto de busqueda
+    let search = this.proyectoFiltroCtrl.value;
+
+    if (!search) {
+      this.filtradoProyecto.next(this.listaProyecto.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+
+    // Filtra la lista de proyectos
+    this.filtradoProyecto.next(
+      this.listaProyecto.filter(proyecto => proyecto.proyNombre.toLowerCase().indexOf(search!) > -1)
+    );
+  }
+
+  protected filtrarEstados() {
+    if (!this.listaEstado) {
+      return;
+    }
+
+    // Obtiene el texto de busqueda
+    let search = this.estadoFiltroCtrl.value;
+
+    if (!search) {
+      this.filtradoEstado.next(this.listaEstado.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+
+    // Filtra la lista de estados
+    this.filtradoEstado.next(
+      this.listaEstado.filter(estado => estado.estaNombre.toLowerCase().indexOf(search!) > -1)
     );
   }
 }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PermisoService } from '../../../../service/permiso.service';
 import { UsuarioService } from '../../../../service/usuario.service';
 import { UtilityService } from '../../../../utility/utility.service';
@@ -7,6 +7,7 @@ import { Usuario } from '../../../../interface/usuario';
 import { Permiso } from '../../../../interface/permiso';
 import { Router } from '@angular/router';
 import { MatInput } from '@angular/material/input';
+import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-usuario-formulario',
@@ -32,6 +33,15 @@ export class UsuarioFormularioComponent implements OnInit {
 
   // Ocultar Contraseña
   ocultarContrasena: boolean = true
+
+  // Obtiene la lista de filtrada por la busqueda
+  public filtradoPermiso: ReplaySubject<Permiso[]> = new ReplaySubject<Permiso[]>(1);
+
+  // Controla el filtrador del MatSelect para seleccion multiple
+  public permisoFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
+
+  // Emite un "Subject" (Emisores de Eventos) cuando el componente del select es cerrado
+  protected _onDestroy = new Subject<void>();
 
   _utilityService!: UtilityService
 
@@ -74,6 +84,7 @@ export class UsuarioFormularioComponent implements OnInit {
       next: (data) => {
         if (data.status) {
           this.listaPermisos = data.value
+          this.filtrarPermisos()
         }
       },
       error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al cargar la lista de permisos", "error") }
@@ -94,6 +105,16 @@ export class UsuarioFormularioComponent implements OnInit {
       this.formularioUsuario.get('primerInicio')?.setValue(this.datosUsuario.usuaPrimerInicio)
       this.formularioUsuario.get('permisoId')?.setValue(this.datosUsuario.usuaPermId)
     }
+
+    // Carga la lista inicial
+    this.filtradoPermiso.next(this.listaPermisos.slice())
+
+    // Toma el valor del campo de busqueda por cambios
+    this.permisoFiltroCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filtrarPermisos()
+      });
   }
 
   submitUsuario() {
@@ -186,5 +207,27 @@ export class UsuarioFormularioComponent implements OnInit {
         }
       })
     }
+  }
+
+  protected filtrarPermisos() {
+    if (!this.listaPermisos) {
+      return;
+    }
+
+    // Obtiene el texto de busqueda
+    let search = this.permisoFiltroCtrl.value;
+
+    if (!search) {
+      this.filtradoPermiso.next(this.listaPermisos.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+
+    // Filtra la lista de permisos
+    this.filtradoPermiso.next(
+      this.listaPermisos.filter(permiso => permiso.permNombre.toLowerCase().indexOf(search!) > -1)
+    );
   }
 }

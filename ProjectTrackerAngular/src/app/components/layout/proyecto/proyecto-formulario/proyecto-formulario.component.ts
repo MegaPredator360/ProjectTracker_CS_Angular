@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Estado } from '../../../../interface/estado';
 import { Proyecto } from '../../../../interface/proyecto';
 import { UtilityService } from '../../../../utility/utility.service';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import moment from 'moment';
+import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -48,6 +49,15 @@ export class ProyectoFormularioComponent {
   // Titulo del boton del componente
   botonAccion: string = "Guardar"
 
+  // Obtiene la lista de filtrada por la busqueda
+  public filtradoEstado: ReplaySubject<Estado[]> = new ReplaySubject<Estado[]>(1);
+
+  // Controla el filtrador del MatSelect para seleccion multiple
+  public estadoFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
+
+  // Emite un "Subject" (Emisores de Eventos) cuando el componente del select es cerrado
+  protected _onDestroy = new Subject<void>();
+
   _utilityService!: UtilityService
 
   constructor(
@@ -72,11 +82,12 @@ export class ProyectoFormularioComponent {
       this.botonAccion = "Actualizar";
     }
 
-    // Lista de Permisos
+    // Lista de Estados
     this.estadoService.Lista().subscribe({
       next: (data) => {
         if (data.status) {
           this.listaEstado = data.value
+          this.filtrarEstados()
         }
       },
       error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de estados", "error") }
@@ -93,6 +104,16 @@ export class ProyectoFormularioComponent {
 
       this.formularioProyecto.get('estadoId')?.setValue(this.datosProyecto.proyEstaId)
     }
+
+    // Carga la lista inicial
+    this.filtradoEstado.next(this.listaEstado.slice())
+
+    // Toma el valor del campo de busqueda por cambios
+    this.estadoFiltroCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filtrarEstados()
+      });
   }
 
   submitProyecto() {
@@ -134,5 +155,27 @@ export class ProyectoFormularioComponent {
         error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al registrar el proyecto", "error") }
       })
     }
+  }
+
+  protected filtrarEstados() {
+    if (!this.listaEstado) {
+      return;
+    }
+
+    // Obtiene el texto de busqueda
+    let search = this.estadoFiltroCtrl.value;
+
+    if (!search) {
+      this.filtradoEstado.next(this.listaEstado.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+
+    // Filtra la lista de estados
+    this.filtradoEstado.next(
+      this.listaEstado.filter(estado => estado.estaNombre.toLowerCase().indexOf(search!) > -1)
+    );
   }
 }

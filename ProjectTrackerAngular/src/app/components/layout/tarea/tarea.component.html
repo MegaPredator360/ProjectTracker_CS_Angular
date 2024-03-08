@@ -15,21 +15,21 @@
                 </button>
             </mat-grid-tile>
         </mat-grid-list>
-        <table mat-table [dataSource]="dataListaTarea">
-            <ng-container matColumnDef="nombre">
-                <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <table mat-table [dataSource]="dataListaTarea" matSort (matSortChange)="cambiarDireccionSort($event)">
+            <ng-container matColumnDef="tareNombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
                 <td mat-cell *matCellDef="let element">{{ element.tareNombre }}</td>
             </ng-container>
-            <ng-container matColumnDef="proyectoOrigen">
-                <th mat-header-cell *matHeaderCellDef>Proyecto Perteneciente</th>
+            <ng-container matColumnDef="tareProyNombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Proyecto Perteneciente</th>
                 <td mat-cell *matCellDef="let element">{{ element.tareProyNombre }}</td>
             </ng-container>
-            <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <ng-container matColumnDef="tareEstaNombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
                 <td mat-cell *matCellDef="let element">{{ element.tareEstaNombre }}</td>
             </ng-container>
-            <ng-container matColumnDef="usuariosAsignados">
-                <th mat-header-cell *matHeaderCellDef>Usuarios Asignados</th>
+            <ng-container matColumnDef="tareCantidadUsuario">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuarios Asignados</th>
                 <td mat-cell *matCellDef="let element">{{ element.tareCantidadUsuario }}</td>
             </ng-container>
             <ng-container matColumnDef="acciones">

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { Proyecto } from '../../../../interface/proyecto';
@@ -14,6 +14,7 @@ import { UsuarioService } from '../../../../service/usuario.service';
 import { Router } from '@angular/router';
 import { MatSelectChange } from '@angular/material/select';
 import moment from 'moment';
+import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -46,18 +47,25 @@ export class TareaUsuarioFormularioComponent {
 
   // Listas del formulario
   listaEstado: Estado[] = []
-  listaProyecto: Proyecto[] = []
   listaUsuario: Usuario[] = []
 
   // Datos de Tareas
   datosTarea!: Tarea
+
+    // Obtiene la lista de filtrada por la busqueda
+    public filtradoEstado: ReplaySubject<Estado[]> = new ReplaySubject<Estado[]>(1);
+
+    // Controla el filtrador del MatSelect para seleccion multiple
+    public estadoFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
+  
+    // Emite un "Subject" (Emisores de Eventos) cuando el componente del select es cerrado
+    protected _onDestroy = new Subject<void>();
 
   _utilityService!: UtilityService
 
   constructor(
     private tareaService: TareaService,
     private estadoService: EstadoService,
-    private proyectoService: ProyectoService,
     private usuarioService: UsuarioService,
     private utilityService: UtilityService,
     private fb: FormBuilder,
@@ -67,12 +75,12 @@ export class TareaUsuarioFormularioComponent {
     this.datosTarea = this.tareaService.getDatosTarea()
 
     this.formularioTarea = this.fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      fechaInicio: ['', Validators.required],
+      nombre: [''],
+      descripcion: [''],
+      fechaInicio: [''],
       estadoId: ['', Validators.required],
-      proyectoId: ['', Validators.required],
-      usuariosId: [[], Validators.required]
+      proyectoNombre: [''],
+      usuariosId: [[]]
     })
 
     // Lista de Estados
@@ -80,23 +88,11 @@ export class TareaUsuarioFormularioComponent {
       next: (data) => {
         if (data.status) {
           this.listaEstado = data.value
+          this.filtrarEstados()
         }
       },
       error: (e) => {
         this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de estados", "error")
-        console.log(e)
-      }
-    })
-
-    // Lista de Proyectos
-    this.proyectoService.Lista().subscribe({
-      next: (data) => {
-        if (data.status) {
-          this.listaProyecto = data.value
-        }
-      },
-      error: (e) => {
-        this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de proyectos", "error")
         console.log(e)
       }
     })
@@ -126,19 +122,29 @@ export class TareaUsuarioFormularioComponent {
     this.formularioTarea.patchValue({
       nombre: this.datosTarea.tareNombre,
       descripcion: this.datosTarea.tareDescripcion,
-      fechaInicio: moment(this.datosTarea.tareFechaInicio, "DD/MM/YYYY")
+      fechaInicio: this.datosTarea.tareFechaInicio,
+      proyectoNombre: this.datosTarea.tareProyNombre
     })
 
     this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
-    this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
     this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareUsuaId.map((usuario) => usuario))
 
     // Deshabilitar los campos para que no puedan ser editados por el el usuario
     this.formularioTarea.get('nombre')?.disable()
     this.formularioTarea.get('descripcion')?.disable()
     this.formularioTarea.get('fechaInicio')?.disable()
-    this.formularioTarea.get('proyectoId')?.disable()
+    this.formularioTarea.get('proyectoNombre')?.disable()
     this.formularioTarea.get('usuariosId')?.disable()
+
+    // Carga la lista inicial
+    this.filtradoEstado.next(this.listaEstado.slice())
+
+    // Toma el valor del campo de busqueda por cambios
+    this.estadoFiltroCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filtrarEstados()
+      });
   }
 
   submitTarea() {
@@ -171,5 +177,27 @@ export class TareaUsuarioFormularioComponent {
         console.log(e)
       }
     })
+  }
+
+  protected filtrarEstados() {
+    if (!this.listaEstado) {
+      return;
+    }
+
+    // Obtiene el texto de busqueda
+    let search = this.estadoFiltroCtrl.value;
+
+    if (!search) {
+      this.filtradoEstado.next(this.listaEstado.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+
+    // Filtra la lista de estados
+    this.filtradoEstado.next(
+      this.listaEstado.filter(estado => estado.estaNombre.toLowerCase().indexOf(search!) > -1)
+    );
   }
 }

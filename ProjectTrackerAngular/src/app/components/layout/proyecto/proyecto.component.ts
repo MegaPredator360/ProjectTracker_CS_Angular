@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { UtilityService } from '../../../utility/utility.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProyectoModalComponent } from './proyecto-modal/proyecto-modal.component';
-import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-proyecto',

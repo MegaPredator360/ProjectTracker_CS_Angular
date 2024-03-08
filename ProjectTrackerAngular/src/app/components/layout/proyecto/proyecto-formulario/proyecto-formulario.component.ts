@@ -7,11 +7,12 @@ import { ProyectoService } from '../../../../service/proyecto.service';
 import { EstadoService } from '../../../../service/estado.service';
 import { Router } from '@angular/router';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import moment from 'moment';
+import 'moment/locale/es'
 import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 
-export const MY_DATE_FORMATS = {
+export const CalendarioFormatoEspañol = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },
@@ -29,7 +30,8 @@ export const MY_DATE_FORMATS = {
   styleUrl: './proyecto-formulario.component.scss',
   providers: [
     provideMomentDateAdapter(),
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: CalendarioFormatoEspañol },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ]
 })
 
@@ -67,6 +69,7 @@ export class ProyectoFormularioComponent {
     private fb: FormBuilder,
     private router: Router
   ) {
+
     // Obtener los datos almacenados en el servicio
     this.datosProyecto = this.proyectoService.getDatosProyecto()
 

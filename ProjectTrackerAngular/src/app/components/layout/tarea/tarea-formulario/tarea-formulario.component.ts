@@ -7,7 +7,7 @@ import { TareaService } from '../../../../service/tarea.service';
 import { EstadoService } from '../../../../service/estado.service';
 import { Router } from '@angular/router';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
-import { MAT_DATE_FORMATS, MatOptionSelectionChange } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionSelectionChange } from '@angular/material/core';
 import { ProyectoService } from '../../../../service/proyecto.service';
 import { UsuarioService } from '../../../../service/usuario.service';
 import { Proyecto } from '../../../../interface/proyecto';
@@ -16,7 +16,7 @@ import { MatSelectChange } from '@angular/material/select';
 import moment from 'moment';
 import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 
-export const MY_DATE_FORMATS = {
+export const CalendarioFormatoEspañol = {
   parse: {
     dateInput: 'DD/MM/YYYY',
   },
@@ -34,7 +34,8 @@ export const MY_DATE_FORMATS = {
   styleUrl: './tarea-formulario.component.scss',
   providers: [
     provideMomentDateAdapter(),
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: CalendarioFormatoEspañol },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ]
 
 })

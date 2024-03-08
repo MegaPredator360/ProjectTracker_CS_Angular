@@ -5,6 +5,8 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { TareaService } from '../../../service/tarea.service';
 import { UtilityService } from '../../../utility/utility.service';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-tarea-usuario',
@@ -12,17 +14,19 @@ import { UtilityService } from '../../../utility/utility.service';
   styleUrl: './tarea-usuario.component.scss'
 })
 export class TareaUsuarioComponent {
-  colunmasTabla: string[] = ['nombre', 'proyectoOrigen', 'estado', 'usuariosAsignados', 'acciones']
+  colunmasTabla: string[] = ['tareNombre', 'tareProyNombre', 'tareEstaNombre', 'tareCantidadUsuario', 'acciones']
   dataInicio: Tarea[] = []
   dataListaTarea = new MatTableDataSource(this.dataInicio)
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
+  @ViewChild(MatSort) sortTabla!: MatSort;
   mensajeVacio: string = "No hay tareas registradas"
 
   constructor(
     private router: Router,
     private tareaService: TareaService,
     private utilityService: UtilityService,
-    private paginator: MatPaginatorIntl
+    private paginator: MatPaginatorIntl,
+    private liveAnnouncer: LiveAnnouncer
   ) {
     this.paginator.itemsPerPageLabel = 'Tareas por pagina: ';
   }
@@ -52,6 +56,16 @@ export class TareaUsuarioComponent {
 
   ngAfterViewInit(): void {
     this.dataListaTarea.paginator = this.paginacionTabla
+    this.dataListaTarea.sort = this.sortTabla;
+  }
+
+  cambiarDireccionSort(sortState: Sort) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } 
+    else {
+      this.liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
   filtroTabla(event: Event) {

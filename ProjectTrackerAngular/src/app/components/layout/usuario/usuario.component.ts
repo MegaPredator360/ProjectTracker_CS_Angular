@@ -49,7 +49,6 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.obtenerUsuarios()
-    this.dataListaUsuarios.sort = this.sortTabla;
   }
 
   ngAfterViewInit(): void {
@@ -60,7 +59,8 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   cambiarDireccionSort(sortState: Sort) {
     if (sortState.direction) {
       this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
+    } 
+    else {
       this.liveAnnouncer.announce('Sorting cleared');
     }
   }

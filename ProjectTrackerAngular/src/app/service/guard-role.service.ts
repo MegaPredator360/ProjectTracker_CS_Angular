@@ -16,13 +16,13 @@ export class GuardRoleService {
     ): | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         const usuario = this.utilityService.obtenerSesion();
         const routeRoles = route.data['roles'];
-        if (usuario!.role == "Administrador" && routeRoles[0] == "Administrador") {
+        if (usuario!.permiso == "Administrador" && routeRoles[0] == "Administrador") {
             return true;
         }
-        else if (usuario!.role == "Gerente" && routeRoles[1] == "Gerente") {
+        else if (usuario!.permiso == "Gerente" && routeRoles[1] == "Gerente") {
             return true;
         }
-        else if (usuario!.role == "Usuario" && routeRoles[0] == "Usuario") {
+        else if (usuario!.permiso == "Usuario" && routeRoles[0] == "Usuario") {
             return true;
         }
         else {

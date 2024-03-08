@@ -20,8 +20,8 @@ export class LayoutComponent {
     const usuario = this.utilityService.obtenerSesion();
 
     if (usuario != null) {
-      this.permisoNombre = usuario.role;
-      this.userName = usuario.family_name;
+      this.permisoNombre = usuario.permiso;
+      this.userName = usuario.username;
     }
     else {
       this.permisoNombre = '';

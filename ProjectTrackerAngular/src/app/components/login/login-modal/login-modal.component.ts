@@ -46,7 +46,7 @@ export class LoginModalComponent {
     }
 
     const usuario: Usuario = {
-      usuaId: parseInt(this.datoSesion.nameid),
+      usuaId: parseInt(this.datoSesion.usuarioId),
       usuaCedula: "",
       usuaNombre: "",
       usuaUsername: "",

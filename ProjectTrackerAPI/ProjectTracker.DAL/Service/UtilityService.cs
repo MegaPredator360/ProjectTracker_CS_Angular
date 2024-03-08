@@ -43,10 +43,10 @@ namespace ProjectTracker.DAL.Service
             // Apartir de la informacion del usuario se creará el token
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier,_usuarioId.ToString()),
-                new Claim(ClaimTypes.Surname, _userName),
-                new Claim(ClaimTypes.Role, _permisoNombre),
-                new Claim(ClaimTypes.Name, _primerInicio.ToString()!)
+                new Claim("usuarioId",_usuarioId.ToString()),
+                new Claim("username", _userName),
+                new Claim("permiso", _permisoNombre),
+                new Claim("primerInicio", _primerInicio.ToString()!)
             };
 
             var claimIdentity = new ClaimsIdentity(claims);

@@ -1,41 +1,20 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { Proyecto } from '../../../../interface/proyecto';
 import { Estado } from '../../../../interface/estado';
 import { Usuario } from '../../../../interface/usuario';
 import { Tarea } from '../../../../interface/tarea';
 import { UtilityService } from '../../../../utility/utility.service';
 import { TareaService } from '../../../../service/tarea.service';
 import { EstadoService } from '../../../../service/estado.service';
-import { ProyectoService } from '../../../../service/proyecto.service';
 import { UsuarioService } from '../../../../service/usuario.service';
 import { Router } from '@angular/router';
 import { MatSelectChange } from '@angular/material/select';
-import moment from 'moment';
 import { ReplaySubject, Subject, takeUntil } from 'rxjs';
-
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-}
 
 @Component({
   selector: 'app-tarea-usuario-formulario',
   templateUrl: './tarea-usuario-formulario.component.html',
-  styleUrl: './tarea-usuario-formulario.component.scss',
-  providers: [
-    provideMomentDateAdapter(),
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
-  ]
+  styleUrl: './tarea-usuario-formulario.component.scss'
 })
 
 export class TareaUsuarioFormularioComponent {
@@ -152,7 +131,7 @@ export class TareaUsuarioFormularioComponent {
       tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
       tareNombre: this.datosTarea.tareNombre,
       tareDescripcion: this.datosTarea.tareDescripcion,
-      tareFechaInicio: moment(this.formularioTarea.value.fechaInicio).format('DD/MM/YYYY'),
+      tareFechaInicio: this.datosTarea.tareFechaInicio,
       tareProyId: this.datosTarea.tareProyId,
       tareProyNombre: "",
       tareEstaId: this.formularioTarea.value.estadoId,

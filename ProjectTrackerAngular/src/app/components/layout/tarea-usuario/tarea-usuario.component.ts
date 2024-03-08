@@ -18,7 +18,7 @@ export class TareaUsuarioComponent {
   dataInicio: Tarea[] = []
   dataListaTarea = new MatTableDataSource(this.dataInicio)
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
-  @ViewChild(MatSort) sortTabla!: MatSort;
+  @ViewChild(MatSort) sortTabla!: MatSort
   mensajeVacio: string = "No hay tareas registradas"
 
   constructor(

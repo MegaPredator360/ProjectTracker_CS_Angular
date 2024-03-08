@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { UtilityService } from '../../../utility/utility.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProyectoModalComponent } from './proyecto-modal/proyecto-modal.component';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-proyecto',
@@ -15,11 +17,12 @@ import { ProyectoModalComponent } from './proyecto-modal/proyecto-modal.componen
 })
 
 export class ProyectoComponent {
-  colunmasTabla: string[] = ['nombre', 'fechaInicio', 'estado', 'cantidadTareas', 'acciones']
+  colunmasTabla: string[] = ['proyNombre', 'proyFechaInicio', 'proyEstaNombre', 'proyCantidadTarea', 'acciones']
   dataInicio: Proyecto[] = []
   dataListaProyecto = new MatTableDataSource(this.dataInicio)
   proyectoVacio!: Proyecto
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
+  @ViewChild(MatSort) sortTabla!: MatSort
   mensajeVacio: string = "No hay proyectos registrados"
 
   constructor(
@@ -27,7 +30,8 @@ export class ProyectoComponent {
     private proyectoService: ProyectoService,
     private utilityService: UtilityService,
     private dialog: MatDialog,
-    private paginator: MatPaginatorIntl
+    private paginator: MatPaginatorIntl,
+    private liveAnnouncer: LiveAnnouncer
   ) { 
     this.paginator.itemsPerPageLabel = 'Proyectos por pagina: ';
   }
@@ -52,6 +56,16 @@ export class ProyectoComponent {
 
   ngAfterViewInit(): void {
     this.dataListaProyecto.paginator = this.paginacionTabla
+    this.dataListaProyecto.sort = this.sortTabla;
+  }
+
+  cambiarDireccionSort(sortState: Sort) {
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } 
+    else {
+      this.liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
   filtroTabla(event: Event) {

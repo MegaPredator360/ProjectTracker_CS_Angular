@@ -22,7 +22,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   dataListaUsuarios = new MatTableDataSource(this.dataInicio)
   usuarioVacio!: Usuario
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
-  @ViewChild(MatSort) sortTabla!: MatSort;
+  @ViewChild(MatSort) sortTabla!: MatSort
   mensajeVacio: string = "No hay usuarios registrados";
 
   constructor(

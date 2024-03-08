@@ -30,6 +30,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MomentDateModule } from '@angular/material-moment-adapter'
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
     declarations: [],
@@ -65,6 +66,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
         MatCheckboxModule,
         MomentDateModule,
         MatSelectModule,
+        MatSortModule,
         NgxMatSelectSearchModule
     ],
     providers: [

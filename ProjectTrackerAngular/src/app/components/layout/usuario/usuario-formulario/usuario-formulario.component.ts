@@ -87,7 +87,10 @@ export class UsuarioFormularioComponent implements OnInit {
           this.filtrarPermisos()
         }
       },
-      error: (e) => { this.utilityService.mostrarAlerta("Ocurrio un error al cargar la lista de permisos", "error") }
+      error: (e) => { 
+        this.utilityService.mostrarAlerta("Ocurrio un error al cargar la lista de permisos", "error")
+        console.log(e)
+      }
     })
   }
 

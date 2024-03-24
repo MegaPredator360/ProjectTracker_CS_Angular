@@ -9,9 +9,9 @@ import { UtilityService } from '../../../utility/utility.service';
   templateUrl: './configuracion-usuario.component.html',
   styleUrl: './configuracion-usuario.component.scss'
 })
-export class ConfiguracionUsuarioComponent implements OnInit {
+export class ConfiguracionUsuarioComponent {
   formularioUsuario: FormGroup
-  datosUsuario!: Usuario
+  datosUsuario: Usuario
   ocultarContrasena: boolean = true
 
   constructor(
@@ -33,10 +33,26 @@ export class ConfiguracionUsuarioComponent implements OnInit {
       confirmarContrasena: [''],
       correo: ['', Validators.required]
     })
-  }
 
-  ngOnInit() {
-    
+    // Obtener Usuario
+    this.usuarioService.ObtenerUsuario(parseInt(this.utilityService.obtenerSesion().usuarioId)).subscribe({
+      next: (data) => {
+        if (data.status) {
+          this.formularioUsuario.patchValue({
+            cedula: data.value.usuaCedula,
+            nombre: data.value.usuaNombre,
+            telefono: data.value.usuaTelefono,
+            direccion: data.value.usuaDireccion,
+            username: data.value.usuaUsername,
+            correo: data.value.usuaCorreo
+          })
+        }
+      },
+      error: (e) => { 
+        this.utilityService.mostrarAlerta("Ocurrio un error al cargar los datos del usuario", "error")
+        console.log(e)
+      }
+    })
   }
 
   submitUsuario() {
@@ -67,7 +83,7 @@ export class ConfiguracionUsuarioComponent implements OnInit {
     }
 
     const usuario: Usuario = {
-      usuaId: this.datosUsuario.usuaId,
+      usuaId: parseInt(this.utilityService.obtenerSesion().usuarioId),
       usuaCedula: this.formularioUsuario.value.cedula,
       usuaNombre: this.formularioUsuario.value.nombre,
       usuaUsername: this.formularioUsuario.value.username,
@@ -75,9 +91,9 @@ export class ConfiguracionUsuarioComponent implements OnInit {
       usuaDireccion: this.formularioUsuario.value.direccion,
       usuaCorreo: this.formularioUsuario.value.correo,
       usuaContrasena: this.formularioUsuario.value.contrasena,
-      usuaPermId: this.datosUsuario.usuaPermId,
+      usuaPermId: parseInt(this.utilityService.obtenerSesion().permisoId),
       usuaPermNombre: "",
-      usuaPrimerInicio: this.datosUsuario.usuaPrimerInicio
+      usuaPrimerInicio: parseInt(this.utilityService.obtenerSesion().primerInicio)
     }
 
     this.usuarioService.Editar(usuario).subscribe({

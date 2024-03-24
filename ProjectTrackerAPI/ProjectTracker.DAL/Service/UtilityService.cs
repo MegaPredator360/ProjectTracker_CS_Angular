@@ -45,7 +45,7 @@ namespace ProjectTracker.DAL.Service
             {
                 new Claim("usuarioId",_usuarioId.ToString()),
                 new Claim("username", _userName),
-                new Claim("permiso", _permisoId.ToString()),
+                new Claim("permisoId", _permisoId.ToString()),
                 new Claim("primerInicio", Convert.ToInt32(_primerInicio).ToString())
             };
 

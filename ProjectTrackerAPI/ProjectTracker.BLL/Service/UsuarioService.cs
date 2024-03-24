@@ -72,11 +72,11 @@ namespace ProjectTracker.BLL.Service
                 }
                 else
                 {                    
-                    // Una vez encontrado el usuario, obtenemos el los permisos del usuario
-                    Usuario usuarioEncontrado = queryUsuario.Include(p => p.UsuaPerm).FirstOrDefault()!;
+                    // Una vez encontrado el usuario, obtenemos los datos del usuario
+                    Usuario usuarioEncontrado = queryUsuario.FirstOrDefault()!;
 
                     // Convertimos los datos en un token encriptado para ser enviado a la aplicacion de Angular
-                    return utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaPerm!.PermNombre!, usuarioEncontrado.UsuaPrimerInicio);
+                    return utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaPrimerInicio);
 
                 }
             }

@@ -32,7 +32,7 @@ namespace ProjectTracker.DAL.Service
             return Convert.ToHexString(contrasenaHash); 
         }
 
-        public string GenerarToken(int _usuarioId, string _userName, string _permisoNombre, bool? _primerInicio)
+        public string GenerarToken(int _usuarioId, string _userName, int _permisoId, bool? _primerInicio)
         {
             // Se obtiene una llave de carateres que usará para generar nuestro token, esta llave estará ubicada en el appSettings.json
             var llave = config.GetValue<string>("JwtSettings:key");
@@ -45,8 +45,8 @@ namespace ProjectTracker.DAL.Service
             {
                 new Claim("usuarioId",_usuarioId.ToString()),
                 new Claim("username", _userName),
-                new Claim("permiso", _permisoNombre),
-                new Claim("primerInicio", _primerInicio.ToString()!)
+                new Claim("permiso", _permisoId.ToString()),
+                new Claim("primerInicio", Convert.ToInt32(_primerInicio).ToString())
             };
 
             var claimIdentity = new ClaimsIdentity(claims);

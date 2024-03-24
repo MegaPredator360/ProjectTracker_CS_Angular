@@ -2,6 +2,6 @@ export interface Sesion
 {
     usuarioId: string,
     username: string,
-    permiso: string,
+    permisoId: string,
     primerInicio: string
 }

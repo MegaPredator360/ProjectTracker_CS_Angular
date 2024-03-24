@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtilityService } from '../../utility/utility.service';
+import { UsuarioService } from '../../service/usuario.service';
 
 @Component({
   selector: 'app-layout',
@@ -13,26 +14,36 @@ export class LayoutComponent {
 
   constructor(
     private router: Router,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
     const usuario = this.utilityService.obtenerSesion();
 
     if (usuario != null) {
-      if (usuario.permisoId == "1")
-      {
-        this.permisoNombre = "Administrador"
+
+      switch(usuario.permisoId) {
+        case "1":
+          this.permisoNombre = "Administrador"
+          break
+
+        case "2":
+          this.permisoNombre = "Gerente"
+          break
+
+        case "3":
+          this.permisoNombre = "Usuario"
+          break
       }
-      else if (usuario.permisoId == "2")
-      {
-        this.permisoNombre = "Gerente"
-      }
-      else if (usuario.permisoId == "3")
-      {
-        this.permisoNombre = "Usuario"
-      }
-      this.userName = usuario.username;
+
+      this.usuarioService.ObtenerUsuario(parseInt(usuario.usuarioId)).subscribe({
+        next: (data) => {
+          if (data.status) {
+            this.userName = data.value.usuaUsername
+          }
+        }
+      })
     }
     else {
       this.permisoNombre = '';

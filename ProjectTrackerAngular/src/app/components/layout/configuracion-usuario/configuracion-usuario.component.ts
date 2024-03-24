@@ -100,6 +100,7 @@ export class ConfiguracionUsuarioComponent {
       next: (data) => {
         if (data.status) {
           this.utilityService.mostrarAlerta("El usuario fue actualizado", "exito")
+          window.location.reload()
         }
         else {
           this.utilityService.mostrarAlerta("Ocurrio un error al actualizar el usuario", "error")

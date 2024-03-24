@@ -36,6 +36,26 @@ namespace ProjectTracker.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("Unico/{Id:int}")]
+        public async Task<IActionResult> Lista(int Id)
+        {
+            var response = new Response<UsuarioDTO>();
+
+            try
+            {
+                response.Status = true;
+                response.value = await usuarioService.ObtenerUsuario(Id);
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.msg = ex.Message;
+            }
+
+            return Ok(response);
+        }
+
         [HttpPost]
         [Route("IniciarSesion")]
         public async Task<IActionResult> IniciarSesion([FromBody] IniciarSesionDTO _iniciarSesionDTO)

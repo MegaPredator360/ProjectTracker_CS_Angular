@@ -42,6 +42,19 @@ namespace ProjectTracker.BLL.Service
             }
         }
 
+        public async Task<UsuarioDTO> ObtenerUsuario(int _usuarioId)
+        {
+            try
+            {
+                // Convertimos de Usuario a UsuarioDTO con la ayuda de AutoMapper
+                return mapper.Map<UsuarioDTO>(await usuarioService.Obtener(u => u.UsuaId == _usuarioId));
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public async Task<string> ValidarCredenciales(string _correo, string _contrasena)
         {
             try

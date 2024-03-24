@@ -22,14 +22,14 @@ export class UtilityService {
         localStorage.setItem("token", JSON.stringify(token))
     }
 
-    obtenerSesion() {
+    obtenerSesion(): Sesion {
         const dataCadena = localStorage.getItem("token")
 
         if (dataCadena != null) {
             return JSON.parse(atob(dataCadena!.split('.')[1])) as Sesion
         }
         else {
-            return null;
+            return this.user;
         }
     }
 

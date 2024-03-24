@@ -76,7 +76,7 @@ namespace ProjectTracker.BLL.Service
                     Usuario usuarioEncontrado = queryUsuario.FirstOrDefault()!;
 
                     // Convertimos los datos en un token encriptado para ser enviado a la aplicacion de Angular
-                    return utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaUsername!, usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaPrimerInicio);
+                    return utilityService.GenerarToken(usuarioEncontrado.UsuaId, usuarioEncontrado.UsuaPermId, usuarioEncontrado.UsuaPrimerInicio);
 
                 }
             }

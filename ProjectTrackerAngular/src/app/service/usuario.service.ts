@@ -24,6 +24,10 @@ export class UsuarioService {
         return this.http.get<ResponseApi>(`${this.urlApi}Lista`)
     }
 
+    ObtenerUsuario(Id: number): Observable<ResponseApi> {
+        return this.http.get<ResponseApi>(`${this.urlApi}Unico/${Id}`)
+    }
+
     Guardar(request: Usuario): Observable<ResponseApi> {
         return this.http.post<ResponseApi>(`${this.urlApi}Guardar`, request)
     }

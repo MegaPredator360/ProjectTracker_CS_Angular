@@ -29,8 +29,9 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MomentDateModule } from '@angular/material-moment-adapter'
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatSortModule } from '@angular/material/sort';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search'
+import { MatSortModule } from '@angular/material/sort'
+import { MatMenuModule } from '@angular/material/menu'
 
 @NgModule({
     declarations: [],
@@ -67,6 +68,7 @@ import { MatSortModule } from '@angular/material/sort';
         MomentDateModule,
         MatSelectModule,
         MatSortModule,
+        MatMenuModule,
         NgxMatSelectSearchModule
     ],
     providers: [

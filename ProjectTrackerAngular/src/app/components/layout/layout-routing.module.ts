@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { GuardRoleService } from '../../service/guard-role.service';
 import { TareaUsuarioFormularioComponent } from './tarea-usuario/tarea-usuario-formulario/tarea-usuario-formulario.component';
+import { ConfiguracionUsuarioComponent } from './configuracion-usuario/configuracion-usuario.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,6 +22,7 @@ const routes: Routes = [{
     { path: '*', component: HomeComponent },
     { path: 'usuario', component: UsuarioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador'] } },
     { path: 'usuario/formulario', component: UsuarioFormularioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador'] } },
+    { path: 'usuario/configuracion', component: ConfiguracionUsuarioComponent },
     { path: 'proyecto', component: ProyectoComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
     { path: 'proyecto/formulario', component: ProyectoFormularioComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },
     { path: 'tarea', component: TareaComponent, canActivate: [GuardRoleService], data: {roles: ['Administrador', 'Gerente'] } },

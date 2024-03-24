@@ -16,6 +16,7 @@ import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
 import { HomeComponent } from './home/home.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { TareaUsuarioFormularioComponent } from './tarea-usuario/tarea-usuario-formulario/tarea-usuario-formulario.component';
+import { ConfiguracionUsuarioComponent } from './configuracion-usuario/configuracion-usuario.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TareaUsuarioFormularioComponent } from './tarea-usuario/tarea-usuario-f
     TareaFormularioComponent,
     TareaModalComponent,
     HomeComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    ConfiguracionUsuarioComponent
   ],
   imports: [
     CommonModule,

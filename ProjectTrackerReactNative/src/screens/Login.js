@@ -9,7 +9,7 @@ import MatInput from '../components/MatInput/matInput';
 // Se declara una variable conteniendo la ruta de la imagen
 WFicon = require('../assets/logoWF.png')
 
-const LoginScreen = ({ }) => {
+const LoginScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <MatCard>
@@ -19,7 +19,10 @@ const LoginScreen = ({ }) => {
                     <MatInput style={styles.TextInput} label='Correo' inputWidth={300} />
                     <MatInput style={styles.TextInput} label='Contraseña' inputWidth={300} />
                     <View style={styles.ButtonPadding}>
-                        <Button title='Iniciar Sesión' />
+                        <Button
+                            title='Iniciar Sesión'
+                            onPress={() => navigation.navigate('Layout')}
+                        />
                     </View>
                 </MatCardContent>
             </MatCard>

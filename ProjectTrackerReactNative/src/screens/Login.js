@@ -1,5 +1,6 @@
 import { StyleSheet, Image, View, Button } from 'react-native';
 
+
 // Componentes Personalizados
 import MatCard from '../components/MatCard/matCard'
 import MatCardHeader from '../components/MatCard/matCardHeader';
@@ -10,6 +11,7 @@ import MatInput from '../components/MatInput/matInput';
 WFicon = require('../assets/logoWF.png')
 
 const LoginScreen = ({ navigation }) => {
+
     return (
         <View style={styles.container}>
             <MatCard>

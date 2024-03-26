@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 
-const MatCardContent = (props) => {
+const MatCardContent = (props: any) => {
     return (
         <View style={styles.cardContent}>
             {props.children}

@@ -1,11 +1,16 @@
 import { useState, useRef } from 'react';
 import { View, TextInput, TouchableWithoutFeedback, Animated, StyleSheet, Platform } from "react-native";
 
-const MatInput = ({ label, inputWidth, ...rest }) => {
+type MatInputProps = {
+    label?: string;
+    inputWidth?: number;
+};
+
+const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, ...rest }) => {
 
     const [focused, setFocused] = useState(false);
     const [text, setText] = useState('');
-    const inputRef = useRef(null);
+    const inputRef = useRef<TextInput>(null);
     const labelPosition = useRef(new Animated.Value(10)).current;
     const labelFontSize = useRef(new Animated.Value(16)).current;
 
@@ -47,12 +52,10 @@ const MatInput = ({ label, inputWidth, ...rest }) => {
     };
 
     const handleLabelPress = () => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
+        inputRef.current?.focus();
     };
 
-    const handleInputChange = (value) => {
+    const handleInputChange = (value: string) => {
         setText(value);
     };
 
@@ -79,7 +82,6 @@ const MatInput = ({ label, inputWidth, ...rest }) => {
                 >
                     {label}
                 </Animated.Text>
-                <View style={styles.underline} />
             </View>
         </TouchableWithoutFeedback>
     );

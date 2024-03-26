@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 
-const MatCard = (props) => {
+const MatCard = (props: any) => {
     return (
         <View style={styles.card}>
             {props.children}
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 }, // iOS
         shadowOpacity: 0.25, // iOS
         shadowRadius: 4, // iOS
-        //padding: 16
     }
 });
 

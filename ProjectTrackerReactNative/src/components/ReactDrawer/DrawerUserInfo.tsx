@@ -2,7 +2,7 @@ import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawe
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 
-const DrawerUserInfo = (props) => {
+const DrawerUserInfo = (props: any) => {
 
     const navigation = useNavigation();
 
@@ -41,7 +41,7 @@ const DrawerUserInfo = (props) => {
                     backgroundColor: '#f6f6f6',
                     padding: 20,
                 }}
-                onPress={() => navigation.navigate('Iniciar Sesion')}
+                onPress={() => navigation.navigate('Iniciar Sesion' as never)}
             >
                 <Text>Log Out</Text>
             </TouchableOpacity>

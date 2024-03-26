@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native"
 import React, {useEffect} from 'react';
 import { Alert, BackHandler } from 'react-native';
 
-const HomeScreen = ({}) => {
+const HomeScreen = () => {
 
     // Para mostrar alerta al abandonar la aplicación
     useEffect(() => {

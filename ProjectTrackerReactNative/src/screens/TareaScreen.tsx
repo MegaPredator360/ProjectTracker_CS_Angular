@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from "react-native"
 
-const TareaScreen = ({}) => {
+const TareaScreen = () => {
     return (
         <View style={styles.container}>
             <Text>

@@ -1,10 +1,17 @@
 import { View, Text, StyleSheet } from "react-native";
 
-const MatCardHeader = ({ title, subtitle, titlePosition }) => {
+type MatCardHeaderProps = {
+    title?: string;
+    subtitle?: string;
+    // Los tipos de parametros que se pueden recibir
+    titlePosition?: 'left' | 'center' | 'right';
+};
+
+const MatCardHeader: React.FC<MatCardHeaderProps> = ({ title, subtitle, titlePosition }) => {
     return (
         <View style={styles.content}>
             {title && (
-                <Text style={[styles.title, {textAlign: titlePosition}]}>{title}</Text>
+                <Text style={[styles.title, { textAlign: titlePosition }]}>{title}</Text>
             )}
             {subtitle && (
                 <Text style={styles.subtitle}>{subtitle}</Text>

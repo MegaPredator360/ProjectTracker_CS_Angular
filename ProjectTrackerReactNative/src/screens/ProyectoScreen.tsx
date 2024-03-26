@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from "react-native"
 
-const ProyectoScreen = ({}) => {
+const ProyectoScreen = () => {
     return (
         <View style={styles.container}>
             <Text>

@@ -1,9 +1,9 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerUserInfo from '../components/ReactDrawer/DrawerUserInfo';
-import HomeScreen from './Home';
-import UsuarioScreen from './Usuario';
-import ProyectoScreen from './Proyecto';
-import TareaScreen from './Tarea';
+import HomeScreen from './HomeScreen';
+import UsuarioScreen from './UsuarioScreen';
+import ProyectoScreen from './ProyectoScreen';
+import TareaScreen from './TareaScreen';
 
 const Drawer = createDrawerNavigator();
 

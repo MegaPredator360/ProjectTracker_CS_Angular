@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './src/screens/Login';
-import LayoutScreen from './src/screens/Layout';
+import LoginScreen from './src/screens/LoginScreen';
+import LayoutScreen from './src/screens/LayoutScreen';
 
 // Definimos una variable para obtener metodos de navegacion
 const Stack = createNativeStackNavigator()

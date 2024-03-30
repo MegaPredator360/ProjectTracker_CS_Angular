@@ -6,25 +6,32 @@ const UsuarioScreen = () => {
 
     const [listaUsuario, setListaUsuario] = useState([])
 
+    // Obtenemos la lista de Usuarios
     const obtenerUsuarios = async () => {
+
+        // Llamamos al metodo de lista del servicio de usuarios
         await UsuarioService.Lista()
-            .then(response => response.json())
             .then(data => {
-                // Aquí puedes procesar los datos recibidos
-                console.log(data);
+                if (data.status) {
+                    // Aquí puedes procesar los datos recibidos
+                    console.log(data.value);
+                }
+                else {
+                    console.error(data.msg);
+                }
             })
             .catch(error => {
                 // Manejar errores
-                console.error('Error al realizar la solicitud:', error);
+                console.error(error);
             })
-        }
+    }
 
     return (
         <View style={styles.container}>
             <Text>
                 Usuario Screen
             </Text>
-            <Button title="Obtener Usuarios" onPress={obtenerUsuarios}/>
+            <Button title="Obtener Usuarios" onPress={obtenerUsuarios} />
         </View>
     )
 }

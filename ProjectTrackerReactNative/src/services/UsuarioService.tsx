@@ -1,19 +1,27 @@
 import { Environment } from "../environments/environment"
 import { InicioSesion } from "../interfaces/InicioSesionInterface"
+import { ResponseAPI } from "../interfaces/ResponseApiInterface"
 import { Usuario } from "../interfaces/UsuarioInterface"
 
 class UsuarioService {
 
     urlAPI = Environment.endpoint + "Usuario/"
 
-    async Lista(): Promise<Response> {
-        return await fetch(`${this.urlAPI}Lista`, {
+    // Obtener la lista de Usuarios Registrados
+    async Lista(): Promise<ResponseAPI> {
+
+        // Se realiza la solicitud a la API
+        const response = await fetch(`${this.urlAPI}Lista`, {
             method: 'GET'
         })
+
+        // Se retorna la respuesta de la API
+        return response.json()
     }
 
-    async IniciarSesion(request: InicioSesion): Promise<Response> {
-        return await fetch(`${this.urlAPI}IniciarSesion`, {
+    // Validar el inicio de sesion
+    async IniciarSesion(request: InicioSesion): Promise<ResponseAPI> {
+        const response = await fetch(`${this.urlAPI}IniciarSesion`, {
             method: 'POST',
             body: JSON.stringify({
                 correo: request.correo,
@@ -23,16 +31,22 @@ class UsuarioService {
                 'Content-type': 'application/json; charset=UTF-8',
             }
         })
+
+        return response.json()
     }
 
-    async ObtenerUsuario(Id: number): Promise<Response> {
-        return await fetch(`${this.urlAPI}Unico/${Id}`, {
+    // Obtener un usuario especifico mediante el ID
+    async ObtenerUsuario(Id: number): Promise<ResponseAPI> {
+        const response = await fetch(`${this.urlAPI}Unico/${Id}`, {
             method: 'GET'
         })
+
+        return response.json()
     }
 
-    async Guardar(request: Usuario): Promise<Response> {
-        return await fetch(`${this.urlAPI}Guardar`, {
+    // Guardar un usuario a la base de datos
+    async Guardar(request: Usuario): Promise<ResponseAPI> {
+        const response = await fetch(`${this.urlAPI}Guardar`, {
             method: 'POST',
             body: JSON.stringify({
                 usuaId: request.usuaId,
@@ -51,10 +65,13 @@ class UsuarioService {
                 'Content-type': 'application/json; charset=UTF-8',
             }
         })
+
+        return response.json()
     }
 
-    async Editar(request: Usuario): Promise<Response> {
-        return await fetch(`${this.urlAPI}Editar`, {
+    // Editar un usuario de la base de datos
+    async Editar(request: Usuario): Promise<ResponseAPI> {
+        const response = await fetch(`${this.urlAPI}Editar`, {
             method: 'PUT',
             body: JSON.stringify({
                 usuaId: request.usuaId,
@@ -73,16 +90,22 @@ class UsuarioService {
                 'Content-type': 'application/json; charset=UTF-8',
             }
         })
+
+        return response.json()
     }
 
-    async Eliminar(Id: number): Promise<Response> {
-        return await fetch(`${this.urlAPI}Eliminar/${Id}`, {
+    // Eliminar un usuario registrado
+    async Eliminar(Id: number): Promise<ResponseAPI> {
+        const response = await fetch(`${this.urlAPI}Eliminar/${Id}`, {
             method: 'DELETE'
         })
+
+        return response.json()
     }
 
-    async CambiarContraseña(request: Usuario): Promise<Response> {
-        return await fetch(`${this.urlAPI}CambiarContrasena`, {
+    // Cambiar la contraseña de un usuario al iniciar sesion
+    async CambiarContraseña(request: Usuario): Promise<ResponseAPI> {
+        const response = await fetch(`${this.urlAPI}CambiarContrasena`, {
             method: 'PUT',
             body: JSON.stringify({
                 usuaId: request.usuaId,
@@ -101,6 +124,8 @@ class UsuarioService {
                 'Content-type': 'application/json; charset=UTF-8',
             }
         })
+
+        return response.json()
     }
 }
 

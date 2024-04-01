@@ -1,14 +1,17 @@
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
-const MatDivider = () => {
-    return <View style={styles.divider} />;
+type MatDividerProps = {
+    color?: string;
 };
 
-const styles = StyleSheet.create({
-    divider: {
-        height: 1,
-        backgroundColor: 'black',
-    },
-});
+const MatDivider: React.FC<MatDividerProps> = ({ color }) => {
+
+    // Verificar si el color está vacío o no
+    const dividerColor = color ? color : 'black'; // Si el color está vacío, se establece negro como predeterminado
+
+    return (
+        <View style={{ height: 1, backgroundColor: dividerColor }} />
+    );
+};
 
 export default MatDivider;

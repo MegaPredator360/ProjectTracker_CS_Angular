@@ -5,7 +5,7 @@ import { Usuario } from "../interfaces/UsuarioInterface"
 import MatDivider from "../components/MatDivider/matDivider"
 import MatInput from "../components/MatInput/matInput"
 
-const UsuarioScreen = () => {
+const UsuarioScreen = ({ navigation }: { navigation: any }) => {
 
     const [listaUsuario, setListaUsuario] = useState<Usuario[]>([])
 
@@ -37,7 +37,10 @@ const UsuarioScreen = () => {
     return (
         <View style={{flex: 1}}>
             <View style={styles.busquedaContainer}>
-                <Button title="Agregar Usuario"></Button>
+                <Button 
+                    title="Agregar Usuario"
+                    onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario'})}
+                />
                 <MatInput label="Buscar Usuario" />
             </View>
             <MatDivider />

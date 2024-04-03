@@ -26,7 +26,7 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, ...rest }) => {
                 toValue: 10,
                 duration: 200,
                 useNativeDriver: false,
-            }),
+            })
         ]).start();
     };
 
@@ -43,7 +43,7 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, ...rest }) => {
                     toValue: 16,
                     duration: 200,
                     useNativeDriver: false,
-                }),
+                })
             ]).start();
         }
         else {
@@ -61,7 +61,7 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, ...rest }) => {
 
     return (
         <TouchableWithoutFeedback onPress={handleLabelPress}>
-            <View style={styles.container}>
+            <View style={[styles.container]}>
                 <TextInput
                     ref={inputRef}
                     {...rest}
@@ -89,8 +89,7 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, ...rest }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 16,
-        marginBottom: 8,
+        marginBottom: 20,
     },
     input: {
         borderTopRightRadius: 3,

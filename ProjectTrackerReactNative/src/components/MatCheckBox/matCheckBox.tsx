@@ -7,13 +7,19 @@ type MatCheckBoxProps = {
 
     // Estado Inicial del checkbox
     initialState?: boolean;
+
+    onChangeCheck?: ((checked: boolean) => void) | undefined
 };
 
-const MatCheckBox: React.FC<MatCheckBoxProps> = ({ label, initialState = false }) => {
+const MatCheckBox: React.FC<MatCheckBoxProps> = ({ label, initialState = false, onChangeCheck }) => {
     const [checked, setChecked] = useState(initialState);
 
     const toggleCheckbox = () => {
-        setChecked(!checked);
+        const newCheckedState = !checked;
+        setChecked(newCheckedState);
+        if (onChangeCheck) {
+            onChangeCheck(newCheckedState); // Llama a onChangeCheck solo si está definido
+        }
     };
 
     return (

@@ -1,12 +1,18 @@
 import { useState, useRef } from 'react';
-import { View, TextInput, TouchableWithoutFeedback, Animated, StyleSheet, Platform } from "react-native";
+import { View, TextInput, Animated, StyleSheet, Platform, TouchableOpacity, GestureResponderEvent, KeyboardAvoidingView } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { GestureHandlerRootView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 type MatInputProps = {
     label?: string;
     inputWidth?: number;
+    buttonIcon?: string;
+    buttonIconOnPress?: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
+    hideText?: boolean;
+    entryType?: string;
 };
 
-const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, ...rest }) => {
+const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, buttonIcon, buttonIconOnPress, hideText, entryType = 'default', ...rest }) => {
 
     const [focused, setFocused] = useState(false);
     const [text, setText] = useState('');
@@ -60,30 +66,45 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, ...rest }) => {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={handleLabelPress}>
-            <View style={[styles.container]}>
-                <TextInput
-                    ref={inputRef}
-                    {...rest}
-                    style={[styles.input, focused && styles.focusedInput, {width: inputWidth}]}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                    onChangeText={handleInputChange}
-                />
-                <Animated.Text
-                    style={[
-                        styles.label,
-                        focused && styles.focusedLabel,
-                        {
-                            transform: [{ translateY: labelPosition }],
-                            fontSize: labelFontSize,
-                        },
-                    ]}
+        <GestureHandlerRootView>
+            <TouchableWithoutFeedback onPress={handleLabelPress}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : null}
                 >
-                    {label}
-                </Animated.Text>
-            </View>
-        </TouchableWithoutFeedback>
+                    <View style={[styles.container]}>
+                        <TextInput
+                            ref={inputRef}
+                            {...rest}
+                            style={[styles.input, focused && styles.focusedInput, { width: inputWidth }]}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            onChangeText={handleInputChange}
+                            secureTextEntry={hideText}
+                            keyboardType={entryType}
+                        />
+                        <Animated.Text
+                            style={[
+                                styles.label,
+                                focused && styles.focusedLabel,
+                                {
+                                    transform: [{ translateY: labelPosition }],
+                                    fontSize: labelFontSize,
+                                },
+                            ]}
+                        >
+                            {label}
+                        </Animated.Text>
+                        {buttonIcon && (
+                            <TouchableOpacity style={{ position: 'absolute', right: 10, top: 7 }} onPress={buttonIconOnPress}>
+                                <MaterialCommunityIcons name={buttonIcon} size={30} color="gray" />
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                </KeyboardAvoidingView>
+
+            </TouchableWithoutFeedback>
+
+        </GestureHandlerRootView>
     );
 }
 

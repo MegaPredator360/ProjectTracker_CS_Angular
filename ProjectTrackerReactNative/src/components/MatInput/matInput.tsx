@@ -1,7 +1,6 @@
-import { useState, useRef } from 'react';
-import { View, TextInput, Animated, StyleSheet, Platform, TouchableOpacity, GestureResponderEvent, KeyboardAvoidingView } from "react-native";
+import { useState, useRef, useEffect } from 'react';
+import { View, TextInput, Animated, StyleSheet, Platform, TouchableOpacity, TouchableWithoutFeedback, GestureResponderEvent, KeyboardAvoidingView } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { GestureHandlerRootView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 type MatInputProps = {
     label?: string;
@@ -10,12 +9,14 @@ type MatInputProps = {
     buttonIconOnPress?: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
     hideText?: boolean;
     entryType?: string;
+    onChangeText?: ((text: string) => void) | undefined
+    value?: string
 };
 
-const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, buttonIcon, buttonIconOnPress, hideText, entryType = 'default', ...rest }) => {
+const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIcon, buttonIconOnPress, hideText, entryType = 'default', onChangeText, ...rest }) => {
 
     const [focused, setFocused] = useState(false);
-    const [text, setText] = useState('');
+    const [text, setText] = useState(value || '');
     const inputRef = useRef<TextInput>(null);
     const labelPosition = useRef(new Animated.Value(10)).current;
     const labelFontSize = useRef(new Animated.Value(16)).current;
@@ -62,11 +63,15 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, buttonIcon, butt
     };
 
     const handleInputChange = (value: string) => {
+        onChangeText
         setText(value);
     };
 
+    useEffect(() => {
+        setText(value); // Actualiza el estado del TextInput cuando cambia la prop value
+    }, [value]);
+
     return (
-        <GestureHandlerRootView>
             <TouchableWithoutFeedback onPress={handleLabelPress}>
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -78,7 +83,7 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, buttonIcon, butt
                             style={[styles.input, focused && styles.focusedInput, { width: inputWidth }]}
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            onChangeText={handleInputChange}
+                            onChangeText={onChangeText}
                             secureTextEntry={hideText}
                             keyboardType={entryType}
                         />
@@ -101,10 +106,7 @@ const MatInput: React.FC<MatInputProps> = ({ label, inputWidth, buttonIcon, butt
                         )}
                     </View>
                 </KeyboardAvoidingView>
-
             </TouchableWithoutFeedback>
-
-        </GestureHandlerRootView>
     );
 }
 

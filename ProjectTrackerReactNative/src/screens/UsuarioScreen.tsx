@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Usuario } from "../interfaces/UsuarioInterface"
 import MatDivider from "../components/MatDivider/matDivider"
 import MatInput from "../components/MatInput/matInput"
+import MatButton from "../components/MatButton/matButton"
 
 const UsuarioScreen = ({ navigation }: { navigation: any }) => {
 
@@ -35,11 +36,13 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
     }, [])
 
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <View style={styles.busquedaContainer}>
-                <Button 
+                <MatButton
                     title="Agregar Usuario"
-                    onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario'})}
+                    marginTop={13}
+                    marginBottom={13}
+                    onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario' })}
                 />
                 <MatInput label="Buscar Usuario" />
             </View>
@@ -64,12 +67,12 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
             />
         </View>
     )
-    
+
 }
 
 const styles = StyleSheet.create({
-    busquedaContainer: {    
-        padding: 13
+    busquedaContainer: {
+        paddingHorizontal: 13
     },
     listaContainer: {
         flexGrow: 1

@@ -8,15 +8,17 @@ type MatButtonProps = {
     buttonColor?: string;
     hoverColor?: string;
     marginBottom?: number;
+    marginTop?: number;
 };
 
-const MatButton: React.FC<MatButtonProps> = ({ title, onPress, textColor, buttonColor, hoverColor, marginBottom }) => {
+const MatButton: React.FC<MatButtonProps> = ({ title, onPress, textColor, buttonColor, hoverColor, marginBottom, marginTop }) => {
     const [isPressed, setIsPressed] = useState(false); // Estado para rastrear si se está presionando el botón
 
-    const btnColor = buttonColor ? buttonColor: '#2196F3';
-    const btnHover = hoverColor ? hoverColor: '#0B6CBA'
-    const txtColor = textColor ? textColor: '#FFFFFF';
-    const marginB = marginBottom ? marginBottom: 0;
+    const btnColor = buttonColor ? buttonColor : '#2196F3';
+    const btnHover = hoverColor ? hoverColor : '#0B6CBA'
+    const txtColor = textColor ? textColor : '#FFFFFF';
+    const marginB = marginBottom ? marginBottom : 0;
+    const marginT = marginTop ? marginTop : 0;
 
     return (
         <TouchableHighlight
@@ -26,7 +28,7 @@ const MatButton: React.FC<MatButtonProps> = ({ title, onPress, textColor, button
             onPressOut={() => setIsPressed(false)} // Función para manejar el evento onPressOut (cuando se deja de presionar)
             onPress={onPress}
         >
-            <View style={[styles.button, { backgroundColor: isPressed ? btnHover : btnColor, marginBottom: marginB }]}>
+            <View style={[styles.button, { backgroundColor: isPressed ? btnHover : btnColor, marginBottom: marginB, marginTop: marginT }]}>
                 <Text style={[styles.text, { color: txtColor }]}>{title}</Text>
             </View>
         </TouchableHighlight>

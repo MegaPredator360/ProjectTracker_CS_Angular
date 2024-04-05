@@ -159,7 +159,7 @@ export class UsuarioFormularioComponent implements OnInit {
       usuaContrasena: this.formularioUsuario.value.contrasena,
       usuaPermId: this.formularioUsuario.value.permisoId,
       usuaPermNombre: "",
-      usuaPrimerInicio: parseInt(this.formularioUsuario.value.primerInicio)
+      usuaPrimerInicio: this.formularioUsuario.value.primerInicio == true ? 1 : 0
     }
 
     if (this.datosUsuario == null) {

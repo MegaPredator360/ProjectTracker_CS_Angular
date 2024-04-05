@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, FlatList, Button } from "react-native"
+import { Text, View, StyleSheet, FlatList, Button, TouchableHighlight } from "react-native"
 import UsuarioService from "../services/UsuarioService"
 import { useEffect, useState } from "react"
 import { Usuario } from "../interfaces/UsuarioInterface"
@@ -9,6 +9,7 @@ import MatButton from "../components/MatButton/matButton"
 const UsuarioScreen = ({ navigation }: { navigation: any }) => {
 
     const [listaUsuario, setListaUsuario] = useState<Usuario[]>([])
+    const [isPressed, setIsPressed] = useState(false); // Estado para rastrear si se está presionando el botón
 
     // Obtenemos la lista de Usuarios
     const obtenerUsuarios = async () => {
@@ -42,7 +43,7 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                     title="Agregar Usuario"
                     marginTop={13}
                     marginBottom={13}
-                    onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario' })}
+                    onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario', datosUsuario: null })}
                 />
                 <MatInput label="Buscar Usuario" />
             </View>
@@ -54,12 +55,20 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                 renderItem={({ item }) => {
                     return (
                         <View>
-                            <View style={styles.itemContainer}>
-                                <Text style={styles.itemTitle}>{item.usuaNombre}</Text>
-                                <Text>Cedula: {item.usuaCedula}</Text>
-                                <Text>Correo: {item.usuaCorreo}</Text>
-                                <Text>Permiso: {item.usuaPermNombre}</Text>
-                            </View>
+                            <TouchableHighlight
+                                activeOpacity={0.9} // Desactiva la opacidad durante la interacción
+                                underlayColor="black" // Establece un color transparente para que no haya un color de resaltado predeterminado
+                                onPressIn={() => setIsPressed(true)} // Función para manejar el evento onPressIn (cuando se inicia la presión)
+                                onPressOut={() => setIsPressed(false)} // Función para manejar el evento onPressOut (cuando se deja de presionar)
+                                onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Editar Usuario', datosUsuario: item })}
+                            >
+                                <View style={[styles.itemContainer, { backgroundColor: isPressed ? "#FFFFFF" : "#FFFFFF" }]}>
+                                    <Text style={styles.itemTitle}>{item.usuaNombre}</Text>
+                                    <Text>Cedula: {item.usuaCedula}</Text>
+                                    <Text>Correo: {item.usuaCorreo}</Text>
+                                    <Text>Permiso: {item.usuaPermNombre}</Text>
+                                </View>
+                            </TouchableHighlight>
                             <MatDivider color="#B3B3B3" />
                         </View>
                     )

@@ -8,9 +8,10 @@ import { Permiso } from "../interfaces/PermisoInterface";
 import { Usuario } from "../interfaces/UsuarioInterface";
 import PermisoService from "../services/PermisoService";
 
-const UsuarioFormularioScreen = ({ navigation: { goBack } }) => {
+const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
 
     const [listaPermiso, setListaPermiso] = useState<Permiso[]>([])
+    const datosUsuario: Usuario = route.params;
 
     // Obtenemos la lista de Permisos
     const obtenerPermisos = async () => {
@@ -33,9 +34,18 @@ const UsuarioFormularioScreen = ({ navigation: { goBack } }) => {
             })
     }
 
+    const cargarDatos = () => {
+        console.log(datosUsuario)
+        if (datosUsuario != null)
+        {
+            setPrimerInicio(datosUsuario.usuaPrimerInicio === 0 ? false : true)
+        }
+    }
+
     // Inicializamos la busqueda de permisos
     useEffect(() => {
         obtenerPermisos()
+        cargarDatos()
     }, [])
 
     const [isFocus, setIsFocus] = useState(false);
@@ -58,7 +68,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack } }) => {
 
     const guardarActualizarUsuario = () => {
         const usuario: Usuario = {
-            usuaId: 0,
+            usuaId: datosUsuario === null ? 0 : datosUsuario.usuaId,
             usuaNombre: nombre,
             usuaCedula: cedula,
             usuaCorreo: correo,
@@ -146,7 +156,8 @@ const UsuarioFormularioScreen = ({ navigation: { goBack } }) => {
                 />
                 <View style={{ marginBottom: 18 }}>
                     <MatCheckBox 
-                    label="Cambiar Contraseña al Inicio de Sesion" 
+                    label="Cambiar Contraseña al Inicio de Sesion"
+                    initialState={primerInicio}
                     onChangeCheck={(check) => setPrimerInicio(check)}
                     />
                 </View>

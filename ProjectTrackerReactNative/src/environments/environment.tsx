@@ -1,4 +1,4 @@
 export const Environment = {
     production: false,
-    endpoint: "http://localhost:5132/api/"
+    endpoint: "https://sensible-verbally-snail.ngrok-free.app/api/"
 };

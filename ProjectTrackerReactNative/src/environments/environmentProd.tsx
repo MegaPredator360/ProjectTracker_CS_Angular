@@ -1,4 +1,4 @@
 export const EnvironmentProd = {
     production: true,
-    endpoint: "http://localhost:5132/api/"
+    endpoint: "https://ec89-191-102-39-13.ngrok-free.app/api/"
 };

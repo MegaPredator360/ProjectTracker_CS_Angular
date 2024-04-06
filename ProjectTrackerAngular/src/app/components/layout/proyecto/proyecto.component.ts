@@ -32,7 +32,7 @@ export class ProyectoComponent {
     private dialog: MatDialog,
     private paginator: MatPaginatorIntl,
     private liveAnnouncer: LiveAnnouncer
-  ) { 
+  ) {
     this.paginator.itemsPerPageLabel = 'Proyectos por pagina: ';
   }
 
@@ -62,7 +62,7 @@ export class ProyectoComponent {
   cambiarDireccionSort(sortState: Sort) {
     if (sortState.direction) {
       this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } 
+    }
     else {
       this.liveAnnouncer.announce('Sorting cleared');
     }
@@ -100,9 +100,7 @@ export class ProyectoComponent {
       disableClose: true,
       data: proyecto
     }).afterClosed().subscribe(resultado => {
-      if (resultado == "true") {
-        this.obtenerProyectos()
-      }
+      this.obtenerProyectos()
     });
   }
 }

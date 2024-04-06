@@ -102,9 +102,7 @@ export class TareaComponent {
       disableClose: true,
       data: tarea
     }).afterClosed().subscribe(resultado => {
-      if (resultado == "true") {
-        this.obtenerTareas()
-      }
+      this.obtenerTareas()
     });
   }
 }

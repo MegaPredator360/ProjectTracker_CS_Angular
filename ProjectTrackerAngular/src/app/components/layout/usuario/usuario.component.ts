@@ -32,7 +32,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private paginator: MatPaginatorIntl,
     private liveAnnouncer: LiveAnnouncer
-  ) { 
+  ) {
     this.paginator.itemsPerPageLabel = 'Usuarios por pagina: ';
   }
 
@@ -59,7 +59,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   cambiarDireccionSort(sortState: Sort) {
     if (sortState.direction) {
       this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } 
+    }
     else {
       this.liveAnnouncer.announce('Sorting cleared');
     }
@@ -92,16 +92,12 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/pages/usuario/formulario'])
   }
 
-  usuarioEliminar(usuario: Usuario)
-  {
+  usuarioEliminar(usuario: Usuario) {
     this.dialog.open(UsuarioModalComponent, {
       disableClose: true,
       data: usuario
     }).afterClosed().subscribe(resultado => {
-      if (resultado == "true")
-      {
-        this.obtenerUsuarios()
-      }
+      this.obtenerUsuarios()
     });
   }
 }

@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         if (data.status) {
           const sesion = JSON.parse(atob(data.value!.split('.')[1])) as Sesion
 
-          if (sesion?.primerInicio == "True") {
+          if (sesion?.primerInicio == "1") {
             this.dialog.open(LoginModalComponent, {
               disableClose: true,
               data: sesion

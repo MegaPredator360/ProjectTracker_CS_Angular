@@ -7,3 +7,13 @@ DTO: Contendrá las clases que interactuarán con la aplicacion de Angular
 IOC (Inversion of Control): Nos permitirá separar la inyeccion de dependencias de la aplicacion, es muy común en aplicaciones de ASP.NET Core
 Model: Contendrá las clases que interactuarán con la base de datos
 Utility: Contendrá clases que ayudarán a la conversion de modelos
+
+----
+
+Para capturar peticiones de localhost, debemos realizar una configuraciones adicionales
+en el caso del navegador Firefox, entrar al siguiente enlace
+about:config
+y buscamos el siguiente parametro
+network.proxy.allow_hijacking_localhost
+esto nos pertitira que burpsuit pueda interceptar peticiones de un localhost, en el enlace del navegador en lugar de escribir localhost
+se escribe [::1]

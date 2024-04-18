@@ -69,8 +69,7 @@ export class LoginComponent implements OnInit {
           }
         }
         else {
-          this.utilityService.mostrarAlerta("El usuario / contraseña es incorrecta", "error")
-          console.log(data.msg)
+          this.utilityService.mostrarAlerta(data.msg, "error")
         }
       },
       complete: () => {

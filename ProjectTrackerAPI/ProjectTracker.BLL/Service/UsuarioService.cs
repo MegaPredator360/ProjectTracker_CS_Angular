@@ -68,7 +68,7 @@ namespace ProjectTracker.BLL.Service
                 // Si el resultado es nulo enviamos un mensaje diciendo que el usuario no existe
                 if (await queryUsuario.FirstOrDefaultAsync() == null)
                 {
-                    throw new TaskCanceledException("El usuario no existe");
+                    throw new TaskCanceledException("El usuario o contraseña es incorrecta");
                 }
                 else
                 {                    

@@ -60,7 +60,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 var proyecto = mapper.Map<Proyecto>(_proyectoDTO);
-                var proyectoEncontrado = await proyectoService.Obtener(u => u.ProyId == _proyectoDTO.ProyId);
+                var proyectoEncontrado = await proyectoService.ConsultaSQL("SELECT * FROM PROYECTO WHERE PROY_ID = '" + _proyectoDTO.ProyId + "'").FirstOrDefaultAsync();
 
                 if (proyectoEncontrado == null)
                 {

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Configuration;
 using ProjectTracker.BLL.Interface;
 using ProjectTracker.DAL.Interface;
@@ -48,7 +47,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Convertimos de Usuario a UsuarioDTO con la ayuda de AutoMapper
-                return mapper.Map<UsuarioDTO>(await usuarioService.Obtener(u => u.UsuaId == _usuarioId));
+                return mapper.Map<UsuarioDTO>(await usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_ID = '" + _usuarioId + "'").FirstOrDefaultAsync());
             }
             catch
             {
@@ -92,7 +91,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Verificaremos si un usuario existe
-                if (await usuarioService.Obtener(u => u.UsuaCedula == _usuarioDTO.UsuaCedula) != null)
+                if (await usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_CEDULA = '" + _usuarioDTO.UsuaCedula + "'").FirstOrDefaultAsync() != null)
                 {
                     throw new TaskCanceledException("usuaCedulaExiste");
                 }
@@ -140,7 +139,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Buscamos el usuario en la base de datos
-                var usuarioEncontrado = await usuarioService.Obtener(u => u.UsuaId == _usuarioDTO.UsuaId);
+                var usuarioEncontrado = await usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_ID = '" + _usuarioDTO.UsuaId + "'").FirstOrDefaultAsync();
 
                 // Si el usuario no es encontrado
                 if (usuarioEncontrado == null)

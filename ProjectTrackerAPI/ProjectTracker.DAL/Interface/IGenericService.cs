@@ -22,5 +22,8 @@ namespace ProjectTracker.DAL.Interface
 
         // Obtendrá la lista de usuarios, proyectos o tareas y además contará con una opcion para poder filtrar resultados
         IQueryable<TModel> Consultar(Expression<Func<TModel, bool>> filtro = null!);
+
+        // Se utilizará para realizar una consulta en SQL
+        IQueryable<TModel> ConsultaSQL(string consulta);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Configuration;
 using ProjectTracker.BLL.Interface;
 using ProjectTracker.DAL.Interface;
@@ -63,7 +64,7 @@ namespace ProjectTracker.BLL.Service
                 string contrasenaHash = utilityService.EncriptarContrasena(_contrasena);
 
                 // Consultamos los datos en la base de datos y buscamos un usuario que coincida con los datos enviados
-                var queryUsuario = usuarioService.Consultar(u => u.UsuaCorreo == _correo && u.UsuaContrasena == contrasenaHash);
+                var queryUsuario = usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_CORREO = '" + _correo + "' AND USUA_CONTRASENA = '" + contrasenaHash + "'");
 
                 // Si el resultado es nulo enviamos un mensaje diciendo que el usuario no existe
                 if (await queryUsuario.FirstOrDefaultAsync() == null)

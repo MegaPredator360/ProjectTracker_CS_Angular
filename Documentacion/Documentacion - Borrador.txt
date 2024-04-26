@@ -1,14 +1,83 @@
------------- Descripcion de Capas de API
+---- Introduccion
 
-API: Capa que se encargará de inicializar la API
-BLL: Contendra los servicios e interfaces de la API
-DAL: Capa que trabaja los datos
-DTO: Contendrá las clases que interactuarán con la aplicacion de Angular
-IOC (Inversion of Control): Nos permitirá separar la inyeccion de dependencias de la aplicacion, es muy común en aplicaciones de ASP.NET Core
-Model: Contendrá las clases que interactuarán con la base de datos
-Utility: Contendrá clases que ayudarán a la conversion de modelos
+En un mundo donde cada vez se encuentra más conectado gracias al uso del internet, la seguridad de las aplicaciones, paginas web, 
+servidores, entre otros,... Se ha convertido en una preocupación fundamental. Entre las vulnerabilidades más comunes 
+que pueden comprometer la integridad y confidencialidad de los datos 
+se encuentra la inyección de SQL. Este tipo de ataque aprovecha las debilidades en la forma en que las aplicaciones web 
+interactúan con las bases de datos, permitiendo a los atacantes ejecutar comandos SQL maliciosos.
+Conscientes de la importancia de comprender y mitigar estas vulnerabilidades, hemos desarrollado esta aplicación 
+web diseñado que se utilizará para practicar y entender las inyecciones de SQL. Este proyecto proporciona un 
+entorno seguro y controlado donde los desarrolladores y profesionales de seguridad pueden explorar y experimentar con 
+diferentes técnicas de inyección de SQL, sin comprometer la seguridad de datos reales.
 
-----
+---- Objetivos
+
+Nuestro objetivo con esta aplicacion es brindar un lugar etico y práctico que permita a los usuarios:
+
+    Comprender cómo funcionan las inyecciones de SQL y cuáles son las consecuencias de estas vulnerabilidades en la seguridad de una aplicación web.
+    Practicar la identificación de puntos débiles en el código y la implementación de medidas preventivas para evitar ataques de inyección de SQL.
+    Experimentar con diversos escenarios de ataque y entender cómo los datos sensibles pueden ser comprometidos a través de la explotación de vulnerabilidades de inyección de SQL.
+    Desarrollar habilidades en la escritura de consultas SQL seguras y en la implementación de buenas prácticas de codificación para proteger las aplicaciones web contra este tipo de ataques.
+
+Este proyecto se presenta como una herramienta invaluable para estudiantes, desarrolladores web y profesionales de 
+seguridad que deseen mejorar sus conocimientos y habilidades en el campo de la seguridad de aplicaciones web y la 
+prevención de inyecciones de SQL. Con un enfoque en la práctica guiada y el aprendizaje interactivo, nuestra
+aplicación web ofrece un ambiente de forma etica y educativa para fortalecer la seguridad en el desarrollo de software en línea.
+
+----- Estructura de proyecto
+
+Este proyecto es un controlador de proyectos, que permitirá llevar el control de proyectos, tareas y que usuarios se les puede 
+asignar dicha tarea. Este proyecto de divide en 4 carpetas:
+- API (Application Programming Interface): Es una aplicacion que permite la comunicacion entre la base de datos, aplicacion web y movil.
+  Esta aplicacion fue desarrollada en C# utilizando .NET Core 8, y esta dividida en las siguientes capas:
+  - API: Esta es la capa principal donde se inicializa la aplicacion y se encargará de actuar como un intermediario en la base de datos
+    y la aplicacion web y movil, y es la que permitira el intercambio de datos y funcionalidades, sin necesidad de conocer 
+    los detalles internos de cada uno.
+  - BLL (Business Logic Layer): En esta capa se implementa la lógica de negocio de la aplicación. 
+    Aquí se procesan y manipulan los datos según las reglas y requisitos específicos del dominio de la aplicación.
+  - DAL (Data Access Layer): Esta capa se encarga de interactuar con la base de datos u otros sistemas de almacenamiento de datos. 
+    Aquí se definen y ejecutan las consultas a la base de datos, así como las operaciones de lectura, 
+    escritura, actualización y eliminación de datos.
+  - DTO (Data Transfer Object): Esta capa contiene todas las clases que se consideran como DTOs. 
+    Un DTO es un objeto que se utiliza para transferir datos entre subsistemas de una aplicación. 
+    Su principal propósito es encapsular múltiples campos en un único objeto para reducir la cantidad 
+    de parámetros pasados entre componentes de un sistema.
+  - IOC (Inversion of Control): IOC es un principio de diseño de software que se centra en invertir el control de la 
+    ejecución de una aplicación. En lugar de que un componente de software controle directamente la ejecución 
+    de otros componentes, el control se delega a un contenedor o marco de trabajo que gestiona la creación, configuración 
+    y ejecución de los componentes. El contenedor de IOC, a menudo implementado a través de patrones como la 
+    inyección de dependencias (Dependency Injection), permite que los componentes de una aplicación 
+    sean más flexibles, reutilizables y fáciles de probar, al reducir las dependencias directas entre ellos y 
+    promover una separación clara de preocupaciones.
+  - Model: La capa "Model" o de modelos es una parte fundamental de la arquitectura de una aplicación que se encarga 
+    de representar los datos y la lógica de negocio subyacente. En esta capa, se definen las estructuras de datos y 
+    las reglas de negocio que gobiernan cómo se manipulan y procesan esos datos. Los objetos de esta capa suelen 
+    representar entidades del mundo real, como usuarios, productos, pedidos, etc., y encapsulan tanto los datos 
+    como las operaciones relacionadas con esos datos. La capa Model es esencial para mantener la coherencia y 
+    la integridad de los datos a lo largo de la aplicación, y a menudo se asocia estrechamente 
+    con la capa de acceso a datos (Data Access Layer) para interactuar con la base de datos o cualquier otro sistema de almacenamiento de datos.
+  - Utility: Esta capa de utilidades es una capa adicional que se utiliza para alojar funciones y clases que proporcionan 
+    funcionalidades genéricas y reutilizables en toda la aplicación. Estas funciones y clases suelen ser independientes 
+    de cualquier dominio específico y se utilizan para realizar tareas comunes que no están directamente relacionadas 
+    con la lógica de negocio principal de la aplicación.
+- Angular: Es un framework de desarrollo front-end desarrollado o conocido como framework de JavaScript mantenido por Google que se utiliza 
+  para construir aplicaciones web de una sola página (Single Page Applications, SPAs) y aplicaciones web dinámicas.
+  Este framework esta desarrollado utilizando Node.JS y que ofrece un conjunto de características y herramientas poderosas 
+  para crear aplicaciones web modernas y dinámicas.
+- React Native: Esta es una aplicación móvil desarrollada utilizando el framework React Native. 
+  React Native es un framework de código abierto desarrollado por Facebook que permite a los desarrolladores crear aplicaciones 
+  móviles multiplataforma utilizando JavaScript y React, una biblioteca de JavaScript para construir interfaces de usuario.
+- SQL: Contiene queries para la creacion de la base de datos y anidar la base de datos para mostrar los datos en la aplicacion.
+
+---- Proceso para Realizar injecciones
+
+Para realizar las inyecciones en esta aplicacion, se pueden realizar de diferentes formas... Acá dare 4 escenarios en los cuales se pueden
+realizar las inyecciones mediante SQL, y como prevenirlas en un escenario real.
+Se realizarán usando Kali Linux, ya sea como maquina virtual, o dual-boot en tu maquina.
+En Kali Linux hay una herramienta llamada burpsuit, esta herramienta nos permitirá interceptar las peticiones que la aplicacion realice a la API
+y con ella poder realizar modificaciones a la solicitud que se envie a la API
+
+--
 
 Para capturar peticiones de localhost, debemos realizar una configuraciones adicionales
 en el caso del navegador Firefox, entrar al siguiente enlace

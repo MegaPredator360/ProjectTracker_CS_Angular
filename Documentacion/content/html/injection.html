@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Titulo de la pestaña de la pagina -->
+    <title>Acerca del Proyecto</title>
+
+    <!-- Para mostrar caracteres especiales en la pagina -->
+    <meta charset="UTF-8" />
+
+    <!-- Icono de pestaña del navegador -->
+    <link rel="icon" href="./images/favicon.ico">
+
+    <!-- Importacion de pagina de estilos -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- Importacion de archivo de JavaScript -->
+    <script type="text/javascript" src="../js/script.js"></script>
+
+    <!-- Fuente de letra: Roboto -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <!-- Ionos Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <ul class="navBarContainer" id="navbar">
+        <li class="float-left marginLeft2p"><img src="../images/logo_ulatina_1_light.png" class="image-logo-bar"></li>
+        <li class="float-left"><a class="material-button" href="../../index.html">Descripción</a></li>
+        <li class="float-left"><a class="material-button active">Injecciones</a></li>
+        <li class="float-left"><a class="material-button" href="./about.html">Acerca De</a></li>
+        <li class="float-right marginRight2p"><button class="material-button" onclick="toggleDarkMode()"><i
+                    class="bi bi-moon"></i></button></li>
+    </ul>
+    <div class="cuerpoPagina">
+        <h2 id="titleIntroduccion">Introducción</h3>
+            <br />
+            <p>
+                Para realizar las inyecciones en esta aplicacion, se pueden realizar de diferentes formas... Acá dare 4 escenarios en los cuales se pueden
+                realizar las inyecciones mediante SQL, y como prevenirlas en un escenario real.
+                Se realizarán usando Kali Linux, ya sea como maquina virtual, o dual-boot en tu maquina.
+                Usaremos Kali Linux ya que vienen pre-instalados varias herramientas que nos ayudarán a realizar las injecciones.
+            </p>
+            <br>
+            <div class="divideLine"></div>
+            <br>
+            <h2 id="titleConfiguracion">Configuracion de Ambiente</h2>
+            <br />
+            <p>
+                Para los siguentes escenarios de inyeccion SQL, utilizaremos la herramienta "BurpSuite", ya que nos ayudará a interceptar 
+                las peticiones que la aplicacion web desea realizar a la API, y nos permitira descubrir a que direccion o enlace esta pidiendo
+                dichas solicitudes. <br>
+                Antes de iniciar, configuraremos BurpSuite para que pueda interceptar el navegador web, para eso, abriremos nuestro navegador
+                de preferencia, en mi caso utilizaré Mozilla Firefox.<br>
+                Cuando se abrá Firefox, abrimos la pagina de configuraciones del navegador, una vez abierta la pagina de configuraciones nos
+                dirigimos a la barra de busqueda y escribimos "Network Settings", esto nos llevará al apartado de conectividad del navegador,
+                damos click en el botón "Settings..." Y se nos abrirá un dialogo de configuracion.<br>
+                Damos click en el boton de "Manual proxy configuration", y se nos habilitarán unos campos para llenar información, y escribiremos
+                lo siguiente: 
+                - En el campo de "HTTP Proxy" escribimos: 127.0.0.1
+                - En el campo de "Proxy" escribimos: 8080
+
+                Esto nos permitirá que BurpSuite pueda interceptar las peticiones de las paginas web.<br>
+                Despues en el campo para ingresar una direccion web, escribiremos el siguiente enlace "about:config", este enlace 
+                nos llevará a una pagina de configuraciones avanzadas del navegador, cuando ingresemos al enlace se nos mostrará una pantalla
+                de advertencia, damos click en "Accept the Risk and Continue", para que nos muestre la pagina de configuraciones.
+                En la barra de busqueda escribiremos lo siguiente "network.proxy.allow_hijacking_localhost", y nos saldra una opcion, por defecto
+                aparecerá en "False", damos doble click en la opcion para cambiar la opcion a "True". Como nuestra API y aplicacion web se inicializará
+                de forma local, esta opcion nos permitira que BurpSuite pueda interceptar las peticiones en aplicaciones que se estén ejecutando
+                de forma local. Ya con esto concluimos con las configuraciones del navegador.
+                Abrimos BurpSuite, cuando estemos en la pagina principal, daremos click en la pestaña "Proxy", y en la nueva pantalla
+                daremos click en el botón "Intercept is off", para habilitar la posibilidad de que BurpSuite pueda interceptar las peticiones
+                de la pagina web.
+                Inicializamos la API y la aplicacion de Angular, cuando la inicialicemos la aplicacion de Angular, nos va a redigir al siguiente enlace
+                "localhost:4200", pero debido a que BurpSuite está en funcionamiento no reconoce el localhost como tal, por lo que en lugar del enlace
+                que te da aplicacion de Angular, usaremos este otro "http://[::1]:4200/", ya podremos visualizar la pagina web, y BurpSuite podra interceptar
+                las peticiones
+            </p>
+            <br>
+            <div class="divideLine"></div>
+            <br>
+            <h2 id="titleEscenario">Escenarios de Inyeccion de SQL</h2>
+            <br />
+            <p>
+                Con el proceso de configuracion realizado, presentaremos 4 escenarios de inyeccion de SQL en este proyecto, y como realizarlos,
+                ademas de como prevenir dichos escenarios.
+            </p>
+            <ul>
+                <li class="marginLeft2p">
+                    <h3>Primer Escenario</h3>
+                    <p>
+                        En este primer escenario atacaremos la pagina de inicio de sesion, cuando nos haya cargado, escribiremos datos aleatorios
+                        en los campos de correo y contraseña, cuando damos click en el botón de iniciar sesion, BurpSuite se activará mostrandonos
+                        una peticion que la pagina debe de realizar, en este caso click en el botón "Foward", hasta que encontremos la peticion que
+                        venga con los datos que ingresamos en los campos de correo y contraseña, una vez que encontremos dicha peticion, podemos
+                        modificar el contenido de la peticion de la siguiente forma.
+                        En el campo donde dice correo, agregamos lo siguiente al final
+                    </p>
+                </li>
+                <li class="marginLeft2p">
+                    <p>
+                        <b>Angular:</b> Es un framework de desarrollo front-end desarrollado o conocido como framework de JavaScript mantenido por Google que se utiliza 
+                        para construir aplicaciones web de una sola página (Single Page Applications, SPAs) y aplicaciones web dinámicas.
+                        Este framework esta desarrollado utilizando Node.JS y que ofrece un conjunto de características y herramientas poderosas 
+                        para crear aplicaciones web modernas y dinámicas.
+                    </p>
+                </li>
+                <li class="marginLeft2p">
+                    <p>
+                        <b>React Native:</b> Esta es una aplicación móvil desarrollada utilizando el framework React Native. 
+                        React Native es un framework de código abierto desarrollado por Facebook que permite a los desarrolladores crear aplicaciones 
+                        móviles multiplataforma utilizando JavaScript y React, una biblioteca de JavaScript para construir interfaces de usuario.
+                    </p>
+                </li>
+                <li class="marginLeft2p">
+                    <p>
+                        <b>SQL: </b>Contiene queries para la creacion de la base de datos y anidar la base de datos para mostrar los datos en la aplicacion.
+                    </p>
+                </li>
+            </ul>
+            <p>
+
+            </p>
+            <br>
+    </div>
+    <footer class="footer">
+        <p>Universidad Latina de Costa Rica</p>
+    </footer>
+</body>
+
+</html>

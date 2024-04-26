@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    min-height: 100vh;
+}
+
+.divideLine {
+    border: solid;
+    border-width: 1px;
+}
+
+/* Barra superior */
+.navBarContainer {
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    background-color: rgb(20, 75, 240);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.377);
+}
+
+.navBarContainer li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Menú Lateral */
+
+.menuLateral {
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: -webkit-fill-available;
+    overflow: auto;
+    top: 58px;
+}
+
+/* Cuerpo de pagina */
+
+.cuerpoPagina {
+    margin-left: 250px;
+    padding: 1px 16px;
+    margin-top: 75px;
+    margin-right: 200px;
+}
+
+/* Botones Barra Superior */
+.material-button {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding: 10px 20px !important;
+    margin: 10px 3px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.material-button:hover {
+    background-color: rgb(7, 38, 131);
+}
+
+.active {
+    background-color: rgb(22, 59, 173);
+}
+
+/* Botones Laterales */
+.sidebarButton {
+    border: none;
+    color: rgb(46, 46, 46);
+    font-size: 20px;
+    padding: 15px 10%;
+    width: 100%;
+    background-color: transparent;
+    transition: 0.3s;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebarButton:hover {
+    background-color: rgb(189, 189, 189);
+    transition: 0.3s;
+}
+
+/* Card */
+.card {
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    margin: 10px auto;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Modo Oscuro */
+.darkMode {
+    .navBarContainer {
+        background-color: rgb(30, 37, 58);
+    }
+
+    .material-button:hover {
+        background-color: rgb(43, 53, 83);
+    }
+
+    .active {
+        background-color: rgb(35, 43, 66);
+    }
+
+    .menuLateral {
+        background-color: #353535;
+    }
+
+    .sidebarButton {
+        color: white;
+    }
+
+    .sidebarButton:hover {
+        background-color: rgb(37, 37, 37);
+    }
+
+    color: rgb(199, 199, 199);
+    background-color: rgb(29, 29, 29);
+    transition: 0.3s;
+
+    .footer {
+        background-color: rgb(30, 37, 58);
+    }
+}
+
+/* Logotipo de Universidad */
+.image-logo-bar {
+    height: 53px;
+}
+
+/* Especificos */
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.marginRight2p {
+    margin-right: 2%;
+}
+
+.marginLeft2p {
+    margin-left: 2%;
+}
+
+.footer {
+    text-align: center;
+    background-color: rgb(20, 75, 240);
+    padding: 13px;
+    color: white;
+    margin-top: auto;
+}

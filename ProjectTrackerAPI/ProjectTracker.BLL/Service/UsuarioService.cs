@@ -47,7 +47,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Convertimos de Usuario a UsuarioDTO con la ayuda de AutoMapper
-                return mapper.Map<UsuarioDTO>(await usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_ID = '" + _usuarioId + "'").FirstOrDefaultAsync());
+                return mapper.Map<UsuarioDTO>(await usuarioService.Obtener(u => u.UsuaId == _usuarioId));
             }
             catch
             {
@@ -63,7 +63,7 @@ namespace ProjectTracker.BLL.Service
                 string contrasenaHash = utilityService.EncriptarContrasena(_contrasena);
 
                 // Consultamos los datos en la base de datos y buscamos un usuario que coincida con los datos enviados
-                var queryUsuario = usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_CORREO = '" + _correo + "' AND USUA_CONTRASENA = '" + contrasenaHash + "'");
+                var queryUsuario = usuarioService.Consultar(u => u.UsuaCorreo == _correo && u.UsuaContrasena == contrasenaHash);
 
                 // Si el resultado es nulo enviamos un mensaje diciendo que el usuario no existe
                 if (await queryUsuario.FirstOrDefaultAsync() == null)
@@ -91,7 +91,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Verificaremos si un usuario existe
-                if (await usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_CEDULA = '" + _usuarioDTO.UsuaCedula + "'").FirstOrDefaultAsync() != null)
+                if (await usuarioService.Obtener(u => u.UsuaCedula == _usuarioDTO.UsuaCedula) != null)
                 {
                     throw new TaskCanceledException("usuaCedulaExiste");
                 }
@@ -139,7 +139,7 @@ namespace ProjectTracker.BLL.Service
             try
             {
                 // Buscamos el usuario en la base de datos
-                var usuarioEncontrado = await usuarioService.ConsultaSQL("SELECT * FROM USUARIO WHERE USUA_ID = '" + _usuarioDTO.UsuaId + "'").FirstOrDefaultAsync();
+                var usuarioEncontrado = await usuarioService.Obtener(u => u.UsuaId == _usuarioDTO.UsuaId);
 
                 // Si el usuario no es encontrado
                 if (usuarioEncontrado == null)

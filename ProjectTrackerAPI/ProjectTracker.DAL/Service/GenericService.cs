@@ -99,18 +99,5 @@ namespace ProjectTracker.DAL.Service
                 throw;
             }
         }
-
-        public IQueryable<TModel> ConsultaSQL(string consulta)
-        {
-            try
-            {
-                IQueryable<TModel> queryModelo = context.Set<TModel>().FromSqlRaw(consulta);
-                return queryModelo;
-            }
-            catch
-            {
-                throw;
-            }
-        }
     }
 }

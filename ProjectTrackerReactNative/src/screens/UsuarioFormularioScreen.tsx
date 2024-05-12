@@ -33,6 +33,9 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
     const [contraOcultar, setContraOcultar] = useState(true);
     const [confirOcultar, setConfirOcultar] = useState(true);
 
+    // Interfaz
+    const [btnTitulo, setBtnTitulo] = useState('');
+
     // Obtenemos la lista de Permisos
     const obtenerPermisos = async () => {
 
@@ -60,6 +63,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
         // Verificaremos si los datos que recibimos es diferente de null
         if (datosUsuario != null) {
 
+            // Se cargan los datos de los usuarios
             setNombre(datosUsuario.usuaNombre)
             setCedula(datosUsuario.usuaCedula)
             setCorreo(datosUsuario.usuaCorreo)
@@ -68,6 +72,14 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
             setDireccion(datosUsuario.usuaDireccion)
             setPermiso(datosUsuario.usuaPermId)
             setPrimerInicio(datosUsuario.usuaPrimerInicio === 0 ? false : true)
+
+            // Nombre de boton de acción
+            setBtnTitulo("Editar Usuario")
+        }
+        else
+        {
+            // Nombre de boton de acción
+            setBtnTitulo("Agregar Usuario")
         }
     }
 
@@ -178,7 +190,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
                     onPress={() => goBack()}
                 />
                 <MatButton
-                    title="Agregar Usuario"
+                    title={btnTitulo}
                     buttonColor="#5BB79A"
                     hoverColor="#3E9C7E"
                     marginBottom={20}

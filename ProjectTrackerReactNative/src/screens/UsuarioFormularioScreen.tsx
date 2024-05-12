@@ -60,7 +60,13 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
         // Verificaremos si los datos que recibimos es diferente de null
         if (datosUsuario != null) {
 
-            //console.log(datosUsuario.usuaPrimerInicio)
+            setNombre(datosUsuario.usuaNombre)
+            setCedula(datosUsuario.usuaCedula)
+            setCorreo(datosUsuario.usuaCorreo)
+            setUsername(datosUsuario.usuaUsername)
+            setTelefono(datosUsuario.usuaTelefono)
+            setDireccion(datosUsuario.usuaDireccion)
+            setPermiso(datosUsuario.usuaPermId)
             setPrimerInicio(datosUsuario.usuaPrimerInicio === 0 ? false : true)
         }
     }

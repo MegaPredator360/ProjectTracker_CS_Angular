@@ -3,7 +3,7 @@ import MatInput from "../components/MatInput/matInput"
 import MatCheckBox from "../components/MatCheckBox/matCheckBox"
 import MatButton from "../components/MatButton/matButton";
 import { useEffect, useState } from "react";
-import { Dropdown } from 'react-native-element-dropdown';
+import MatDropdown from "../components/MatDropdown"
 import { Permiso } from "../interfaces/PermisoInterface";
 import { Usuario } from "../interfaces/UsuarioInterface";
 import PermisoService from "../services/PermisoService";
@@ -11,7 +11,27 @@ import PermisoService from "../services/PermisoService";
 const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
 
     const [listaPermiso, setListaPermiso] = useState<Permiso[]>([])
-    const datosUsuario: Usuario = route.params;
+
+    // Asignamos los datos del usuario que recibimos
+    const datosUsuario: Usuario = route.params['datosUsuario'];
+
+    const [isFocus, setIsFocus] = useState(false);
+
+    // Valores del formulario
+    const [nombre, setNombre] = useState('')
+    const [cedula, setCedula] = useState('')
+    const [correo, setCorreo] = useState('')
+    const [username, setUsername] = useState('')
+    const [telefono, setTelefono] = useState('')
+    const [direccion, setDireccion] = useState('')
+    const [contra, setContra] = useState('')
+    const [confir, setConfir] = useState('')
+    const [permiso, setPermiso] = useState(0)
+    const [primerInicio, setPrimerInicio] = useState(false)
+
+    // Ocultar Contraseña
+    const [contraOcultar, setContraOcultar] = useState(true);
+    const [confirOcultar, setConfirOcultar] = useState(true);
 
     // Obtenemos la lista de Permisos
     const obtenerPermisos = async () => {
@@ -36,35 +56,20 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
 
     const cargarDatos = () => {
         console.log(datosUsuario)
-        if (datosUsuario != null)
-        {
+
+        // Verificaremos si los datos que recibimos es diferente de null
+        if (datosUsuario != null) {
+
+            //console.log(datosUsuario.usuaPrimerInicio)
             setPrimerInicio(datosUsuario.usuaPrimerInicio === 0 ? false : true)
         }
     }
 
-    // Inicializamos la busqueda de permisos
+    // Inicializamos metodos de carga de datos
     useEffect(() => {
         obtenerPermisos()
         cargarDatos()
     }, [])
-
-    const [isFocus, setIsFocus] = useState(false);
-
-    // Valores del formulario
-    const [nombre, setNombre] = useState('')
-    const [cedula, setCedula] = useState('')
-    const [correo, setCorreo] = useState('')
-    const [username, setUsername] = useState('')
-    const [telefono, setTelefono] = useState('')
-    const [direccion, setDireccion] = useState('')
-    const [contra, setContra] = useState('')
-    const [confir, setConfir] = useState('')
-    const [permiso, setPermiso] = useState(0)
-    const [primerInicio, setPrimerInicio] = useState(false)
-
-    // Ocultar Contraseña
-    const [contraOcultar, setContraOcultar] = useState(true);
-    const [confirOcultar, setConfirOcultar] = useState(true);
 
     const guardarActualizarUsuario = () => {
         const usuario: Usuario = {
@@ -135,7 +140,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
                     onChangeText={(text) => setConfir(text)}
                     value={confir}
                 />
-                <Dropdown
+                <MatDropdown
                     style={[styles.dropdown, isFocus && { borderColor: '#8E7CC3', backgroundColor: '#E0E0E0' }]}
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
@@ -143,7 +148,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
                     iconStyle={styles.iconStyle}
                     data={listaPermiso}
                     maxHeight={300}
-                    label="Permiso"
+                    placeholder="Permiso"
                     labelField="permNombre"
                     valueField="permId"
                     value={permiso.toString()}
@@ -155,10 +160,10 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
                     }}
                 />
                 <View style={{ marginBottom: 18 }}>
-                    <MatCheckBox 
-                    label="Cambiar Contraseña al Inicio de Sesion"
-                    initialState={primerInicio}
-                    onChangeCheck={(check) => setPrimerInicio(check)}
+                    <MatCheckBox
+                        label="Cambiar Contraseña al Inicio de Sesion"
+                        initialState={primerInicio}
+                        onChangeCheck={(check) => setPrimerInicio(check)}
                     />
                 </View>
                 <MatButton

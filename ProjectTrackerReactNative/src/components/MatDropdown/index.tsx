@@ -295,8 +295,6 @@ const MatDropdown: <T>(
 
         if (!visible) {
 
-          console.log("Open")
-
           // Se abre el dropdown
           if (onFocus) {
             onFocus();
@@ -306,7 +304,6 @@ const MatDropdown: <T>(
           activarLabel()
         } else {
 
-          console.log("Close")
           if (onBlur) {
             onBlur();
           }
@@ -419,7 +416,6 @@ const MatDropdown: <T>(
           onChangeText('');
         }
         onSearch('');
-        console.log(item)
         setFocused(false)
         setCurrentValue(item);
         onChange(item);

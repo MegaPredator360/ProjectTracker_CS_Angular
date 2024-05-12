@@ -10,19 +10,41 @@ type MatInputProps = {
     hideText?: boolean;
     entryType?: string;
     onChangeText?: ((text: string) => void) | undefined
-    value?: string
+    value: string
 };
 
 const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIcon, buttonIconOnPress, hideText, entryType = 'default', onChangeText, ...rest }) => {
 
     const [focused, setFocused] = useState(false);
-    const [text, setText] = useState(value || '');
+    const [text, setText] = useState('');
     const inputRef = useRef<TextInput>(null);
     const labelPosition = useRef(new Animated.Value(10)).current;
     const labelFontSize = useRef(new Animated.Value(16)).current;
 
+    // Cuando se activa el input
     const handleFocus = () => {
         setFocused(true);
+        activarLabel()
+    };
+
+    // Cuando se desactiva el input
+    const handleBlur = () => {
+        if (!text) {
+            setFocused(false);
+            desactivarLabel()
+        }
+        else {
+            setFocused(false);
+        }
+    };
+
+    // Cuando se toca el input
+    const handleLabelPress = () => {
+        inputRef.current?.focus();
+    };
+
+    // Realizar animación inicial
+    const activarLabel = () => {
         Animated.parallel([
             Animated.timing(labelPosition, {
                 toValue: 0,
@@ -35,78 +57,71 @@ const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIco
                 useNativeDriver: false,
             })
         ]).start();
-    };
+    }
 
-    const handleBlur = () => {
-        if (!text) {
-            setFocused(false);
-            Animated.parallel([
-                Animated.timing(labelPosition, {
-                    toValue: 10,
-                    duration: 200,
-                    useNativeDriver: false,
-                }),
-                Animated.timing(labelFontSize, {
-                    toValue: 16,
-                    duration: 200,
-                    useNativeDriver: false,
-                })
-            ]).start();
-        }
-        else {
-            setFocused(false);
-        }
-    };
-
-    const handleLabelPress = () => {
-        inputRef.current?.focus();
-    };
-
-    const handleInputChange = (value: string) => {
-        onChangeText
-        setText(value);
-    };
+    // Realiza animación final
+    const desactivarLabel = () => {
+        Animated.parallel([
+            Animated.timing(labelPosition, {
+                toValue: 10,
+                duration: 200,
+                useNativeDriver: false,
+            }),
+            Animated.timing(labelFontSize, {
+                toValue: 16,
+                duration: 200,
+                useNativeDriver: false,
+            })
+        ]).start();
+    }
 
     useEffect(() => {
-        setText(value); // Actualiza el estado del TextInput cuando cambia la prop value
+
+        if (value != null && value != '') {
+
+            // Actualiza el estado del texto
+            setText(value);
+            activarLabel()
+        }
     }, [value]);
 
     return (
-            <TouchableWithoutFeedback onPress={handleLabelPress}>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : null}
-                >
-                    <View style={[styles.container]}>
-                        <TextInput
-                            ref={inputRef}
-                            {...rest}
-                            style={[styles.input, focused && styles.focusedInput, { width: inputWidth }]}
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                            onChangeText={onChangeText}
-                            secureTextEntry={hideText}
-                            keyboardType={entryType}
-                        />
-                        <Animated.Text
-                            style={[
-                                styles.label,
-                                focused && styles.focusedLabel,
-                                {
-                                    transform: [{ translateY: labelPosition }],
-                                    fontSize: labelFontSize,
-                                },
-                            ]}
-                        >
-                            {label}
-                        </Animated.Text>
-                        {buttonIcon && (
-                            <TouchableOpacity style={{ position: 'absolute', right: 10, top: 7 }} onPress={buttonIconOnPress}>
-                                <MaterialCommunityIcons name={buttonIcon} size={30} color="gray" />
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={handleLabelPress}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : null}
+            >
+                <View style={[styles.container]}>
+                    <TextInput
+                        ref={inputRef}
+                        {...rest}
+                        style={[styles.input, focused && styles.focusedInput, { width: inputWidth }]}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        onChangeText={onChangeText}
+                        secureTextEntry={hideText}
+                        keyboardType={entryType}
+                        value={text}
+                    />
+                    <Animated.Text
+                        style={[
+                            styles.label,
+                            focused && styles.focusedLabel,
+                            {
+                                transform: [{ translateY: labelPosition }],
+                                fontSize: labelFontSize,
+                            },
+                        ]}
+                    >
+                        {label}
+                    </Animated.Text>
+                    {buttonIcon && (
+                        <TouchableOpacity style={{ position: 'absolute', right: 10, top: 7 }} onPress={buttonIconOnPress}>
+                            <MaterialCommunityIcons name={buttonIcon} size={30} color="gray" />
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 }
 

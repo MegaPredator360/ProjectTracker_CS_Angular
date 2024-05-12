@@ -21,10 +21,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.ProjectTrackerReactNative"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "sdkVersion": "50.0.0",
+    "entryPoint": ".vscode/exponentIndex.js",
+    "extra": {
+      "eas": {
+        "projectId": "161e7ed7-455a-4f3d-b92a-aaf70d74e3f2"
+      }
     }
-  }
+  },
+  "name": "projecttrackerreactnative"
 }

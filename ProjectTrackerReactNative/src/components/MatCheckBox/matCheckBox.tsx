@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -21,6 +21,15 @@ const MatCheckBox: React.FC<MatCheckBoxProps> = ({ label, initialState = false, 
             onChangeCheck(newCheckedState); // Llama a onChangeCheck solo si está definido
         }
     };
+
+    // Se verifica si el estado inicial del checkbox es true o false
+    useEffect(() => {
+
+        // Si el estado inicial es verdadero, se marcará el checkbox
+        if (initialState) {
+            setChecked(true)
+        }
+    }, [initialState])
 
     return (
         <TouchableWithoutFeedback onPress={toggleCheckbox}>

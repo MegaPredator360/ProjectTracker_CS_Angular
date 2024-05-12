@@ -303,18 +303,7 @@ const MatDropdown: <T>(
           }
 
           setFocused(true)
-          Animated.parallel([
-            Animated.timing(labelPosition, {
-              toValue: 0,
-              duration: 200,
-              useNativeDriver: false,
-            }),
-            Animated.timing(labelFontSize, {
-              toValue: 10,
-              duration: 200,
-              useNativeDriver: false,
-            })
-          ]).start();
+          activarLabel()
         } else {
 
           console.log("Close")
@@ -324,18 +313,7 @@ const MatDropdown: <T>(
 
           if (value == 0) {
             setFocused(false);
-            Animated.parallel([
-              Animated.timing(labelPosition, {
-                toValue: 10,
-                duration: 200,
-                useNativeDriver: false,
-              }),
-              Animated.timing(labelFontSize, {
-                toValue: 16,
-                duration: 200,
-                useNativeDriver: false,
-              })
-            ]).start();
+            desactivarLabel()
           }
           else {
             setFocused(false)
@@ -360,6 +338,38 @@ const MatDropdown: <T>(
       onFocus,
       onBlur,
     ]);
+
+    // Realizar animación inicial
+    const activarLabel = () => {
+      Animated.parallel([
+          Animated.timing(labelPosition, {
+              toValue: 0,
+              duration: 200,
+              useNativeDriver: false,
+          }),
+          Animated.timing(labelFontSize, {
+              toValue: 10,
+              duration: 200,
+              useNativeDriver: false,
+          })
+      ]).start();
+  }
+
+  // Realiza animación final
+  const desactivarLabel = () => {
+      Animated.parallel([
+          Animated.timing(labelPosition, {
+              toValue: 10,
+              duration: 200,
+              useNativeDriver: false,
+          }),
+          Animated.timing(labelFontSize, {
+              toValue: 16,
+              duration: 200,
+              useNativeDriver: false,
+          })
+      ]).start();
+  }
 
     const onSearch = useCallback(
       (text: string) => {
@@ -428,6 +438,10 @@ const MatDropdown: <T>(
     const _renderDropdown = () => {
       //const isSelected = currentValue && currentValue[valueField];
       const isSelected = currentValue !== null ? currentValue[valueField] : null;
+
+      if (isSelected != null) {
+        activarLabel()
+      }
 
       // Renderiza el input
       return (

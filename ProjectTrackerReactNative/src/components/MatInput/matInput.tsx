@@ -38,6 +38,12 @@ const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIco
         }
     };
 
+    // Cuando hay algún cambio en el input
+    const handleInputChange = (value: string) => {
+        onChangeText?.(value)
+        setText(value);
+    };
+
     // Cuando se toca el input
     const handleLabelPress = () => {
         inputRef.current?.focus();
@@ -97,7 +103,7 @@ const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIco
                         style={[styles.input, focused && styles.focusedInput, { width: inputWidth }]}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
-                        onChangeText={onChangeText}
+                        onChangeText={handleInputChange}
                         secureTextEntry={hideText}
                         keyboardType={entryType}
                         value={text}

@@ -1,10 +1,11 @@
 import { Text, View, StyleSheet, FlatList, Button, TouchableHighlight } from "react-native"
 import UsuarioService from "../services/UsuarioService"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Usuario } from "../interfaces/UsuarioInterface"
 import MatDivider from "../components/MatDivider/matDivider"
 import MatInput from "../components/MatInput/matInput"
 import MatButton from "../components/MatButton/matButton"
+import { useFocusEffect } from "@react-navigation/native"
 
 const UsuarioScreen = ({ navigation }: { navigation: any }) => {
 
@@ -32,9 +33,12 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
     }
 
     // Inicializamos la busqueda de usuarios
-    useEffect(() => {
-        obtenerUsuarios()
-    }, [])
+    useFocusEffect(
+        // Este efecto se ejecutará cada vez que la pantalla esté presente
+        React.useCallback(() => {
+            obtenerUsuarios()
+        }, [])
+    )
 
     return (
         <View style={{ flex: 1 }}>
@@ -45,7 +49,7 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                     marginBottom={13}
                     onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario', datosUsuario: null })}
                 />
-                <MatInput label="Buscar Usuario" />
+                <MatInput label="Buscar Usuario" value=""/>
             </View>
             <MatDivider />
             {/* Se genera la lista de usuarios */}

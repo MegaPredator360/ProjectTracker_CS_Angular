@@ -7,6 +7,8 @@ import MatDropdown from "../components/MatDropdown"
 import { Permiso } from "../interfaces/PermisoInterface";
 import { Usuario } from "../interfaces/UsuarioInterface";
 import PermisoService from "../services/PermisoService";
+import UtilityService from "../services/UtilityService";
+import UsuarioService from "../services/UsuarioService";
 
 const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
 
@@ -14,6 +16,8 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
 
     // Asignamos los datos del usuario que recibimos
     const datosUsuario: Usuario = route.params['datosUsuario'];
+
+    const utilityService = new UtilityService()
 
     const [isFocus, setIsFocus] = useState(false);
 
@@ -43,16 +47,17 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
         await PermisoService.Lista()
             .then(data => {
                 if (data.status) {
-
                     // Aquí se procesan los datos recibidos
                     setListaPermiso(data.value)
                 }
                 else {
+                    utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
                     console.error(data.msg);
                 }
             })
             .catch(error => {
                 // Manejar errores
+                utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
                 console.error(error);
             })
     }
@@ -76,8 +81,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
             // Nombre de boton de acción
             setBtnTitulo("Editar Usuario")
         }
-        else
-        {
+        else {
             // Nombre de boton de acción
             setBtnTitulo("Agregar Usuario")
         }
@@ -89,7 +93,50 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
         cargarDatos()
     }, [])
 
-    const guardarActualizarUsuario = () => {
+    const guardarActualizarUsuario = async () => {
+
+        // Se verificará que todos los campos estén llenos
+        if (
+            nombre == "" ||
+            cedula == "" ||
+            correo == "" ||
+            username == "" ||
+            telefono == "" ||
+            direccion == "" ||
+            permiso == 0
+        ) {
+            utilityService.mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
+            return
+        }
+
+        if (datosUsuario == null) {
+
+            // Se verificará que los campos de contraseña no estén vacios
+            if (contra == "" || confir == "") {
+                utilityService.mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
+                return
+            }
+
+            // Se verifica si la contraseña cumple con los requisitos
+            if (!utilityService.verificarContrasena(contra)) {
+                utilityService.mostrarAlerta("¡Error!", "La contraseña no cumple con los requisitos minimos")
+                return
+            }
+
+            // Se verifica que la contraseña y la confirmacion sean iguales
+            if (contra != confir) {
+                utilityService.mostrarAlerta("¡Error!", "Las contraseñas no son iguales")
+                return
+            }
+        }
+
+        // Se validará que el correo tenga el formato correcto
+        if (!utilityService.verificarCorreo(correo)) {
+            utilityService.mostrarAlerta("¡Error!", "El correo ingresado es invalido")
+            return
+        }
+
+        // Se crea el objeto que será enviado
         const usuario: Usuario = {
             usuaId: datosUsuario === null ? 0 : datosUsuario.usuaId,
             usuaNombre: nombre,
@@ -104,7 +151,47 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
             usuaPrimerInicio: primerInicio ? 1 : 0
         }
 
-        console.log(usuario)
+        
+        if (datosUsuario == null) {
+            // Enviamos la solicitud para agregar un usuario nuevo
+            await UsuarioService.Guardar(usuario)
+                .then(data => {
+                    if (data.status) {
+                        // Mensaje de exito
+                        utilityService.mostrarAlerta("Información", "El usuario fue agregado con exito")
+                        goBack()
+                    }
+                    else {
+                        utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
+                        console.error(data.msg);
+                    }
+                })
+                .catch(error => {
+                    // Manejar errores
+                    utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
+                    console.error(error);
+                })
+        }
+        else {
+            // Enviamos la solicitud para actualizar un usuario existente
+            await UsuarioService.Editar(usuario)
+                .then(data => {
+                    if (data.status) {
+                        // Mensaje de exito
+                        utilityService.mostrarAlerta("Información", "El usuario fue actualizado con exito")
+                        goBack()
+                    }
+                    else {
+                        utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
+                        console.error(data.msg);
+                    }
+                })
+                .catch(error => {
+                    // Manejar errores
+                    utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
+                    console.error(error);
+                })
+        }
     }
 
     return (

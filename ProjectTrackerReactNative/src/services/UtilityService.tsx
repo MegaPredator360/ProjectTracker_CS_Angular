@@ -34,4 +34,4 @@ class UtilityService {
     }
 }
 
-export default UtilityService
+export default new UtilityService

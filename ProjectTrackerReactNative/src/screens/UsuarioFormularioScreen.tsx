@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, ScrollView, Button, KeyboardAvoidingView } from "react-native"
+import { View, StyleSheet, ScrollView } from "react-native"
 import MatInput from "../components/MatInput/matInput"
 import MatCheckBox from "../components/MatCheckBox/matCheckBox"
 import MatButton from "../components/MatButton/matButton";
@@ -16,9 +16,6 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
 
     // Asignamos los datos del usuario que recibimos
     const datosUsuario: Usuario = route.params['datosUsuario'];
-
-    // Servicios a usar
-    const utilityService = new UtilityService()
 
     const [isFocus, setIsFocus] = useState(false);
 
@@ -52,13 +49,13 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
                     setListaPermiso(data.value)
                 }
                 else {
-                    utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
+                    UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
                     console.error(data.msg);
                 }
             })
             .catch(error => {
                 // Manejar errores
-                utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
+                UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
                 console.error(error);
             })
     }
@@ -106,7 +103,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
             direccion == "" ||
             permiso == 0
         ) {
-            utilityService.mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
+            UtilityService.mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
             return
         }
 
@@ -114,26 +111,26 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
 
             // Se verificará que los campos de contraseña no estén vacios
             if (contra == "" || confir == "") {
-                utilityService.mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
+                UtilityService.mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
                 return
             }
 
             // Se verifica si la contraseña cumple con los requisitos
-            if (!utilityService.verificarContrasena(contra)) {
-                utilityService.mostrarAlerta("¡Error!", "La contraseña no cumple con los requisitos minimos")
+            if (!UtilityService.verificarContrasena(contra)) {
+                UtilityService.mostrarAlerta("¡Error!", "La contraseña no cumple con los requisitos minimos")
                 return
             }
 
             // Se verifica que la contraseña y la confirmacion sean iguales
             if (contra != confir) {
-                utilityService.mostrarAlerta("¡Error!", "Las contraseñas no son iguales")
+                UtilityService.mostrarAlerta("¡Error!", "Las contraseñas no son iguales")
                 return
             }
         }
 
         // Se validará que el correo tenga el formato correcto
-        if (!utilityService.verificarCorreo(correo)) {
-            utilityService.mostrarAlerta("¡Error!", "El correo ingresado es invalido")
+        if (!UtilityService.verificarCorreo(correo)) {
+            UtilityService.mostrarAlerta("¡Error!", "El correo ingresado es invalido")
             return
         }
 
@@ -159,17 +156,17 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
                 .then(data => {
                     if (data.status) {
                         // Mensaje de exito
-                        utilityService.mostrarAlerta("Información", "El usuario fue agregado con exito")
+                        UtilityService.mostrarAlerta("Información", "El usuario fue agregado con exito")
                         goBack()
                     }
                     else {
-                        utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
+                        UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
                         console.error(data.msg);
                     }
                 })
                 .catch(error => {
                     // Manejar errores
-                    utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
+                    UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
                     console.error(error);
                 })
         }
@@ -179,17 +176,17 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
                 .then(data => {
                     if (data.status) {
                         // Mensaje de exito
-                        utilityService.mostrarAlerta("Información", "El usuario fue actualizado con exito")
+                        UtilityService.mostrarAlerta("Información", "El usuario fue actualizado con exito")
                         goBack()
                     }
                     else {
-                        utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
+                        UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
                         console.error(data.msg);
                     }
                 })
                 .catch(error => {
                     // Manejar errores
-                    utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
+                    UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
                     console.error(error);
                 })
         }

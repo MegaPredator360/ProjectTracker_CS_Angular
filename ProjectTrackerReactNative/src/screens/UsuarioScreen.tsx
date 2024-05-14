@@ -15,8 +15,6 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
     const [isPressed, setIsPressed] = useState(false); // Estado para rastrear si se está presionando el botón
     const [filterText, setFilterText] = useState('')
 
-    const utilityService = new UtilityService()
-
     // Obtenemos la lista de Usuarios
     const obtenerUsuarios = async () => {
 
@@ -48,17 +46,17 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                 onPress: async () => await UsuarioService.Eliminar(usuario.usuaId)
                     .then(data => {
                         if (data.status) {
-                            utilityService.mostrarAlerta("Información", "El usuario fue eliminado con exito")
+                            UtilityService.mostrarAlerta("Información", "El usuario fue eliminado con exito")
                             obtenerUsuarios()
                         }
                         else {
-                            utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al eliminar el usuario")
+                            UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al eliminar el usuario")
                             console.error(data.msg);
                         }
                     })
                     .catch(error => {
                         // Manejar errores
-                        utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al eliminar el usuario")
+                        UtilityService.mostrarAlerta("¡Error!", "Ocurrio un error al eliminar el usuario")
                         console.error(error);
                     })
             },

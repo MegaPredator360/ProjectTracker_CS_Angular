@@ -17,6 +17,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
     // Asignamos los datos del usuario que recibimos
     const datosUsuario: Usuario = route.params['datosUsuario'];
 
+    // Servicios a usar
     const utilityService = new UtilityService()
 
     const [isFocus, setIsFocus] = useState(false);
@@ -63,7 +64,7 @@ const UsuarioFormularioScreen = ({ navigation: { goBack }, route }) => {
     }
 
     const cargarDatos = () => {
-        console.log(datosUsuario)
+        //console.log(datosUsuario)
 
         // Verificaremos si los datos que recibimos es diferente de null
         if (datosUsuario != null) {

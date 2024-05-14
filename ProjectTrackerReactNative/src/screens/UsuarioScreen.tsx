@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, FlatList, Button, TouchableHighlight } from "react-native"
+import { Text, View, StyleSheet, FlatList, Button, TouchableHighlight, TouchableOpacity, Alert } from "react-native"
 import UsuarioService from "../services/UsuarioService"
 import React, { useEffect, useState } from "react"
 import { Usuario } from "../interfaces/UsuarioInterface"
@@ -6,11 +6,15 @@ import MatDivider from "../components/MatDivider/matDivider"
 import MatInput from "../components/MatInput/matInput"
 import MatButton from "../components/MatButton/matButton"
 import { useFocusEffect } from "@react-navigation/native"
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import UtilityService from "../services/UtilityService"
 
 const UsuarioScreen = ({ navigation }: { navigation: any }) => {
 
     const [listaUsuario, setListaUsuario] = useState<Usuario[]>([])
     const [isPressed, setIsPressed] = useState(false); // Estado para rastrear si se está presionando el botón
+
+    const utilityService = new UtilityService()
 
     // Obtenemos la lista de Usuarios
     const obtenerUsuarios = async () => {
@@ -32,6 +36,34 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
             })
     }
 
+    const eliminarUsuario = async (usuario: Usuario) => {
+        Alert.alert('Eliminar Usuario', '¿Deseas eliminar el usuario: ' + usuario.usuaNombre + '?', [
+            {
+                text: 'Volver',
+                style: 'cancel',
+            },
+            {
+                text: 'Aceptar',
+                onPress: async () => await UsuarioService.Eliminar(usuario.usuaId)
+                    .then(data => {
+                        if (data.status) {
+                            utilityService.mostrarAlerta("Información", "El usuario fue eliminado con exito")
+                            obtenerUsuarios()
+                        }
+                        else {
+                            utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al eliminar el usuario")
+                            console.error(data.msg);
+                        }
+                    })
+                    .catch(error => {
+                        // Manejar errores
+                        utilityService.mostrarAlerta("¡Error!", "Ocurrio un error al eliminar el usuario")
+                        console.error(error);
+                    })
+            },
+        ]);
+    }
+
     // Inicializamos la busqueda de usuarios
     useFocusEffect(
         // Este efecto se ejecutará cada vez que la pantalla esté presente
@@ -49,7 +81,7 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                     marginBottom={13}
                     onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario', datosUsuario: null })}
                 />
-                <MatInput label="Buscar Usuario" value=""/>
+                <MatInput label="Buscar Usuario" value="" />
             </View>
             <MatDivider />
             {/* Se genera la lista de usuarios */}
@@ -64,14 +96,31 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                                 underlayColor="black" // Establece un color transparente para que no haya un color de resaltado predeterminado
                                 onPressIn={() => setIsPressed(true)} // Función para manejar el evento onPressIn (cuando se inicia la presión)
                                 onPressOut={() => setIsPressed(false)} // Función para manejar el evento onPressOut (cuando se deja de presionar)
-                                onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Editar Usuario', datosUsuario: item })}
+                                onPress={() => navigation.navigate('Detalle de Usuario', { datosUsuario: item })}
                             >
                                 <View style={[styles.itemContainer, { backgroundColor: isPressed ? "#FFFFFF" : "#FFFFFF" }]}>
                                     <Text style={styles.itemTitle}>{item.usuaNombre}</Text>
                                     <Text>Cedula: {item.usuaCedula}</Text>
                                     <Text>Correo: {item.usuaCorreo}</Text>
                                     <Text>Permiso: {item.usuaPermNombre}</Text>
+
+                                    {/* Botón para borrar un usuario */}
+                                    <TouchableOpacity
+                                        style={{ position: 'absolute', right: 10, top: 15 }}
+                                        onPress={() => eliminarUsuario(item)}
+                                    >
+                                        <MaterialCommunityIcons name="delete" size={30} color="red" />
+                                    </TouchableOpacity>
+
+                                    {/* Botón para editar un usuario */}
+                                    <TouchableOpacity
+                                        style={{ position: 'absolute', right: 10, top: 65 }}
+                                        onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Editar Usuario', datosUsuario: item })}
+                                    >
+                                        <MaterialCommunityIcons name="pencil" size={30} color="#3E9C7E" />
+                                    </TouchableOpacity>
                                 </View>
+
                             </TouchableHighlight>
                             <MatDivider color="#B3B3B3" />
                         </View>

@@ -13,6 +13,7 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
 
     const [listaUsuario, setListaUsuario] = useState<Usuario[]>([])
     const [isPressed, setIsPressed] = useState(false); // Estado para rastrear si se está presionando el botón
+    const [filterText, setFilterText] = useState('')
 
     const utilityService = new UtilityService()
 
@@ -64,6 +65,11 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
         ]);
     }
 
+    // Filtrar lista en base al campo de busqueda
+    const listaUsuarioFiltrada = listaUsuario.filter(usuario =>
+        usuario.usuaNombre.toLowerCase().includes(filterText.toLowerCase()),
+    );
+
     // Inicializamos la busqueda de usuarios
     useFocusEffect(
         // Este efecto se ejecutará cada vez que la pantalla esté presente
@@ -81,13 +87,17 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                     marginBottom={13}
                     onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Agregar Usuario', datosUsuario: null })}
                 />
-                <MatInput label="Buscar Usuario" value="" />
+                <MatInput
+                    label="Buscar Usuario"
+                    onChangeText={(text) => setFilterText(text)}
+                    value={filterText}
+                />
             </View>
             <MatDivider />
             {/* Se genera la lista de usuarios */}
             <FlatList
                 style={styles.listaContainer}
-                data={listaUsuario}
+                data={listaUsuarioFiltrada}
                 renderItem={({ item }) => {
                     return (
                         <View>

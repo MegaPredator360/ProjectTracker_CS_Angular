@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, FlatList, Button, TouchableHighlight, TouchableOpacity, Alert } from "react-native"
 import UsuarioService from "../services/UsuarioService"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Usuario } from "../interfaces/UsuarioInterface"
 import MatDivider from "../components/MatDivider/matDivider"
 import MatInput from "../components/MatInput/matInput"

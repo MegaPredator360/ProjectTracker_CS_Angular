@@ -100,7 +100,7 @@ const ProyectoFormularioScreen = ({ navigation: { goBack }, route }) => {
             proyCantidadTarea: 0
         }
 
-        
+
         if (datosProyecto == null) {
             // Enviamos la solicitud para agregar un proyecto nuevo
             await ProyectoService.Guardar(proyecto)
@@ -155,6 +155,8 @@ const ProyectoFormularioScreen = ({ navigation: { goBack }, route }) => {
                     label="Descripcion del Proyecto"
                     onChangeText={(text) => setDescripcion(text)}
                     value={descripcion}
+                    multiLine
+                    numberLines={4}
                 />
                 <MatInput
                     label="Fecha de Inicio"

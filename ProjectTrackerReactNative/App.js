@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './src/screens/LoginScreen';
 import LayoutScreen from './src/screens/LayoutScreen';
 import UsuarioFormularioScreen from './src/screens/UsuarioFormularioScreen';
+import UsuarioDetalleScreen from './src/screens/UsuarioDetalleScreen';
 
 // Definimos una variable para obtener metodos de navegacion
 const Stack = createNativeStackNavigator()
@@ -28,6 +29,10 @@ export default function App() {
           
           // Me permitirá agregar un nombre personalizado a la pantalla cuando lo necesite
           options={({ route }) => ({ title: route.params.name })}
+        />
+        <Stack.Screen
+          name='Detalle de Usuario'
+          component={UsuarioDetalleScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

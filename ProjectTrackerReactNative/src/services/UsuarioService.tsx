@@ -52,7 +52,7 @@ class UsuarioService {
                 usuaId: request.usuaId,
                 usuaCedula: request.usuaCedula,
                 usuaNombre: request.usuaNombre,
-                usuaUsername: request.usuaNombre,
+                usuaUsername: request.usuaUsername,
                 usuaCorreo: request.usuaCorreo,
                 usuaContrasena: request.usuaContrasena,
                 usuaTelefono: request.usuaTelefono,

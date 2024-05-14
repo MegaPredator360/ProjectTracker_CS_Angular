@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { View, TextInput, Animated, StyleSheet, Platform, TouchableOpacity, TouchableWithoutFeedback, GestureResponderEvent, KeyboardAvoidingView } from "react-native";
+import { View, TextInput, Animated, StyleSheet, Platform, TouchableOpacity, TouchableWithoutFeedback, GestureResponderEvent, KeyboardAvoidingView, LayoutChangeEvent } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type MatInputProps = {
@@ -9,14 +9,28 @@ type MatInputProps = {
     buttonIconOnPress?: (((event: GestureResponderEvent) => void) & (() => void)) | undefined;
     hideText?: boolean;
     entryType?: string;
-    onChangeText?: ((text: string) => void) | undefined
+    onChangeText: ((text: string) => void) | undefined
     value: string
+    multiLine?: boolean
+    numberLines?: number;
 };
 
-const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIcon, buttonIconOnPress, hideText, entryType = 'default', onChangeText, ...rest }) => {
+const MatInput: React.FC<MatInputProps> = ({ 
+    label, 
+    multiLine = false,
+    numberLines = 1,
+    value, 
+    inputWidth, 
+    buttonIcon, 
+    buttonIconOnPress, 
+    hideText, 
+    entryType = 'default', 
+    onChangeText, 
+    ...rest }) => {
 
     const [focused, setFocused] = useState(false);
     const [text, setText] = useState('');
+    const [inputSize, setInputSize] = useState(47)
     const inputRef = useRef<TextInput>(null);
     const labelPosition = useRef(new Animated.Value(10)).current;
     const labelFontSize = useRef(new Animated.Value(16)).current;
@@ -83,6 +97,10 @@ const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIco
 
     useEffect(() => {
 
+        if (numberLines) {
+            setInputSize(47 + (22 * (numberLines - 1)))
+        }
+
         if (value != null && value != '') {
 
             // Actualiza el estado del texto
@@ -100,13 +118,15 @@ const MatInput: React.FC<MatInputProps> = ({ label, value, inputWidth, buttonIco
                     <TextInput
                         ref={inputRef}
                         {...rest}
-                        style={[styles.input, focused && styles.focusedInput, { width: inputWidth }]}
+                        style={[styles.input, focused && styles.focusedInput, { width: inputWidth, height: inputSize }]}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         onChangeText={handleInputChange}
                         secureTextEntry={hideText}
                         keyboardType={entryType}
                         value={text}
+                        multiline={multiLine}
+                        numberOfLines={numberLines}
                     />
                     <Animated.Text
                         style={[
@@ -139,12 +159,12 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 3,
         borderTopLeftRadius: 3,
         backgroundColor: '#EDEDED',
-        height: 47,
         borderColor: '#D3D3D3',
         borderBottomWidth: 1,
         fontSize: 16,
         padding: 8,
-        paddingTop: 17
+        paddingTop: 17,
+        textAlignVertical: 'top'
     },
     focusedInput: {
         backgroundColor: '#E0E0E0',

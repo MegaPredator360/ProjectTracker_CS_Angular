@@ -107,26 +107,29 @@ const UsuarioScreen = ({ navigation }: { navigation: any }) => {
                                 onPress={() => navigation.navigate('Detalle de Usuario', { datosUsuario: item })}
                             >
                                 <View style={[styles.itemContainer, { backgroundColor: isPressed ? "#FFFFFF" : "#FFFFFF" }]}>
-                                    <Text style={styles.itemTitle}>{item.usuaNombre}</Text>
-                                    <Text>Cedula: {item.usuaCedula}</Text>
-                                    <Text>Correo: {item.usuaCorreo}</Text>
-                                    <Text>Permiso: {item.usuaPermNombre}</Text>
+                                    <View style={styles.infoContainer}>
+                                        <Text style={styles.itemTitle}>{item.usuaNombre}</Text>
+                                        <Text>Cedula: {item.usuaCedula}</Text>
+                                        <Text>Correo: {item.usuaCorreo}</Text>
+                                        <Text>Permiso: {item.usuaPermNombre}</Text>
+                                    </View>
 
-                                    {/* Botón para borrar un usuario */}
-                                    <TouchableOpacity
-                                        style={{ position: 'absolute', right: 10, top: 15 }}
-                                        onPress={() => eliminarUsuario(item)}
-                                    >
-                                        <MaterialCommunityIcons name="delete" size={30} color="red" />
-                                    </TouchableOpacity>
+                                    <View style={styles.actionBtn}>
+                                        {/* Botón para borrar un usuario */}
+                                        <TouchableOpacity
+                                            onPress={() => eliminarUsuario(item)}
+                                        >
+                                            <MaterialCommunityIcons name="delete" size={30} color="red" />
+                                        </TouchableOpacity>
 
-                                    {/* Botón para editar un usuario */}
-                                    <TouchableOpacity
-                                        style={{ position: 'absolute', right: 10, top: 65 }}
-                                        onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Editar Usuario', datosUsuario: item })}
-                                    >
-                                        <MaterialCommunityIcons name="pencil" size={30} color="#3E9C7E" />
-                                    </TouchableOpacity>
+                                        {/* Botón para editar un usuario */}
+                                        <TouchableOpacity
+                                            style={{ marginTop: 15 }}
+                                            onPress={() => navigation.navigate('UsuarioFormulario', { name: 'Editar Usuario', datosUsuario: item })}
+                                        >
+                                            <MaterialCommunityIcons name="pencil" size={30} color="#3E9C7E" />
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
 
                             </TouchableHighlight>
@@ -149,11 +152,19 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     itemContainer: {
-        padding: 10
+        padding: 10,
+        flexDirection: 'row', // Establece la dirección horizontal
     },
     itemTitle: {
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    infoContainer: {
+        width: '90%'
+    },
+    actionBtn: {
+        width: '10%',
+        paddingLeft: '2%'
     }
 })
 

@@ -108,26 +108,29 @@ const ProyectoScreen = ({ navigation }: { navigation: any }) => {
                                 onPress={() => navigation.navigate('Detalle de Proyecto', { datosProyecto: item })}
                             >
                                 <View style={[styles.itemContainer, { backgroundColor: isPressed ? "#FFFFFF" : "#FFFFFF" }]}>
-                                    <Text style={styles.itemTitle}>{item.proyNombre}</Text>
-                                    <Text>Fecha de Inicio: {item.proyFechaInicio}</Text>
-                                    <Text>Estado: {item.proyEstaNombre}</Text>
-                                    <Text>Tareas Asignadas: {item.proyCantidadTarea}</Text>
+                                    <View style={styles.infoContainer}>
+                                        <Text style={styles.itemTitle}>{item.proyNombre}</Text>
+                                        <Text>Fecha de Inicio: {item.proyFechaInicio}</Text>
+                                        <Text>Estado: {item.proyEstaNombre}</Text>
+                                        <Text>Tareas Asignadas: {item.proyCantidadTarea}</Text>
+                                    </View>
 
-                                    {/* Botón para borrar un proyecto */}
-                                    <TouchableOpacity
-                                        style={{ position: 'absolute', right: 10, top: 15 }}
-                                        onPress={() => eliminarProyecto(item)}
-                                    >
-                                        <MaterialCommunityIcons name="delete" size={30} color="red" />
-                                    </TouchableOpacity>
+                                    <View style={styles.actionBtn}>
+                                        {/* Botón para borrar un proyecto */}
+                                        <TouchableOpacity
+                                            onPress={() => eliminarProyecto(item)}
+                                        >
+                                            <MaterialCommunityIcons name="delete" size={30} color="red" />
+                                        </TouchableOpacity>
 
-                                    {/* Botón para editar un proyecto */}
-                                    <TouchableOpacity
-                                        style={{ position: 'absolute', right: 10, top: 65 }}
-                                        onPress={() => navigation.navigate('ProyectoFormulario', { name: 'Editar Proyecto', datosProyecto: item })}
-                                    >
-                                        <MaterialCommunityIcons name="pencil" size={30} color="#3E9C7E" />
-                                    </TouchableOpacity>
+                                        {/* Botón para editar un proyecto */}
+                                        <TouchableOpacity
+                                            style={{ marginTop: 15 }}
+                                            onPress={() => navigation.navigate('ProyectoFormulario', { name: 'Editar Proyecto', datosProyecto: item })}
+                                        >
+                                            <MaterialCommunityIcons name="pencil" size={30} color="#3E9C7E" />
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
 
                             </TouchableHighlight>
@@ -150,7 +153,15 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     itemContainer: {
+        flexDirection: 'row', // Establece la dirección horizontal
         padding: 10
+    },
+    infoContainer: {
+        width: '90%'
+    },
+    actionBtn: {
+        width: '10%',
+        paddingLeft: '2%'
     },
     itemTitle: {
         fontSize: 20,

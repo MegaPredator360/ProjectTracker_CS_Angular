@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 13
     },
     listaContainer: {
-        flexGrow: 1
+        flexGrow: 1,
+        width: '100%'
     },
     itemContainer: {
         padding: 10

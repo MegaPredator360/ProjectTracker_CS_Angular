@@ -37,7 +37,7 @@ export default function App() {
           component={UsuarioDetalleScreen}
         />
         <Stack.Screen
-          name='UsuarioFormulario'
+          name='ProyectoFormulario'
           component={ProyectoFormularioScreen}
           
           // Me permitirá agregar un nombre personalizado a la pantalla cuando lo necesite

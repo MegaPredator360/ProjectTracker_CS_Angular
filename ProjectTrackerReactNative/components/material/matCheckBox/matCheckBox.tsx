@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
+import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/ThemedText';
 
 type MatCheckBoxProps = {
     label?: string;
@@ -33,12 +35,12 @@ const MatCheckBox: React.FC<MatCheckBoxProps> = ({ label, initialState = false, 
 
     return (
         <TouchableWithoutFeedback onPress={toggleCheckbox}>
-            <View style={styles.checkboxContainer}>
-                <View style={[styles.checkbox, checked && styles.checked]}>
+            <ThemedView style={styles.checkboxContainer}>
+                <ThemedView style={[styles.checkbox, checked && styles.checked]}>
                     {checked && <AntDesign name="check" size={18} color="#fff" />}
-                </View>
-                <Text style={styles.label}>{label}</Text>
-            </View>
+                </ThemedView>
+                <ThemedText style={styles.label}>{label}</ThemedText>
+            </ThemedView>
         </TouchableWithoutFeedback>
     );
 };

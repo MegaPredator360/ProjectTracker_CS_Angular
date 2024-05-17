@@ -33,9 +33,9 @@ const MatInput: React.FC<MatInputProps> = ({
 
     // Para el modo oscuro
     const colorScheme = useColorScheme();
-    const bgColor = colorScheme === 'light' ? '#EDEDED' : "#191919";
-    const bgColorFocus = colorScheme === 'light' ? '#E0E0E0' : "#202020";
-    const borderColor = colorScheme === 'light' ? '#D3D3D3' : "#333333";
+    const bgColor = colorScheme === 'light' ? '#EDEDED' : "#202020";
+    const bgColorFocus = colorScheme === 'light' ? '#E0E0E0' : "#282828";
+    const borderColor = colorScheme === 'light' ? '#D3D3D3' : "#393939";
     const labelColor = colorScheme === 'light' ? '#808080' : "#707070";
     const textColor = colorScheme === 'light' ? '#000000' : "#FFFFFF";
 

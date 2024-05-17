@@ -25,13 +25,6 @@ class UtilityService {
             return false
         }
     }
-
-    // Mostrar alerta
-    mostrarAlerta(title: string, message: string) {
-        Alert.alert(title, message, [
-            { text: 'Aceptar' },
-        ]);
-    }
 }
 
 export default new UtilityService

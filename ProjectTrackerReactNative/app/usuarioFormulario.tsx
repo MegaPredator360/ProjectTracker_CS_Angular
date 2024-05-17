@@ -11,6 +11,7 @@ import UtilityService from "@/services/UtilityService";
 import UsuarioService from "@/services/UsuarioService";
 import { router } from "expo-router";
 import { useLocalSearchParams } from 'expo-router';
+import { ThemedView } from "@/components/ThemedView";
 
 export default function UsuarioFormularioScreen() {
 
@@ -222,7 +223,7 @@ export default function UsuarioFormularioScreen() {
     }
 
     return (
-        <View style={styles.container}>
+        <ThemedView style={styles.container}>
             <ScrollView style={styles.scrollContainer} keyboardShouldPersistTaps="always">
                 <MatInput
                     label="Nombre Completo"
@@ -291,13 +292,13 @@ export default function UsuarioFormularioScreen() {
                         setIsFocus(false);
                     }}
                 />
-                <View style={{ marginBottom: 18 }}>
+                <ThemedView style={{ marginBottom: 18 }}>
                     <MatCheckBox
                         label="Cambiar Contraseña al Inicio de Sesion"
                         initialState={primerInicio}
                         onChangeCheck={(check) => setPrimerInicio(check)}
                     />
-                </View>
+                </ThemedView>
                 <MatButton
                     title="Volver"
                     marginBottom={10}
@@ -311,7 +312,7 @@ export default function UsuarioFormularioScreen() {
                     onPress={guardarActualizarUsuario}
                 />
             </ScrollView>
-        </View>
+        </ThemedView>
     )
 }
 

@@ -274,7 +274,6 @@ export default function UsuarioFormularioScreen() {
                     value={confir}
                 />
                 <MatDropdown
-                    style={[styles.dropdown, isFocus && { borderColor: '#8E7CC3', backgroundColor: '#E0E0E0' }]}
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
@@ -322,16 +321,6 @@ const styles = StyleSheet.create({
     },
     scrollContainer: {
         padding: 10
-    },
-    dropdown: {
-        backgroundColor: '#EDEDED',
-        height: 47,
-        borderColor: '#D3D3D3',
-        borderBottomWidth: 1,
-        borderTopRightRadius: 3,
-        borderTopLeftRadius: 3,
-        paddingHorizontal: 8,
-        marginBottom: 20
     },
     icon: {
         marginRight: 5,

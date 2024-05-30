@@ -671,8 +671,6 @@ const MatDropdown: <T>(
         top = top - 1.2
         width = width + 1
 
-        console.log(position)
-
         const onAutoPosition = () => {
           if (keyboardHeight > 0) {
             return bottom < keyboardHeight + height;

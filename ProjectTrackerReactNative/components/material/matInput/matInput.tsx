@@ -123,55 +123,54 @@ const MatInput: React.FC<MatInputProps> = ({
 
     return (
         <TouchableWithoutFeedback onPress={handleLabelPress}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : null}
-            >
-                <View style={[styles.container]}>
-                    <TextInput
-                        ref={inputRef}
-                        {...rest}
-                        style={[styles.input, { 
-                            width: inputWidth, 
-                            height: inputSize, 
-                            backgroundColor: bgColor, 
-                            borderColor: borderColor, 
-                            color: textColor 
-                        }, 
-                        focused && { 
-                            backgroundColor: bgColorFocus,
-                            borderColor: inputColor
-                        }]}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        onChangeText={handleInputChange}
-                        secureTextEntry={hideText}
-                        keyboardType={entryType}
-                        value={text}
-                        multiline={multiLine}
-                        numberOfLines={numberLines}
-                    />
-                    <Animated.Text
-                        style={[
-                            styles.label,
-                            {
-                                transform: [{ translateY: labelPosition }],
-                                fontSize: labelFontSize,
-                                color: labelColor
-                            },
-                            focused && {
-                                color: inputColor
-                            }
-                        ]}
+            <View style={[styles.container]}>
+                <TextInput
+                    ref={inputRef}
+                    {...rest}
+                    style={[styles.input, {
+                        width: inputWidth,
+                        height: inputSize,
+                        backgroundColor: bgColor,
+                        borderColor: borderColor,
+                        color: textColor
+                    },
+                    focused && {
+                        backgroundColor: bgColorFocus,
+                        borderColor: inputColor
+                    }]}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    onChangeText={handleInputChange}
+                    secureTextEntry={hideText}
+                    keyboardType={entryType}
+                    value={text}
+                    multiline={multiLine}
+                    numberOfLines={numberLines}
+                />
+                <Animated.Text
+                    style={[
+                        styles.label,
+                        {
+                            transform: [{ translateY: labelPosition }],
+                            fontSize: labelFontSize,
+                            color: labelColor
+                        },
+                        focused && {
+                            color: inputColor
+                        }
+                    ]}
+                >
+                    {label}
+                </Animated.Text>
+                {buttonIcon && (
+                    <TouchableOpacity
+                        style={{ position: 'absolute', right: 10, top: 7 }}
+                        onPress={buttonIconOnPress}
                     >
-                        {label}
-                    </Animated.Text>
-                    {buttonIcon && (
-                        <TouchableOpacity style={{ position: 'absolute', right: 10, top: 7 }} onPress={buttonIconOnPress}>
-                            <MaterialCommunityIcons name={buttonIcon} size={30} color="gray" />
-                        </TouchableOpacity>
-                    )}
-                </View>
-            </KeyboardAvoidingView>
+                        <MaterialCommunityIcons name={buttonIcon} size={30} color="gray" />
+                    </TouchableOpacity>
+                )}
+            </View>
         </TouchableWithoutFeedback>
     );
 }

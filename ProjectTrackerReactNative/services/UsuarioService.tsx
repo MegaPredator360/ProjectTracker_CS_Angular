@@ -48,19 +48,7 @@ class UsuarioService {
     async Guardar(request: Usuario): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}Guardar`, {
             method: 'POST',
-            body: JSON.stringify({
-                usuaId: request.usuaId,
-                usuaCedula: request.usuaCedula,
-                usuaNombre: request.usuaNombre,
-                usuaUsername: request.usuaUsername,
-                usuaCorreo: request.usuaCorreo,
-                usuaContrasena: request.usuaContrasena,
-                usuaTelefono: request.usuaTelefono,
-                usuaDireccion: request.usuaDireccion,
-                usuaPrimerInicio: request.usuaPrimerInicio,
-                usuaPermId: request.usuaPermId,
-                usuaPermNombre: request.usuaPermNombre
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }
@@ -73,19 +61,7 @@ class UsuarioService {
     async Editar(request: Usuario): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}Editar`, {
             method: 'PUT',
-            body: JSON.stringify({
-                usuaId: request.usuaId,
-                usuaCedula: request.usuaCedula,
-                usuaNombre: request.usuaNombre,
-                usuaUsername: request.usuaUsername,
-                usuaCorreo: request.usuaCorreo,
-                usuaContrasena: request.usuaContrasena,
-                usuaTelefono: request.usuaTelefono,
-                usuaDireccion: request.usuaDireccion,
-                usuaPrimerInicio: request.usuaPrimerInicio,
-                usuaPermId: request.usuaPermId,
-                usuaPermNombre: request.usuaPermNombre
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }
@@ -107,19 +83,7 @@ class UsuarioService {
     async CambiarContraseña(request: Usuario): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}CambiarContrasena`, {
             method: 'PUT',
-            body: JSON.stringify({
-                usuaId: request.usuaId,
-                usuaCedula: request.usuaCedula,
-                usuaNombre: request.usuaNombre,
-                usuaUsername: request.usuaNombre,
-                usuaCorreo: request.usuaCorreo,
-                usuaContrasena: request.usuaContrasena,
-                usuaTelefono: request.usuaTelefono,
-                usuaDireccion: request.usuaDireccion,
-                usuaPrimerInicio: request.usuaPrimerInicio,
-                usuaPermId: request.usuaPermId,
-                usuaPermNombre: request.usuaPermNombre
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }

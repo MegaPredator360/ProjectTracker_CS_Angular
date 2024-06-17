@@ -12,6 +12,8 @@ import UsuarioService from "@/services/UsuarioService";
 import { router } from "expo-router";
 import { useLocalSearchParams } from 'expo-router';
 import { ThemedView } from "@/components/ThemedView";
+import MatDialog from "@/components/material/matDialog/matDialog";
+
 
 export default function UsuarioFormularioScreen() {
 
@@ -48,6 +50,14 @@ export default function UsuarioFormularioScreen() {
     // Interfaz
     const [btnTitulo, setBtnTitulo] = useState('');
 
+    // Manejo de alertas
+    const [confirmation, setConfirmation] = useState(false);
+    const [alert, setAlert] = useState(false);
+    const [alertTitle, setAlertTitle] = useState('')
+    const [alertMsg, setAlertMsg] = useState('')
+    const [successMsg, setSuccessMsg] = useState('')
+    const [success, setSuccess] = useState(false)
+
     // Obtenemos la lista de Permisos
     const obtenerPermisos = async () => {
 
@@ -59,25 +69,19 @@ export default function UsuarioFormularioScreen() {
                     setListaPermiso(data.value)
                 }
                 else {
-                    mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
+                    setAlertMsg("¡Error!")
+                    setAlertMsg("Ocurrio un error al obtener la lista de permisos")
+                    setAlert(true)
                     console.error(data.msg);
                 }
             })
             .catch(error => {
                 // Manejar errores
-                mostrarAlerta("¡Error!", "Ocurrio un error al obtener la lista de permisos")
+                setAlertMsg("¡Error!")
+                setAlertMsg("Ocurrio un error de conexion al obtener la lista de permisos")
+                setAlert(true)
                 console.error(error);
             })
-    }
-
-    const mostrarAlerta = (title: string, message: string) => {
-
-        // Una alerta sencilla para mostrar un error de falta de datos
-        Alert.alert(title, message, [
-            {
-                text: 'Aceptar'
-            }
-        ]);
     }
 
     const cargarDatos = () => {
@@ -97,11 +101,11 @@ export default function UsuarioFormularioScreen() {
             setPrimerInicio(datosUsuario.usuaPrimerInicio === 0 ? false : true)
 
             // Nombre de boton de acción
-            setBtnTitulo("Editar Usuario")
+            setBtnTitulo("Actualizar")
         }
         else {
             // Nombre de boton de acción
-            setBtnTitulo("Agregar Usuario")
+            setBtnTitulo("Agregar")
         }
     }
 
@@ -111,8 +115,8 @@ export default function UsuarioFormularioScreen() {
         cargarDatos()
     }, [])
 
-    const guardarActualizarUsuario = async () => {
-
+    // Validar campos vacios
+    const validarCampos = () => {
         // Se verificará que todos los campos estén llenos
         if (
             nombre == "" ||
@@ -123,7 +127,9 @@ export default function UsuarioFormularioScreen() {
             direccion == "" ||
             permiso == 0
         ) {
-            mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
+            setAlertTitle("¡Error!")
+            setAlertMsg("Hay uno o más campos vacios")
+            setAlert(true)
             return
         }
 
@@ -131,26 +137,46 @@ export default function UsuarioFormularioScreen() {
 
             // Se verificará que los campos de contraseña no estén vacios
             if (contra == "" || confir == "") {
-                mostrarAlerta("¡Error!", "Hay uno o más campos vacios")
+                setAlertTitle("¡Error!")
+                setAlertMsg("Hay uno o más campos vacios")
+                setAlert(true)
                 return
             }
+        }
+
+        // Se habilita el dialogo de confirmacion
+        setConfirmation(true)
+    }
+
+    const guardarActualizarUsuario = async () => {
+
+        // Se cierra el dialogo de confirmacion
+        setConfirmation(false)
+
+        if (datosUsuario == null) {
 
             // Se verifica si la contraseña cumple con los requisitos
             if (!UtilityService.verificarContrasena(contra)) {
-                mostrarAlerta("¡Error!", "La contraseña no cumple con los requisitos minimos")
+                setAlertTitle("¡Error!")
+                setAlertMsg("La contraseña no cumple con los requisitos minimos")
+                setAlert(true)
                 return
             }
 
             // Se verifica que la contraseña y la confirmacion sean iguales
             if (contra != confir) {
-                mostrarAlerta("¡Error!", "Las contraseñas no son iguales")
+                setAlertTitle("¡Error!")
+                setAlertMsg("Las contraseñas no son iguales")
+                setAlert(true)
                 return
             }
         }
 
         // Se validará que el correo tenga el formato correcto
         if (!UtilityService.verificarCorreo(correo)) {
-            mostrarAlerta("¡Error!", "El correo ingresado es invalido")
+            setAlertTitle("¡Error!")
+            setAlertMsg("El correo ingresado no es valido")
+            setAlert(true)
             return
         }
 
@@ -177,21 +203,21 @@ export default function UsuarioFormularioScreen() {
                     if (data.status) {
 
                         // Mensaje de exito
-                        Alert.alert('Información', 'El usuario fue agregado con exito', [
-                            {
-                                text: 'Aceptar',
-                                onPress: () => router.back()
-                            }
-                        ]);
+                        setSuccessMsg('El usuario fue agregado exitosamente')
+                        setSuccess(true)
                     }
                     else {
-                        mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
+                        setAlertTitle("¡Error!")
+                        setAlertMsg("Ocurrio un error al agregar el usuario")
+                        setAlert(true)
                         console.error(data.msg);
                     }
                 })
                 .catch(error => {
                     // Manejar errores
-                    mostrarAlerta("¡Error!", "Ocurrio un error al agregar el usuario")
+                    setAlertTitle("¡Error!")
+                    setAlertMsg("Ocurrio un error al agregar el usuario")
+                    setAlert(true)
                     console.error(error);
                 })
         }
@@ -202,21 +228,21 @@ export default function UsuarioFormularioScreen() {
                     if (data.status) {
 
                         // Mensaje de exito
-                        Alert.alert('Información', 'El usuario fue actualizado con exito', [
-                            {
-                                text: 'Aceptar',
-                                onPress: () => router.back()
-                            }
-                        ]);
+                        setSuccessMsg('El usuario fue actualizado exitosamente')
+                        setSuccess(true)
                     }
                     else {
-                        mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
+                        setAlertTitle("¡Error!")
+                        setAlertMsg("Ocurrio un error al actualizar el usuario")
+                        setAlert(true)
                         console.error(data.msg);
                     }
                 })
                 .catch(error => {
                     // Manejar errores
-                    mostrarAlerta("¡Error!", "Ocurrio un error al actualizar el usuario")
+                    setAlertTitle("¡Error!")
+                    setAlertMsg("Ocurrio un error al actualizar el usuario")
+                    setAlert(true)
                     console.error(error);
                 })
         }
@@ -304,13 +330,39 @@ export default function UsuarioFormularioScreen() {
                     onPress={() => router.back()}
                 />
                 <MatButton
-                    title={btnTitulo}
-                    buttonColor="#5BB79A"
-                    hoverColor="#3E9C7E"
+                    title={`${btnTitulo} Usuario`}
+                    color='accept'
                     marginBottom={20}
-                    onPress={guardarActualizarUsuario}
+                    onPress={validarCampos}
                 />
             </ScrollView>
+
+            {/* Dialogo de Confirmacion */}
+            <MatDialog
+                title="Informacion"
+                message={`¿Deseas ${btnTitulo.toLowerCase()} el usuario?`}
+                visible={confirmation}
+                primaryText="Aceptar"
+                primaryAction={guardarActualizarUsuario}
+                secondaryText="Cancelar"
+                secondaryAction={() => setConfirmation(false)}
+            />
+
+            {/* Dialogo de Alerta */}
+            <MatDialog
+                title={alertTitle}
+                message={alertMsg}
+                visible={alert}
+                primaryAction={() => setAlert(false)}
+            />
+
+            {/* Dialogo de Exito */}
+            <MatDialog
+                title="Información"
+                message={successMsg}
+                visible={success}
+                primaryAction={() => router.back()}
+            />
         </ThemedView>
     )
 }

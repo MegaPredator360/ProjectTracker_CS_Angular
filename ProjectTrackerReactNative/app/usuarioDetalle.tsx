@@ -10,7 +10,13 @@ export default function UsuarioDetalleScreen() {
 
     // Obtenemos el objeto enviado
     const params = useLocalSearchParams();
-    const datosUsuario: Usuario = JSON.parse(params['datosUsuario']);
+
+    // Se declara el objeto
+    let datosUsuario: Usuario | null = null
+
+    if (params['datosUsuario'] != null) {
+        datosUsuario = JSON.parse(params['datosUsuario'].toString());
+    }
 
     return (
         <ThemedView>
@@ -19,7 +25,7 @@ export default function UsuarioDetalleScreen() {
                 Nombre Completo:
             </ThemedText>
             <ThemedText style={styles.information}>
-                {datosUsuario.usuaNombre}
+                {datosUsuario?.usuaNombre}
             </ThemedText>
 
             {/* Número de Cedula */}
@@ -27,7 +33,7 @@ export default function UsuarioDetalleScreen() {
                 Número de Cedula:
             </ThemedText>
             <ThemedText style={styles.information}>
-                {datosUsuario.usuaCedula}
+                {datosUsuario?.usuaCedula}
             </ThemedText>
 
             {/* Correo Electronico */}
@@ -35,7 +41,7 @@ export default function UsuarioDetalleScreen() {
                 Correo Electronico:
             </ThemedText>
             <ThemedText style={styles.information}>
-                {datosUsuario.usuaCorreo}
+                {datosUsuario?.usuaCorreo}
             </ThemedText>
 
             {/* Username */}
@@ -43,7 +49,7 @@ export default function UsuarioDetalleScreen() {
                 Username:
             </ThemedText>
             <ThemedText style={styles.information}>
-                {datosUsuario.usuaUsername}
+                {datosUsuario?.usuaUsername}
             </ThemedText>
 
             {/* Telefono */}
@@ -51,7 +57,7 @@ export default function UsuarioDetalleScreen() {
                 Telefono:
             </ThemedText>
             <ThemedText style={styles.information}>
-                {datosUsuario.usuaTelefono}
+                {datosUsuario?.usuaTelefono}
             </ThemedText>
 
             {/* Dirección */}
@@ -59,7 +65,7 @@ export default function UsuarioDetalleScreen() {
                 Dirección:
             </ThemedText>
             <ThemedText style={styles.information}>
-                {datosUsuario.usuaDireccion}
+                {datosUsuario?.usuaDireccion}
             </ThemedText>
 
             {/* Permiso */}
@@ -67,7 +73,7 @@ export default function UsuarioDetalleScreen() {
                 Permiso:
             </ThemedText>
             <ThemedText style={styles.information}>
-                {datosUsuario.usuaPermNombre}
+                {datosUsuario?.usuaPermNombre}
             </ThemedText>
 
             <MatButton

@@ -12,14 +12,12 @@ type MatInputProps = {
     entryType?: string;
     onChangeText: ((text: string) => void) | undefined
     value: string
-    multiLine?: boolean
     numberLines?: number;
     inputColor?: string
 };
 
 const MatInput: React.FC<MatInputProps> = ({
     label,
-    multiLine = false,
     numberLines = 1,
     value,
     inputWidth,
@@ -39,7 +37,7 @@ const MatInput: React.FC<MatInputProps> = ({
     const labelColor = colorScheme === 'light' ? '#808080' : "#707070";
     const textColor = colorScheme === 'light' ? '#000000' : "#FFFFFF";
 
-
+    const [multiline, setMultiline] = useState(false)
     const [focused, setFocused] = useState(false);
     const [text, setText] = useState('');
     const [inputSize, setInputSize] = useState(47)
@@ -111,6 +109,10 @@ const MatInput: React.FC<MatInputProps> = ({
 
         if (numberLines) {
             setInputSize(47 + (22 * (numberLines - 1)))
+
+            if (numberLines > 1) {
+                setMultiline(true)
+            }
         }
 
         if (value != null && value != '') {
@@ -144,7 +146,7 @@ const MatInput: React.FC<MatInputProps> = ({
                     secureTextEntry={hideText}
                     keyboardType={entryType}
                     value={text}
-                    multiline={multiLine}
+                    multiline={multiline}
                     numberOfLines={numberLines}
                 />
                 <Animated.Text

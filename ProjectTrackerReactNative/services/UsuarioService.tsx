@@ -23,10 +23,7 @@ class UsuarioService {
     async IniciarSesion(request: InicioSesion): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}IniciarSesion`, {
             method: 'POST',
-            body: JSON.stringify({
-                correo: request.correo,
-                contrasena: request.contrasena
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }

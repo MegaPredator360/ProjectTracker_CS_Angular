@@ -145,7 +145,7 @@ export default function ProyectoScreen() {
                                     <ThemedView style={[styles.infoContainer]}>
                                         <ThemedText style={styles.itemTitle}>{item.proyNombre}</ThemedText>
                                         <ThemedText>Fecha de Inicio: {item.proyFechaInicio}</ThemedText>
-                                        <ThemedText>Estado: {item.proyNombre}</ThemedText>
+                                        <ThemedText>Estado: {item.proyEstaNombre}</ThemedText>
                                         <ThemedText>Cantidad de Tareas Asignadas: {item.proyCantidadTarea}</ThemedText>
                                     </ThemedView>
 

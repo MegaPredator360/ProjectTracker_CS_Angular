@@ -1,10 +1,11 @@
-import { Text, View, StyleSheet, FlatList, Button, TouchableHighlight, TouchableOpacity, Alert } from "react-native"
-import UsuarioService from "@/services/UsuarioService"
+import { StyleSheet, FlatList, TouchableHighlight, TouchableOpacity } from "react-native"
 import React, { useState } from "react"
 import { Usuario } from "@/interfaces/UsuarioInterface"
+import UsuarioService from "@/services/UsuarioService"
 import MatDivider from "@/components/material/matDivider/matDivider"
 import MatInput from "@/components/material/matInput/matInput"
 import MatButton from "@/components/material/matButton/matButton"
+import MatDialog from "@/components/material/matDialog/matDialog"
 import { useFocusEffect } from "@react-navigation/native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ThemedView } from "@/components/ThemedView"
@@ -17,6 +18,13 @@ export default function UsuarioScreen() {
     const [listaUsuario, setListaUsuario] = useState<Usuario[]>([])
     const [isPressed, setIsPressed] = useState(false); // Estado para rastrear si se está presionando el botón
     const [filterText, setFilterText] = useState('')
+
+    // Manejo de alertas
+    const [confirmation, setConfirmation] = useState(false);
+    const [usuarioSelect, setUsuarioSelect] = useState<Usuario>()
+    const [alert, setAlert] = useState(false);
+    const [alertTitle, setAlertTitle] = useState('')
+    const [alertMsg, setAlertMsg] = useState('')
 
     // Obtenemos la lista de Usuarios
     const obtenerUsuarios = async () => {
@@ -38,52 +46,47 @@ export default function UsuarioScreen() {
             })
     }
 
-    const eliminarUsuario = async (usuario: Usuario) => {
+    // Eliminar Usuario
+    const eliminarUsuario = async (usuarioId: number) => {
 
-        // Se muestra una alerta preguntando si quiere borrar el usuario
-        Alert.alert('Eliminar Usuario', '¿Deseas eliminar el usuario: ' + usuario.usuaNombre + '?', [
-            {
-                text: 'Volver',
-                style: 'cancel',
-            },
-            {
-                text: 'Aceptar',
-                onPress: async () => await UsuarioService.Eliminar(usuario.usuaId)
-                    .then(data => {
-                        if (data.status) {
+        // Se cierra cuadro de confirmacion
+        setConfirmation(false)
 
-                            // Se muestra una alerta avisando que se borró el usuario
-                            Alert.alert('Información', 'El usuario fue eliinado con exito', [
-                                {
-                                    text: 'Aceptar'
-                                }
-                            ]);
-                            obtenerUsuarios()
-                        }
-                        else {
+        // Se realiza la solicitud
+        await UsuarioService.Eliminar(usuarioId)
+            .then(data => {
+                if (data.status) {
 
-                            // Se muestra una alerta avisando que ocurrio un error al borrar el usuario
-                            Alert.alert('¡Error!', 'Ocurrio un error al eliminar el usuario', [
-                                {
-                                    text: 'Aceptar'
-                                }
-                            ]);
-                            console.error(data.msg);
-                        }
-                    })
-                    .catch(error => {
-                        // Se muestra una alerta avisando que ocurrio un error al borrar el usuario
-                        Alert.alert('¡Error!', 'Ocurrio un error al eliminar el usuario', [
-                            {
-                                text: 'Aceptar'
-                            }
-                        ]);
+                    // Se muestra una alerta avisando que se borró el usuario
+                    setAlertTitle('Información')
+                    setAlertMsg('El usuario fue borrado con exito')
+                    setAlert(true)
+                    obtenerUsuarios()
+                }
+                else {
 
-                        // Manejar errores
-                        console.error(error);
-                    })
-            },
-        ]);
+                    // Se muestra una alerta avisando que ocurrio un error al borrar el usuario
+                    setAlertTitle('Error')
+                    setAlertMsg('Ocurrio un error al borrar el usuario')
+                    setAlert(true)
+                    console.error(data.msg);
+                }
+            })
+            .catch(error => {
+                // Se muestra una alerta avisando que ocurrio un error al borrar el usuario
+                setAlertTitle('Error')
+                setAlertMsg('Ocurrio un error al borrar el usuario')
+                setAlert(true)
+
+                // Manejar errores
+                console.error(error);
+            })
+    }
+
+    // Mostrar la advertencia de eliminar
+    const mostrarAdvertencia = (item: Usuario) => {
+        setUsuarioSelect(item)
+        setConfirmation(true)
     }
 
     // Filtrar lista en base al campo de busqueda
@@ -147,7 +150,7 @@ export default function UsuarioScreen() {
                                     <ThemedView style={styles.actionBtn}>
                                         {/* Botón para borrar un usuario */}
                                         <TouchableOpacity
-                                            onPress={() => eliminarUsuario(item)}
+                                            onPress={() => mostrarAdvertencia(item)}
                                         >
                                             <MaterialCommunityIcons name="delete" size={30} color="red" />
                                         </TouchableOpacity>
@@ -167,6 +170,24 @@ export default function UsuarioScreen() {
                         </ThemedView>
                     )
                 }}
+            />
+            {/* Dialogo de Confirmacion */}
+            <MatDialog
+                title="Advertencia"
+                message={`¿Deseas eliminar el usuario: ${usuarioSelect?.usuaNombre}?`}
+                visible={confirmation}
+                primaryText="Aceptar"
+                primaryAction={() => eliminarUsuario(usuarioSelect ? usuarioSelect.usuaId : 0)}
+                secondaryText="Cancelar"
+                secondaryAction={() => setConfirmation(false)}
+            />
+
+            {/* Dialogo de Alerta */}
+            <MatDialog
+                title={alertTitle}
+                message={alertMsg}
+                visible={alert}
+                primaryAction={() => setAlert(false)}
             />
         </ThemedView>
     )

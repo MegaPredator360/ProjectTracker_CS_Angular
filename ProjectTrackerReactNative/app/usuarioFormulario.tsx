@@ -23,10 +23,10 @@ export default function UsuarioFormularioScreen() {
     const params = useLocalSearchParams();
 
     // Se declara el objeto
-    let datosUsuario: Usuario = null
+    let datosUsuario: Usuario | null = null
 
     if (params['datosUsuario'] != null) {
-        datosUsuario = JSON.parse(params['datosUsuario']);
+        datosUsuario = JSON.parse(params['datosUsuario'].toString());
     }
 
     const [isFocus, setIsFocus] = useState(false);

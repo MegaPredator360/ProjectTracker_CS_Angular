@@ -21,15 +21,7 @@ class ProyectoService {
     async Guardar(request: Proyecto): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}Guardar`, {
             method: 'POST',
-            body: JSON.stringify({
-                proyId: request.proyId,
-                proyNombre: request.proyNombre,
-                proyDescripcion: request.proyDescripcion,
-                proyFechaInicio: request.proyFechaInicio,
-                proyEstaId: request.proyEstaId,
-                proyEstaNombre: request.proyEstaNombre,
-                proyCantidadTarea: request.proyCantidadTarea
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }
@@ -42,15 +34,7 @@ class ProyectoService {
     async Editar(request: Proyecto): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}Editar`, {
             method: 'PUT',
-            body: JSON.stringify({
-                proyId: request.proyId,
-                proyNombre: request.proyNombre,
-                proyDescripcion: request.proyDescripcion,
-                proyFechaInicio: request.proyFechaInicio,
-                proyEstaId: request.proyEstaId,
-                proyEstaNombre: request.proyEstaNombre,
-                proyCantidadTarea: request.proyCantidadTarea
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }

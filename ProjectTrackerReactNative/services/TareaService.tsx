@@ -33,18 +33,7 @@ class TareaService {
     async Guardar(request: Tarea): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}Guardar`, {
             method: 'POST',
-            body: JSON.stringify({
-                tareId: request.tareId,
-                tareNombre: request.tareNombre,
-                tareDescripcion: request.tareDescripcion,
-                tareFechaInicio: request.tareFechaInicio,
-                tareProyId: request.tareProyId,
-                tareProyNombre: request.tareProyNombre,
-                tareEstaId: request.tareEstaId,
-                tareEstaNombre: request.tareEstaNombre,
-                tareCantidadUsuario: request.tareCantidadUsuario,
-                tareUsuaId: request.tareUsuaId
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }
@@ -57,18 +46,7 @@ class TareaService {
     async Editar(request: Tarea): Promise<ResponseAPI> {
         const response = await fetch(`${this.urlAPI}Editar`, {
             method: 'PUT',
-            body: JSON.stringify({
-                tareId: request.tareId,
-                tareNombre: request.tareNombre,
-                tareDescripcion: request.tareDescripcion,
-                tareFechaInicio: request.tareFechaInicio,
-                tareProyId: request.tareProyId,
-                tareProyNombre: request.tareProyNombre,
-                tareEstaId: request.tareEstaId,
-                tareEstaNombre: request.tareEstaNombre,
-                tareCantidadUsuario: request.tareCantidadUsuario,
-                tareUsuaId: request.tareUsuaId
-            }),
+            body: JSON.stringify(request),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             }

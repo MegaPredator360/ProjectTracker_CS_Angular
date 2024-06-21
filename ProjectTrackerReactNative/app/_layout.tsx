@@ -22,6 +22,13 @@ export default function RootLayout() {
             title: 'Detalle de Usuario',
             headerBackTitle: 'Atrás'
           }} />
+
+        <Stack.Screen
+          name="proyectoDetalle"
+          options={{
+            title: 'Detalle de Proyecto',
+            headerBackTitle: 'Atrás'
+          }} />
       </Stack>
     </ThemeProvider>
   );

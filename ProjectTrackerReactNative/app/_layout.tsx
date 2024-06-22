@@ -23,6 +23,7 @@ export default function RootLayout() {
             headerBackTitle: 'Atrás'
           }} />
 
+        <Stack.Screen name="proyectoFormulario" options={({ route }) => ({ title: route.params.name, headerBackTitle: 'Atrás' })} />
         <Stack.Screen
           name="proyectoDetalle"
           options={{

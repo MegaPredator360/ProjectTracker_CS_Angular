@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { View, TextInput, Animated, StyleSheet, Platform, TouchableOpacity, TouchableWithoutFeedback, GestureResponderEvent, KeyboardAvoidingView, LayoutChangeEvent } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { ThemedText } from '@/components/ThemedText';
 
 type MatInputProps = {
     label?: string;
@@ -14,11 +15,13 @@ type MatInputProps = {
     value: string
     numberLines?: number;
     inputColor?: string
+    maxlength?: number;
 };
 
 const MatInput: React.FC<MatInputProps> = ({
     label,
     numberLines = 1,
+    maxlength = 0,
     value,
     inputWidth,
     buttonIcon,
@@ -37,6 +40,7 @@ const MatInput: React.FC<MatInputProps> = ({
     const labelColor = colorScheme === 'light' ? '#808080' : "#707070";
     const textColor = colorScheme === 'light' ? '#000000' : "#FFFFFF";
 
+    const [maximumLength, setMaximumLength] = useState<number | null>(null)
     const [multiline, setMultiline] = useState(false)
     const [focused, setFocused] = useState(false);
     const [text, setText] = useState('');
@@ -115,6 +119,10 @@ const MatInput: React.FC<MatInputProps> = ({
             }
         }
 
+        if (maxlength != 0) {
+            setMaximumLength(maxlength)
+        }
+
         if (value != null && value != '') {
 
             // Actualiza el estado del texto
@@ -148,6 +156,7 @@ const MatInput: React.FC<MatInputProps> = ({
                     value={text}
                     multiline={multiline}
                     numberOfLines={numberLines}
+                    maxLength={maximumLength}
                 />
                 <Animated.Text
                     style={[
@@ -172,6 +181,14 @@ const MatInput: React.FC<MatInputProps> = ({
                         <MaterialCommunityIcons name={buttonIcon} size={30} color="gray" />
                     </TouchableOpacity>
                 )}
+
+                {
+                    // Si el maxlength tiene un valor diferente a 0, entonces el texto aparecerá 
+                    maxlength != 0 &&
+                    <ThemedText style={styles.maxLengthText}>
+                        {text.length} / {maxlength}
+                    </ThemedText>
+                }
             </View>
         </TouchableWithoutFeedback>
     );
@@ -196,6 +213,11 @@ const styles = StyleSheet.create({
         left: 4,
         top: Platform.OS === 'ios' ? 2 : 0,
         paddingHorizontal: 4,
+    },
+    maxLengthText: {
+        textAlign: 'right',
+        fontSize: 15,
+        paddingRight: 10
     }
 });
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { SharedModule } from '../../modules/shared.module';
 import { UtilityService } from '../../services/utility.service';
 import { UsuarioService } from '../../services/usuario.service';
@@ -7,7 +7,7 @@ import { UsuarioService } from '../../services/usuario.service';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, SharedModule],
+  imports: [RouterOutlet, RouterLink, SharedModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })

@@ -4,8 +4,12 @@
             <mat-icon>menu</mat-icon>
         </button>
         <img src="../../../assets/img/logoWF.png" style="width: 40px; margin: 0px 10px;">
-        <h1 class="font-primary" style="margin: 0px;">WorkFlow</h1>
+        <a routerLink="/" class="font-primary" style="text-decoration: none;">WorkFlow</a>
         <span style="flex: 1 1 auto;"></span>
+
+        <!-- Boton para iniciar sesion -->
+        <button mat-button routerLink="/login">Iniciar Sesion</button>
+
         <!-- Acá se mostrará el nombre de usuario y el nombre del permiso de usuario que inicie sesion -->
         <label class="color-dark" style="font-size: 14px; margin: 0 20px 0 0;">{{ userName }} | {{ permisoNombre
             }}</label>
@@ -13,7 +17,7 @@
             <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/pages/usuario/configuracion">
+            <button mat-menu-item routerLink="/usuario/configuracion">
                 <mat-icon>manage_accounts</mat-icon>
                 Ajustes de Perfil</button>
             <button mat-menu-item (click)="cerrarSesion()">
@@ -25,25 +29,23 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav opened="false" mode="over" class="fixed-sidenav" style="width: 240px; padding: 10px 15px; margin-top: 64px;" autoFocus="false">
         <mat-nav-list >
-            <mat-list-item routerLink="/pages/">
+            <mat-list-item routerLink="/">
                 <mat-icon matListItemIcon style="color: black;">home</mat-icon>
                 <div mat-line>Inicio</div>
             </mat-list-item>
-            <mat-list-item routerLink="/pages/proyecto"
-                ngIf="permisoNombre == 'Administrador' || permisoNombre == 'Gerente'">
+            <mat-list-item routerLink="/proyecto">
                 <mat-icon matListItemIcon style="color: black;">folder_open</mat-icon>
                 <div mat-line>Proyecto</div>
             </mat-list-item>
-            <mat-list-item routerLink="/pages/tarea"
-                ngIf="permisoNombre == 'Administrador' || permisoNombre == 'Gerente'">
+            <mat-list-item routerLink="/tarea">
                 <mat-icon matListItemIcon style="color: black;">assignment</mat-icon>
                 <div mat-line>Tarea</div>
             </mat-list-item>
-            <mat-list-item routerLink="/pages/usuario" ngIf="permisoNombre == 'Administrador'">
+            <mat-list-item routerLink="/usuario">
                 <mat-icon matListItemIcon style="color: black;">group</mat-icon>
                 <div mat-line>Usuarios</div>
             </mat-list-item>
-            <mat-list-item routerLink="/pages/tareausuario" ngIf="permisoNombre == 'Usuario'">
+            <mat-list-item routerLink="/tareausuario">
                 <mat-icon matListItemIcon style="color: black;">assignment</mat-icon>
                 <div mat-line>Tareas Asignadas</div>
             </mat-list-item>

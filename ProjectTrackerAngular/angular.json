@@ -29,14 +29,13 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/_redirects"
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [
-              "src/_redirects"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

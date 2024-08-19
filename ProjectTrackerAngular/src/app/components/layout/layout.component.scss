@@ -1,0 +1,62 @@
+.fixed-toolbar {
+    position: fixed;
+    top: 0;
+    /* Fija la barra de herramientas en la parte superior */
+    z-index: 640;
+    /* Asegura que el contenido de tu aplicación no se superponga a la barra de herramientas */
+}
+
+.fixed-sidenav {
+    position: fixed;
+}
+
+.content-background {
+    font-family: 'Trebuchet MS', sans-serif;
+    min-height: 100vh;
+}
+
+.content-image {
+    background-image: url("../../../assets/img/background-grad-v4-03.jpg");
+    background-size: cover;
+}
+
+.footer-content {
+    background-color: rgb(91, 183, 154);
+    padding-top: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    background-color: rgb(138, 255, 218);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.grad-back {
+    background: rgb(166, 226, 87);
+    background: linear-gradient(45deg, rgba(166, 226, 87, 1) 17%, rgba(249, 252, 226, 1) 50%, rgba(91, 183, 154, 1) 91%);
+}
+
+.font-primary {
+    font-family: GontserratB !important;
+    color: #0F0D17;
+}
+
+.color-dark {
+    color: #0F0D17 !important;
+}
+
+// Animacion de opciones 
+.mat-mdc-list-item {
+    background-image: linear-gradient(90deg, #ffff 0%, #ffff 60%, #F9FCE2 65%, #A6E257 100%);
+    background-size: 160%;
+    background-repeat: no-repeat;
+    background-position: left;
+    transition: background-position .5s ease;
+}
+
+.mat-mdc-list-item:hover {
+    background-position: right;
+}

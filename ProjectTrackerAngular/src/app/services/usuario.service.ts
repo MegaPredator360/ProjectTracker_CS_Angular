@@ -14,6 +14,8 @@ export class UsuarioService {
     private datosUsuario!: Usuario;
     private urlApi: string = environment.endpoint + "Usuario/";
 
+    /*
+
     constructor(private http: HttpClient) { }
 
     iniciarSesion(request: InicioSesion): Observable<ResponseApi> {
@@ -51,4 +53,5 @@ export class UsuarioService {
     getDatosUsuario(): Usuario {
         return this.datosUsuario;
     }
+        */
 }

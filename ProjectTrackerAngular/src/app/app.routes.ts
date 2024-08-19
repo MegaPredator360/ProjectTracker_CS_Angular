@@ -13,8 +13,7 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent, pathMatch: "full" },
-    {
-        path: '', component: LayoutComponent, /*canActivate: [GuardAuthService],*/ children: [
+    { path: '', component: LayoutComponent, /*canActivate: [GuardAuthService],*/ children: [
             { path: '', component: HomeComponent },
             { path: '*', component: NotFoundComponent },
             { path: 'usuario', component: UsuarioComponent, /*canActivate: [GuardRoleService], data: { roles: ['Administrador'] }*/ },

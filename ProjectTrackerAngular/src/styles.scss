@@ -36,6 +36,15 @@ $ProjectTrackerAngular-theme: mat.define-theme((
 // @include mat.color-variants-backwards-compatibility($ProjectTrackerAngular-theme);
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: GontserratB;
+  src: url(assets/fonts/Gontserrat-Regular.ttf) format('truetype');
+}
+
+* {
+  font-family: GontserratB;
+}
+
 html, body { 
   height: 100%;
 }

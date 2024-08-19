@@ -1,4 +1,4 @@
-export const environment = {
+export const environmentProd = {
     production: true,
-    endpoint: "http://localhost:5132/api/"
+    endpoint: "http://www.projecttracker.somee.com/api/"
 };

@@ -14,7 +14,7 @@ export class GuardAuthService {
     canActivate(): | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         if (!this.utilityService.obtenerSesion()) {
             this.router.navigate(['/login']);
-            this.utilityService.mostrarAlerta("Debes de iniciar sesion para acceder a esta pagina", "error")
+            //this.utilityService.mostrarAlerta("Debes de iniciar sesion para acceder a esta pagina", "error")
             return false;
         }
         return true;

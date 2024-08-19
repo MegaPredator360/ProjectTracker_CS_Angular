@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environmentProd } from '../../environment/environment.prod';
 import { environment } from '../../environment/environment';
 import { ResponseApi } from '../interfaces/response-api';
 import { InicioSesion } from '../interfaces/inicio-sesion';
@@ -11,20 +12,26 @@ import { Usuario } from '../interfaces/usuario';
 })
 
 export class UsuarioService {
-    private datosUsuario!: Usuario;
-    private urlApi: string = environment.endpoint + "Usuario/";
 
-    /*
+    // Configurar si se esta trabajando en un ambiente de produccion o no
+    private prod: Boolean = true
+
+    // Se obtiene enlace
+    private urlApi: string = this.prod == true ? environmentProd.endpoint + "Usuario/" : environment.endpoint + "Usuario/"
+    
+    private datosUsuario!: Usuario;
 
     constructor(private http: HttpClient) { }
+
+    Lista(): Observable<ResponseApi> {
+        return this.http.get<ResponseApi>(`${this.urlApi}Lista`)
+    }
 
     iniciarSesion(request: InicioSesion): Observable<ResponseApi> {
         return this.http.post<ResponseApi>(`${this.urlApi}IniciarSesion`, request)
     }
 
-    Lista(): Observable<ResponseApi> {
-        return this.http.get<ResponseApi>(`${this.urlApi}Lista`)
-    }
+
 
     ObtenerUsuario(Id: number): Observable<ResponseApi> {
         return this.http.get<ResponseApi>(`${this.urlApi}Unico/${Id}`)
@@ -53,5 +60,4 @@ export class UsuarioService {
     getDatosUsuario(): Usuario {
         return this.datosUsuario;
     }
-        */
 }

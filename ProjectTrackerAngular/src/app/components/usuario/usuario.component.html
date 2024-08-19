@@ -1,1 +1,59 @@
-<p>usuario works!</p>
+<div style="padding-top: 90px;" class="min-vh-100 container">
+    <mat-card class="tabla-card p-3" style="min-height: 85vh;">
+        <h1 class="text-center mb-4">Registro de Usuarios</h1>
+        <mat-grid-list cols="5" rowHeight="80px">
+            <mat-grid-tile [colspan]="4">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Buscar Usuario</mat-label>
+                    <input matInput (keyup)="filtroTabla($event)">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-raised-button color="primary" class="tabla-boton-nuevo">
+                    <mat-icon matListItemIcon>add</mat-icon>Nuevo Usuario
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <table mat-table [dataSource]="dataListaUsuarios" matSort (matSortChange)="cambiarDireccionSort($event)">
+            <ng-container matColumnDef="usuaCedula">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Cedula</th>
+                <td mat-cell *matCellDef="let element">{{ element.usuaCedula }}</td>
+            </ng-container>
+            <ng-container matColumnDef="usuaNombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell *matCellDef="let element">{{ element.usuaNombre }}</td>
+            </ng-container>
+            <ng-container matColumnDef="usuaCorreo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+                <td mat-cell *matCellDef="let element">{{ element.usuaCorreo }}</td>
+            </ng-container>
+            <ng-container matColumnDef="usuaTelefono">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Telefono</th>
+                <td mat-cell *matCellDef="let element">{{ element.usuaTelefono }}</td>
+            </ng-container>
+            <ng-container matColumnDef="usuaPermNombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Permiso</th>
+                <td mat-cell *matCellDef="let element">{{ element.usuaPermNombre }}</td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef style="width: 130px;">Acciones</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" matTooltip="Actualizar Usuario">
+                        <mat-icon matListItemIcon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" matTooltip="Eliminar Usuario">
+                        <mat-icon matListItemIcon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="colunmasTabla"></tr>
+            <tr mat-row *matRowDef="let row; columns: colunmasTabla;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="5">
+                    <p class="filter-no-result">{{ mensajeVacio }}</p>
+                </td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card>
+</div>

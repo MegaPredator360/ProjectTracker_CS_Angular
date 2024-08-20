@@ -1,0 +1,90 @@
+<h2 mat-dialog-title>{{ tituloAccion }} Usuario</h2>
+<mat-dialog-content>
+    <form class="form" [formGroup]="formularioUsuario">
+        <mat-grid-list cols="2" rowHeight="80px">
+            <mat-grid-tile>
+                <mat-form-field style="width: 95%;">
+                    <mat-label>Cedula</mat-label>
+                    <input matInput numbersOnly autocomplete="off" formControlName="cedula">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width: 95%;">
+                    <mat-label>Nombre Completo</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width: 95%;">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput autocomplete="off" formControlName="direccion">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width: 95%;">
+                    <mat-label>Nombre de Usuario</mat-label>
+                    <input matInput autocomplete="off" formControlName="username">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width: 95%;">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput numbersOnly autocomplete="off" formControlName="telefono">
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field style="width: 95%;">
+                    <mat-label>Correo Electronico</mat-label>
+                    <input matInput autocomplete="off" formControlName="correo">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width: 76%;">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'"
+                        formControlName="contrasena">
+                    <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
+                        <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <button mat-icon-button class="mb-3 ms-2" matTooltip="Debe contener: 1 mayuscula, 1 minuscula, 1 simbolo, 1 número, 8 caracteres">
+                    <mat-icon fontIcon="info"></mat-icon>
+                </button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field #confirmacionInput style="width: 95%;">
+                    <mat-label>Confirmar Contraseña</mat-label>
+                    <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'"
+                        formControlName="confirmarContrasena">
+                    <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
+                        <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width: 95%;">
+                    <mat-label>Permisos</mat-label>
+                    <mat-select formControlName="permisoId">
+                        <mat-option>
+                            <ngx-mat-select-search [formControl]="permisoFiltroCtrl" placeholderLabel="Buscar Permiso"
+                                noEntriesFoundLabel="'No se encontraron resultados'"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let item of filtradoPermiso | async" [value]="item.permId">
+                            {{item.permNombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-checkbox class="pb-3" formControlName="primerInicio">Cambiar Contraseña al Iniciar
+                    Sesion</mat-checkbox>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close mat-primary>Volver</button>
+    <button mat-raised-button mat-dialog-close color="primary" [disabled]="formularioUsuario.invalid"
+        (click)="guardarEditarUsuario()">{{ botonAccion }}</button>
+</mat-dialog-actions>

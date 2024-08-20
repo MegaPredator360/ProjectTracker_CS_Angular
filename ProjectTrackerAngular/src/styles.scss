@@ -53,3 +53,20 @@ body {
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
+
+/* Propiedades del SnackBar */
+.mat-mdc-snack-bar-container {
+  text-align: center;
+
+  &.successSnackBar {
+      --mdc-snackbar-container-color: #0faf00;
+      --mat-mdc-snack-bar-button-color: white;
+      --mdc-snackbar-supporting-text-color: white;
+  }
+
+  &.dangerSnackBar {
+      --mdc-snackbar-container-color: #c20000;
+      --mat-mdc-snack-bar-button-color: white;
+      --mdc-snackbar-supporting-text-color: white;
+  }
+}

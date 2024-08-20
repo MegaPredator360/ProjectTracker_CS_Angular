@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Sesion } from '../interfaces/sesion';
 import { MatSnackBar } from '@angular/material/snack-bar';
-//import { SnackBarTimedComponent } from '../components/material/snack-bar-timed/snack-bar-timed.component';
+import { SnackBarTimedComponent } from '../ui-components/snack-bar-timed/snack-bar-timed.component';
 
 @Injectable({
     providedIn: 'root'
@@ -58,7 +58,6 @@ export class UtilityService {
         return emailPattern.test(correo);
     }
 
-    /*
     // Se usará para mostrar mensajes de Alerta
     mostrarAlerta(mensaje: string, tipoMensaje: string) {
         // Definimos el tipo de mensaje
@@ -84,5 +83,4 @@ export class UtilityService {
     obtenerSnackBarMessage(): string {
         return this.snackBarMessage;
     }
-        */
 }

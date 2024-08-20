@@ -111,7 +111,7 @@ export class ModalUsuarioComponent {
       });
   }
 
-  guardarEditarUsuario() {
+  submitUsuario() {
     const _usuario: Usuario = {
       usuaId: this.datosUsuario == null ? 0 : this.datosUsuario.usuaId,
       usuaCedula: this.formularioUsuario.value.cedula,

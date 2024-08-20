@@ -18,8 +18,6 @@ export class UsuarioService {
 
     // Se obtiene enlace
     private urlApi: string = this.prod == true ? environmentProd.endpoint + "Usuario/" : environment.endpoint + "Usuario/"
-    
-    private datosUsuario!: Usuario;
 
     constructor(private http: HttpClient) { }
 
@@ -30,8 +28,6 @@ export class UsuarioService {
     iniciarSesion(request: InicioSesion): Observable<ResponseApi> {
         return this.http.post<ResponseApi>(`${this.urlApi}IniciarSesion`, request)
     }
-
-
 
     ObtenerUsuario(Id: number): Observable<ResponseApi> {
         return this.http.get<ResponseApi>(`${this.urlApi}Unico/${Id}`)

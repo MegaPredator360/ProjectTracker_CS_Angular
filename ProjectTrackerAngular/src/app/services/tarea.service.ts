@@ -4,15 +4,19 @@ import { environment } from "../../environment/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ResponseApi } from "../interfaces/response-api";
+import { environmentProd } from "../../environment/environment.prod";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class TareaService
-{
-    private datosTarea!: Tarea;
-    private urlApi: string = environment.endpoint + "Tarea/";
+export class TareaService {
+
+    // Configurar si se esta trabajando en un ambiente de produccion o no
+    private prod: Boolean = true
+
+    // Se obtiene enlace
+    private urlApi: string = this.prod == true ? environmentProd.endpoint + "Tarea/" : environment.endpoint + "Tarea/"
 
     constructor(private http: HttpClient) { }
 
@@ -34,13 +38,5 @@ export class TareaService
 
     Eliminar(Id: number): Observable<ResponseApi> {
         return this.http.delete<ResponseApi>(`${this.urlApi}Eliminar/${Id}`)
-    }
-
-    setDatosTarea(tarea: Tarea) {
-        this.datosTarea = tarea;
-    }
-
-    getDatosTarea(): Tarea {
-        return this.datosTarea;
     }
 }

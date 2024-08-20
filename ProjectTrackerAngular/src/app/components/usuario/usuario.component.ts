@@ -24,6 +24,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
   @ViewChild(MatSort) sortTabla!: MatSort
   mensajeVacio: string = "No hay usuarios registrados";
+  filterTable: string = ""
 
   constructor(
     private usuarioService: UsuarioService,
@@ -42,7 +43,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
           this.dataListaUsuarios.data = data.value
         }
       },
-      error: (e) => { 
+      error: (e) => {
         this.utilityService.mostrarAlerta("Ocurrio un error al obtener los usuarios", "error")
         console.error(e)
       }
@@ -68,7 +69,15 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   }
 
   filtroTabla(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+
+    let filterValue: string = "";
+
+    if (event == null) {
+      filterValue = "";
+    }
+    else {
+      filterValue = (event.target as HTMLInputElement).value;
+    }
 
     if (this.dataListaUsuarios.data.length == 0 && filterValue == "") {
       this.mensajeVacio = "No hay usuarios registrados"
@@ -79,6 +88,11 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     else {
       this.dataListaUsuarios.filter = filterValue.trim().toLocaleLowerCase()
     }
+  }
+
+  filtroVacio() {
+    this.filterTable = ""
+    this.filtroTabla(null!)
   }
 
   usuarioNuevo() {

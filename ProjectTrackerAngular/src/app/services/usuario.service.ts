@@ -52,12 +52,4 @@ export class UsuarioService {
     CambiarContraseña(request: Usuario): Observable<ResponseApi> {
         return this.http.put<ResponseApi>(`${this.urlApi}CambiarContrasena`, request)
     }
-
-    setDatosUsuario(usuario: Usuario) {
-        this.datosUsuario = usuario;
-    }
-
-    getDatosUsuario(): Usuario {
-        return this.datosUsuario;
-    }
 }

@@ -3,13 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { ResponseApi } from '../interfaces/response-api';
+import { environmentProd } from '../../environment/environment.prod';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EstadoService {
 
-    private urlApi: string = environment.endpoint + "Estado/";
+    // Configurar si se esta trabajando en un ambiente de produccion o no
+    private prod: Boolean = true
+
+    // Se obtiene enlace
+    private urlApi: string = this.prod == true ? environmentProd.endpoint + "Estado/" : environment.endpoint + "Estado/"
 
     constructor(private http: HttpClient) { }
 

@@ -4,15 +4,19 @@ import { environment } from "../../environment/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ResponseApi } from "../interfaces/response-api";
+import { environmentProd } from "../../environment/environment.prod";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class ProyectoService
-{
-    private datosProyecto!: Proyecto;
-    private urlApi: string = environment.endpoint + "Proyecto/";
+export class ProyectoService {
+
+    // Configurar si se esta trabajando en un ambiente de produccion o no
+    private prod: Boolean = true
+
+    // Se obtiene enlace
+    private urlApi: string = this.prod == true ? environmentProd.endpoint + "Proyecto/" : environment.endpoint + "Proyecto/"
 
     constructor(private http: HttpClient) { }
 
@@ -30,13 +34,5 @@ export class ProyectoService
 
     Eliminar(Id: number): Observable<ResponseApi> {
         return this.http.delete<ResponseApi>(`${this.urlApi}Eliminar/${Id}`)
-    }
-
-    setDatosProyecto(proyecto: Proyecto) {
-        this.datosProyecto = proyecto;
-    }
-
-    getDatosProyecto(): Proyecto {
-        return this.datosProyecto;
     }
 }

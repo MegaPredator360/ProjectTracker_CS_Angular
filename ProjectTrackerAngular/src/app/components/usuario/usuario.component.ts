@@ -20,7 +20,7 @@ import { ModalBorrarUsuarioComponent } from './modal-borrar-usuario/modal-borrar
 })
 export class UsuarioComponent implements OnInit, AfterViewInit {
   colunmasTabla: string[] = ['usuaCedula', 'usuaNombre', 'usuaCorreo', 'usuaTelefono', 'usuaPermNombre', 'acciones']
-  dataListaUsuarios = new MatTableDataSource<Usuario[]>
+  dataListaUsuarios = new MatTableDataSource<Usuario[]>([])
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
   @ViewChild(MatSort) sortTabla!: MatSort
   mensajeVacio: string = "No hay usuarios registrados";

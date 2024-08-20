@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { Proyecto } from '../../interfaces/proyecto';
 import { ProyectoService } from '../../services/proyecto.service';
 import { UtilityService } from '../../services/utility.service';
@@ -21,8 +20,7 @@ import { ModalProyectoComponent } from './modal-proyecto/modal-proyecto.componen
 })
 export class ProyectoComponent {
   colunmasTabla: string[] = ['proyNombre', 'proyFechaInicio', 'proyEstaNombre', 'proyCantidadTarea', 'acciones']
-  dataInicio: Proyecto[] = []
-  dataListaProyecto = new MatTableDataSource(this.dataInicio)
+  dataListaProyecto = new MatTableDataSource<Proyecto[]>([])
   proyectoVacio!: Proyecto
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
   @ViewChild(MatSort) sortTabla!: MatSort
@@ -30,7 +28,6 @@ export class ProyectoComponent {
   filterTable: string = ""
 
   constructor(
-    private router: Router,
     private proyectoService: ProyectoService,
     private utilityService: UtilityService,
     private dialog: MatDialog,

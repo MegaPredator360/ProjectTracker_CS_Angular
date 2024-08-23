@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Ingresa contraseña</h2>
+<mat-dialog-content>
+    <p>Se te ha solicitado que al inicio de sesion, debes de cambiar la contraseña</p>
+    <form [formGroup]="formularioUsuario">
+        <mat-form-field style="width: 90%;">
+            <mat-label>Contraseña</mat-label>
+            <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'"
+                formControlName="contrasena">
+            <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
+                <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button mat-icon-button class="mb-3 ms-2"
+            matTooltip="Debe contener: 1 mayuscula, 1 minuscula, 1 simbolo, 1 número, 8 caracteres">
+            <mat-icon fontIcon="info"></mat-icon>
+        </button>
+        <mat-form-field #confirmacionInput class="w-100">
+            <mat-label>Confirmar Contraseña</mat-label>
+            <input matInput autocomplete="off" [type]="ocultarContrasena ? 'password': 'text'"
+                formControlName="confirmarContrasena">
+            <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena" type="button">
+                <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="closeModal()">Cerrar</button>
+    <button mat-raised-button color="primary" (click)="cambiarContrasena()">Aceptar</button>
+</mat-dialog-actions>

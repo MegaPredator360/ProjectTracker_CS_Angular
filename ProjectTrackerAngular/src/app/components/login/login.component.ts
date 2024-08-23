@@ -9,6 +9,7 @@ import { InicioSesion } from '../../interfaces/inicio-sesion';
 import { ModalPrimerInicioComponent } from './modal-primer-inicio/modal-primer-inicio.component';
 import { Sesion } from '../../interfaces/sesion';
 import { NgIf } from '@angular/common';
+import { ModalAyudaInicioComponent } from './modal-ayuda-inicio/modal-ayuda-inicio.component';
 
 @Component({
   selector: 'app-login',
@@ -45,6 +46,12 @@ export class LoginComponent {
     }
   }
 
+  ayudaInicioSesion() {
+    this.dialog.open(ModalAyudaInicioComponent, {
+      disableClose: true
+    })
+  }
+
   iniciarSesion() {
     this.mostrarProgressBar = true
     const request: InicioSesion = {
@@ -61,10 +68,6 @@ export class LoginComponent {
             this.dialog.open(ModalPrimerInicioComponent, {
               disableClose: true,
               data: sesion
-            }).afterClosed().subscribe((resultado: string) => {
-              if (resultado == "true") {
-                // Se valida si el resultado de cierre es verdadero o no
-              }
             });
           }
           else {

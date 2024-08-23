@@ -27,12 +27,16 @@
                             <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
                         </button>
                     </mat-form-field>
-                    <button class="full-width" mat-raised-button color="primary" type="submit"
-                        [disabled]="formularioLogin.invalid">
+                    <button class="full-width" mat-raised-button [disabled]="formularioLogin.invalid">
                         Ingresar
                         <mat-icon matSuffix>login</mat-icon>
                     </button>
                 </form>
+                <mat-divider class="my-3 w-100 mx-auto"></mat-divider>
+                <button class="full-width" mat-raised-button (click)="ayudaInicioSesion()">
+                    Ayuda
+                    <mat-icon matSuffix>help</mat-icon>
+                </button>
             </mat-card-content>
             <mat-card-footer style="padding-top: 25px;">
 

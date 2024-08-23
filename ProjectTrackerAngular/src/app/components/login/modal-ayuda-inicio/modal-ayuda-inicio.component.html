@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Ayuda para Iniciar Sesion</h2>
+<mat-dialog-content>
+    <p>En este proyecto se han creado 3 usuarios predefinidos para iniciar sesion, cada usuario tiene un permiso
+        distinto:</p>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mb-4">
+
+        <ng-container matColumnDef="correo">
+            <th mat-header-cell *matHeaderCellDef> Correo </th>
+            <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contrasena">
+            <th mat-header-cell *matHeaderCellDef> Contraseña </th>
+            <td mat-cell *matCellDef="let element"> {{element.contrasena}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="permiso">
+            <th mat-header-cell *matHeaderCellDef> Permiso </th>
+            <td mat-cell *matCellDef="let element"> {{element.permiso}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <p>Si alguno de los usuario no inician sesion, no dudes en enviarme un correo para solucionar el problema.</p>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="closeModal()">Cerrar</button>
+</mat-dialog-actions>

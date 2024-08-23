@@ -42,22 +42,32 @@
                 <mat-icon matListItemIcon style="color: black;">home</mat-icon>
                 <div mat-line>Inicio</div>
             </mat-list-item>
-            <mat-list-item routerLink="/proyecto">
-                <mat-icon matListItemIcon style="color: black;">folder_open</mat-icon>
-                <div mat-line>Proyecto</div>
-            </mat-list-item>
-            <mat-list-item routerLink="/tarea">
-                <mat-icon matListItemIcon style="color: black;">assignment</mat-icon>
-                <div mat-line>Tarea</div>
-            </mat-list-item>
-            <mat-list-item routerLink="/usuario">
-                <mat-icon matListItemIcon style="color: black;">group</mat-icon>
-                <div mat-line>Usuarios</div>
-            </mat-list-item>
-            <mat-list-item routerLink="/tareausuario">
-                <mat-icon matListItemIcon style="color: black;">assignment</mat-icon>
-                <div mat-line>Tareas Asignadas</div>
-            </mat-list-item>
+            <ng-container *ngIf="permisoNombre == 'Administrador' || permisoNombre == 'Gerente'">
+                <mat-list-item routerLink="/proyecto">
+                    <mat-icon matListItemIcon style="color: black;">folder_open</mat-icon>
+                    <div mat-line>Proyecto</div>
+                </mat-list-item>
+            </ng-container>
+            <ng-container *ngIf="permisoNombre == 'Administrador' || permisoNombre == 'Gerente'">
+                <mat-list-item routerLink="/tarea">
+                    <mat-icon matListItemIcon style="color: black;">assignment</mat-icon>
+                    <div mat-line>Tarea</div>
+                </mat-list-item>
+            </ng-container>
+            <ng-container *ngIf="permisoNombre == 'Administrador'">
+                <mat-list-item routerLink="/usuario">
+                    <mat-icon matListItemIcon style="color: black;">group</mat-icon>
+                    <div mat-line>Usuarios</div>
+                </mat-list-item>
+            </ng-container>
+            <ng-container *ngIf="permisoNombre == 'Usuario' || permisoNombre == 'Gerente'">
+                <mat-list-item routerLink="/tareausuario">
+                    <mat-icon matListItemIcon style="color: black;">assignment</mat-icon>
+                    <div mat-line>Tareas Asignadas</div>
+                </mat-list-item>
+            </ng-container>
+            
+            
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

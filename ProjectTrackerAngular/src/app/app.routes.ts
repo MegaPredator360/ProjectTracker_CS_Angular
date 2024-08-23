@@ -13,14 +13,14 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent, pathMatch: "full" },
-    { path: '', component: LayoutComponent, /*canActivate: [GuardAuthService],*/ children: [
+    { path: '', component: LayoutComponent, children: [
             { path: '', component: HomeComponent },
             { path: '*', component: NotFoundComponent },
-            { path: 'usuario', component: UsuarioComponent, /*canActivate: [GuardRoleService], data: { roles: ['Administrador'] }*/ },
+            { path: 'usuario', component: UsuarioComponent, canActivate: [GuardAuthService], data: { roles: ['Administrador'] } },
             { path: 'usuario/configuracion', component: ConfiguracionUsuarioComponent },
-            { path: 'proyecto', component: ProyectoComponent, /*canActivate: [GuardRoleService], data: { roles: ['Administrador', 'Gerente'] }*/ },
-            { path: 'tarea', component: TareaComponent, /*canActivate: [GuardRoleService], data: { roles: ['Administrador', 'Gerente'] }*/ },
-            { path: 'tareausuario', component: TareaUsuarioComponent, /*canActivate: [GuardRoleService], data: { roles: ['Usuario'] }*/ },
+            { path: 'proyecto', component: ProyectoComponent, canActivate: [GuardAuthService], data: { roles: ['Administrador', 'Gerente'] } },
+            { path: 'tarea', component: TareaComponent, canActivate: [GuardAuthService], data: { roles: ['Administrador', 'Gerente'] } },
+            { path: 'tareausuario', component: TareaUsuarioComponent, canActivate: [GuardAuthService], data: { roles: ['Usuario'] } },
             { path: 'accessdenied', component: AccessDeniedComponent }
         ]
     },

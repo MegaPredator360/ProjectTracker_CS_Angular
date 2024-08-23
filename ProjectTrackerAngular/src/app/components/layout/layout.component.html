@@ -7,28 +7,37 @@
         <a routerLink="/" class="font-primary text-decoration-none">WorkFlow</a>
         <span style="flex: 1 1 auto;"></span>
 
-        <!-- Boton para iniciar sesion -->
-        <button mat-button routerLink="/login">Iniciar Sesion</button>
+        <!-- Si userName es una cadena vacía -->
+        <ng-container *ngIf="userName === ''; else loggedIn">
+            <button mat-button routerLink="/login">Iniciar Sesión</button>
+        </ng-container>
 
-        <!-- Acá se mostrará el nombre de usuario y el nombre del permiso de usuario que inicie sesion -->
-        <label class="color-dark" style="font-size: 14px; margin: 0 20px 0 0;">{{ userName }} | {{ permisoNombre
-            }}</label>
-        <button mat-icon-button class="color-dark" [matMenuTriggerFor]="menu">
-            <mat-icon>account_circle</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/usuario/configuracion">
-                <mat-icon>manage_accounts</mat-icon>
-                Ajustes de Perfil</button>
-            <button mat-menu-item (click)="cerrarSesion()">
-                <mat-icon>logout</mat-icon>
-                Cerrar Sesion</button>
-        </mat-menu>
+        <!-- Si userName no es una cadena vacía -->
+        <ng-template #loggedIn>
+            <label class="color-dark" style="font-size: 14px; margin: 0 20px 0 0;">
+                {{ userName }} | {{ permisoNombre }}
+            </label>
+            <button mat-icon-button class="color-dark" [matMenuTriggerFor]="menu">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="/usuario/configuracion">
+                    <mat-icon>manage_accounts</mat-icon>
+                    Ajustes de Perfil
+                </button>
+                <button mat-menu-item (click)="cerrarSesion()">
+                    <mat-icon>logout</mat-icon>
+                    Cerrar Sesión
+                </button>
+            </mat-menu>
+        </ng-template>
+
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav #sidenav opened="false" mode="over" class="fixed-sidenav" style="width: 265px; padding: 10px 15px; margin-top: 64px;" autoFocus="false">
-        <mat-nav-list >
+    <mat-sidenav #sidenav opened="false" mode="over" class="fixed-sidenav"
+        style="width: 265px; padding: 10px 15px; margin-top: 64px;" autoFocus="false">
+        <mat-nav-list>
             <mat-list-item routerLink="/">
                 <mat-icon matListItemIcon style="color: black;">home</mat-icon>
                 <div mat-line>Inicio</div>

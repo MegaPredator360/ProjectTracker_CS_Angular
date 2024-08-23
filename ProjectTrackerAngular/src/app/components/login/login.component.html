@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="body">
+    <mat-toolbar class="grad-back fixed-toolbar">
+        <mat-toolbar-row>
+            <img src="../../../assets/img/logoWF.png" style="width: 40px; margin: 0px 10px;">
+            <a routerLink="/" class="text-black text-decoration-none">WorkFlow</a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <mat-card class="loginCard">
+            <div class="header">
+                <img src="../../../assets/img/logoWF.png" style="height: 50px;">
+                <h2><strong>Iniciar Sesion</strong></h2>
+            </div>
+            <mat-card-content>
+                <form [formGroup]="formularioLogin" (ngSubmit)="iniciarSesion()">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Correo</mat-label>
+                        <input formControlName="correo" matInput autocomplete="off">
+                        <mat-icon matSuffix>mail</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input [type]="ocultarContrasena ? 'password': 'text'" formControlName="contrasena" matInput
+                            autocomplete="off">
+                        <button mat-icon-button matSuffix (click)="ocultarContrasena = !ocultarContrasena"
+                            type="button">
+                            <mat-icon matSuffix>{{ocultarContrasena ? 'visibility_off': 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <button class="full-width" mat-raised-button color="primary" type="submit"
+                        [disabled]="formularioLogin.invalid">
+                        Ingresar
+                        <mat-icon matSuffix>login</mat-icon>
+                    </button>
+                </form>
+            </mat-card-content>
+            <mat-card-footer style="padding-top: 25px;">
+                <mat-progress-bar mode="indeterminate" *ngIf="mostrarProgressBar"></mat-progress-bar>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+</div>

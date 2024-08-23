@@ -3,11 +3,12 @@ import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { SharedModule } from '../../modules/shared.module';
 import { UtilityService } from '../../services/utility.service';
 import { UsuarioService } from '../../services/usuario.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, SharedModule],
+  imports: [RouterOutlet, RouterLink, SharedModule, NgIf],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
@@ -23,7 +24,6 @@ export class LayoutComponent {
   ) { }
 
   ngOnInit(): void {
-    /*
     const usuario = this.utilityService.obtenerSesion();
 
     if (usuario != null) {
@@ -54,7 +54,6 @@ export class LayoutComponent {
       this.permisoNombre = '';
       this.userName = '';
     }
-      */
   }
 
   cerrarSesion() {

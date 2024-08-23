@@ -1,0 +1,32 @@
+.body {
+    height: 100vh;
+    background-image: url("../../../assets/img/background-grad-v4-03.jpg");
+    background-size: cover;
+}
+
+.grad-back {
+    background: rgb(166, 226, 87);
+    background: linear-gradient(45deg, rgba(166, 226, 87, 1) 17%, rgba(249, 252, 226, 1) 50%, rgba(91, 183, 154, 1) 91%);
+}
+
+.fixed-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 640;
+}
+
+.loginCard {
+    padding-top: 25px;
+    max-width: 400px !important;
+    margin: 2em auto;
+    text-align: center;
+    max-height: 600px;
+}
+
+.header {
+    text-align: center;
+}
+
+.full-width {
+    width: 80%;
+}

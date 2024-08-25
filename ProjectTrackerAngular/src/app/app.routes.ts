@@ -15,7 +15,8 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent, pathMatch: "full" },
     { path: '', component: LayoutComponent, children: [
             { path: '', component: HomeComponent },
-            { path: '*', component: NotFoundComponent },
+            { path: '**', component: NotFoundComponent },
+            { path: 'notfound', component: NotFoundComponent },
             { path: 'usuario', component: UsuarioComponent, canActivate: [GuardAuthService], data: { roles: ['Administrador'] } },
             { path: 'usuario/configuracion', component: ConfiguracionUsuarioComponent },
             { path: 'proyecto', component: ProyectoComponent, canActivate: [GuardAuthService], data: { roles: ['Administrador', 'Gerente'] } },
@@ -24,5 +25,5 @@ export const routes: Routes = [
             { path: 'accessdenied', component: AccessDeniedComponent }
         ]
     },
-    { path: '*', component: NotFoundComponent }
+    { path: '**', component: NotFoundComponent }
 ];

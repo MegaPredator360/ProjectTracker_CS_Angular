@@ -31,7 +31,7 @@ export class GuardAuthService {
                 return true;
             }
             else {
-                this.router.navigate(['/pages/accessdenied']);
+                this.router.navigate(['/accessdenied']);
                 return false
             }
         }

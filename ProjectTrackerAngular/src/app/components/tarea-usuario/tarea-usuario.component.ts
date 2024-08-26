@@ -26,6 +26,7 @@ export class TareaUsuarioComponent {
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator
   @ViewChild(MatSort) sortTabla!: MatSort
   mensajeVacio: string = "No hay tareas registradas"
+  filterTable: string = ""
 
   constructor(
     private dialog: MatDialog,
@@ -75,7 +76,14 @@ export class TareaUsuarioComponent {
   }
 
   filtroTabla(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+    let filterValue: string = "";
+
+    if (event == null) {
+      filterValue = "";
+    }
+    else {
+      filterValue = (event.target as HTMLInputElement).value;
+    }
 
     if (this.dataListaTarea.data.length == 0 && filterValue == "") {
       this.mensajeVacio = "No hay tareas registrados"
@@ -86,6 +94,11 @@ export class TareaUsuarioComponent {
     else {
       this.dataListaTarea.filter = filterValue.trim().toLocaleLowerCase()
     }
+  }
+
+  filtroVacio() {
+    this.filterTable = ""
+    this.filtroTabla(null!)
   }
 
   tareaActualizar(tarea: Tarea) {

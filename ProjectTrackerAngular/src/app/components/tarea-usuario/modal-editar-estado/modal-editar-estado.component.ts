@@ -19,56 +19,28 @@ import { AsyncPipe, NgForOf } from '@angular/common';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-export const CalendarioFormatoEspañol = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-}
-
 @Component({
   selector: 'app-modal-editar-estado',
   standalone: true,
   imports: [SharedModule, AsyncPipe, NgForOf],
-  providers: [
-    provideMomentDateAdapter(),
-    { provide: MAT_DATE_FORMATS, useValue: CalendarioFormatoEspañol },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
-  ],
   templateUrl: './modal-editar-estado.component.html',
   styleUrl: './modal-editar-estado.component.scss'
 })
 export class ModalEditarEstadoComponent {
-  // Se usará para agregar a los Usuarios Seleccionados
-  usuarioSeleccionados: number[] = []
 
   // Se usará para verificar o autollenar el formulario con informacion existente
   formularioTarea: FormGroup
 
   // Listas del formulario
   listaEstado: Estado[] = []
-  listaProyecto: Proyecto[] = []
-  listaUsuario: Usuario[] = []
-
-  // Ttiulo del componente
-  tituloAccion: string = "Agregar"
 
   // Titulo del boton del componente
-  botonAccion: string = "Guardar"
+  botonAccion: string = "Actualizar"
 
   // Controla el filtrador del MatSelect para seleccion multiple
-  public usuarioFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
-  public proyectoFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
   public estadoFiltroCtrl: FormControl<string | null> = new FormControl<string>('');
 
   // Obtiene la lista de filtrada por la busqueda
-  public filtradoUsuario: ReplaySubject<Usuario[]> = new ReplaySubject<Usuario[]>(1);
-  public filtradoProyecto: ReplaySubject<Proyecto[]> = new ReplaySubject<Proyecto[]>(1);
   public filtradoEstado: ReplaySubject<Estado[]> = new ReplaySubject<Estado[]>(1);
 
   // Emite un "Subject" (Emisores de Eventos) cuando el componente del select es cerrado
@@ -81,25 +53,12 @@ export class ModalEditarEstadoComponent {
     @Inject(MAT_DIALOG_DATA) public datosTarea: Tarea,
     private tareaService: TareaService,
     private estadoService: EstadoService,
-    private proyectoService: ProyectoService,
-    private usuarioService: UsuarioService,
     private utilityService: UtilityService,
     private fb: FormBuilder,
-    private router: Router
   ) {
     this.formularioTarea = this.fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      fechaInicio: ['', Validators.required],
-      estadoId: ['', Validators.required],
-      proyectoId: ['', Validators.required],
-      usuariosId: [[], Validators.required]
+      estadoId: ['', Validators.required]
     })
-
-    if (this.datosTarea != null) {
-      this.tituloAccion = "Editar"
-      this.botonAccion = "Actualizar"
-    }
 
     // Lista de Estados
     this.estadoService.Lista().subscribe({
@@ -114,73 +73,15 @@ export class ModalEditarEstadoComponent {
         console.log(e)
       }
     })
-
-    // Lista de Proyectos
-    this.proyectoService.Lista().subscribe({
-      next: (data) => {
-        if (data.status) {
-          this.listaProyecto = data.value
-          this.filtrarProyectos()
-        }
-      },
-      error: (e) => {
-        this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de proyectos", "error")
-        console.log(e)
-      }
-    })
-
-    // Lista de Usuarios
-    this.usuarioService.Lista().subscribe({
-      next: (data) => {
-        if (data.status) {
-          this.listaUsuario = data.value
-          this.filtrarUsuarios()
-        }
-      },
-      error: (e) => {
-        this.utilityService.mostrarAlerta("Ocurrio un error al obtener la lista de usuarios", "error")
-        console.log(e)
-      }
-    })
-  }
-
-  seleccionUsuarios(event: MatSelectChange) {
-    if (event.source.selected) {
-      // El array de usuarios seleccionados contendrá el Id, de los usuarios en el event.value
-      this.usuarioSeleccionados = event.value
-    }
   }
 
   ngOnInit(): void {
     if (this.datosTarea != null) {
-      this.formularioTarea.patchValue({
-        nombre: this.datosTarea.tareNombre,
-        descripcion: this.datosTarea.tareDescripcion,
-        fechaInicio: moment(this.datosTarea.tareFechaInicio, "DD/MM/YYYY")
-      })
-
       this.formularioTarea.get('estadoId')?.setValue(this.datosTarea.tareEstaId)
-      this.formularioTarea.get('proyectoId')?.setValue(this.datosTarea.tareProyId)
-      this.formularioTarea.get('usuariosId')?.setValue(this.datosTarea.tareUsuaId.map((usuario) => usuario))
     }
 
     // Carga la lista inicial
-    this.filtradoUsuario.next(this.listaUsuario.slice())
-    this.filtradoProyecto.next(this.listaProyecto.slice())
     this.filtradoEstado.next(this.listaEstado.slice())
-
-    // Toma el valor del campo de busqueda por cambios
-    this.usuarioFiltroCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filtrarUsuarios()
-      });
-
-    this.proyectoFiltroCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filtrarProyectos()
-      });
 
     this.estadoFiltroCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
@@ -191,98 +92,34 @@ export class ModalEditarEstadoComponent {
 
   submitTarea() {
     const tarea: Tarea = {
-      tareId: this.datosTarea == null ? 0 : this.datosTarea.tareId,
-      tareNombre: this.formularioTarea.value.nombre,
-      tareDescripcion: this.formularioTarea.value.descripcion,
-      tareFechaInicio: moment(this.formularioTarea.value.fechaInicio).format('DD/MM/YYYY'),
-      tareProyId: this.formularioTarea.value.proyectoId,
+      tareId: this.datosTarea.tareId,
+      tareNombre: this.datosTarea.tareNombre,
+      tareDescripcion: this.datosTarea.tareDescripcion,
+      tareFechaInicio: this.datosTarea.tareFechaInicio,
+      tareProyId: this.datosTarea.tareProyId,
       tareProyNombre: "",
       tareEstaId: this.formularioTarea.value.estadoId,
       tareEstaNombre: "",
       tareCantidadUsuario: 0,
-      tareUsuaId: this.usuarioSeleccionados.length === 0 ? this.datosTarea.tareUsuaId : this.usuarioSeleccionados
+      tareUsuaId: this.datosTarea.tareUsuaId
     }
 
-    if (this.datosTarea == null) {
-      this.tareaService.Guardar(tarea).subscribe({
-        next: (data) => {
-          if (data.status) {
-            this.utilityService.mostrarAlerta("La tarea fue registrada", "exito")
-            this.modalActual.close()
-          }
-          else {
-            this.utilityService.mostrarAlerta("No se pudo registrar la tarea", "error")
-            console.error(data.msg)
-          }
-        },
-        error: (e) => {
-          this.utilityService.mostrarAlerta("Ocurrio un error al registrar la tarea", "error")
-          console.error(e)
+    this.tareaService.Editar(tarea).subscribe({
+      next: (data) => {
+        if (data.status) {
+          this.utilityService.mostrarAlerta("La tarea fue actualizada", "exito")
+          this.modalActual.close()
         }
-      })
-    }
-    else {
-      this.tareaService.Editar(tarea).subscribe({
-        next: (data) => {
-          if (data.status) {
-            this.utilityService.mostrarAlerta("La tarea fue actualizada", "exito")
-            this.modalActual.close()
-          }
-          else {
-            this.utilityService.mostrarAlerta("Ocurrio un error al actualizar la tarea", "error")
-            console.error(data.msg)
-          }
-        },
-        error: (e) => {
+        else {
           this.utilityService.mostrarAlerta("Ocurrio un error al actualizar la tarea", "error")
-          console.error(e)
+          console.error(data.msg)
         }
-      })
-    }
-  }
-
-  protected filtrarUsuarios() {
-    if (!this.listaUsuario) {
-      return;
-    }
-
-    // Obtiene el texto de busqueda
-    let search = this.usuarioFiltroCtrl.value;
-
-    if (!search) {
-      this.filtradoUsuario.next(this.listaUsuario.slice());
-      return;
-    }
-    else {
-      search = search.toLowerCase();
-    }
-
-    // Filtra los usuarios
-    this.filtradoUsuario.next(
-      this.listaUsuario.filter(usuario => usuario.usuaNombre.toLowerCase().indexOf(search!) > -1)
-    );
-  }
-
-  protected filtrarProyectos() {
-    if (!this.listaProyecto) {
-      return;
-    }
-
-    // Obtiene el texto de busqueda
-    let search = this.proyectoFiltroCtrl.value;
-
-    if (!search) {
-      this.filtradoProyecto.next(this.listaProyecto.slice());
-      return;
-    }
-    else {
-      search = search.toLowerCase();
-    }
-
-    // Filtra la lista de proyectos
-    this.filtradoProyecto.next(
-      this.listaProyecto.filter(proyecto => proyecto.proyNombre.toLowerCase().indexOf(search!) > -1)
-    );
+      },
+      error: (e) => {
+        this.utilityService.mostrarAlerta("Ocurrio un error al actualizar la tarea", "error")
+        console.error(e)
+      }
+    })
   }
 
   protected filtrarEstados() {

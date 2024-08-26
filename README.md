@@ -3,10 +3,12 @@ Esta es una aplicación web realizado en Angular para el Front-End, usando C# .N
 Esta aplicación sirve para gestionar proyectos, y asignar tareas a los proyectos, y asignar multiples usuarios a las tareas, cuenta con un sistema de gestion de usuarios y asignacion de permisos a los usuarios.  
   
 Se utilizarón:
-- Node.js: Version 20.11.1 LTS
-- Angular CLI: Version
+- Node.js: Version 22.4.0
+- Angular CLI: Version 18.1.1
 - .NET SDK: Version 8.0
 - SQL Server 2022
+
+Este proyecto incluye tambien una aplicacion de React Native usando Expo para aplicaciones moviles, sin embargo... A la fecha de escritura de esta documentación, la aplicacion esta incompleta con una fecha de terminacion indefinida, los interesados pueden inicializar la aplicacion y probarla, sin embargo... No añadire documentacion hasta que el desarrollo de la aplicacion haya sido terminada.
 
 ## Tabla de Contenido
 * [Objetivos](#objetivos)
@@ -23,11 +25,14 @@ Para la ejecución de este proyecto se necesita lo siguiente:
 - El SDK de [.NET 8.0](https://dotnet.microsoft.com/es-es/download/dotnet/8.0).  
 Si se desea utilizar una version superior, se deberá modificar el proyecto para que sea compatible con dicha version.
 - [Node.js](https://nodejs.org/en).
-- El CLI de [Angular](https://angular.io/).  
+- El CLI de [Angular](https://angular.dev/installation).  
 **Nota:** Se requiere tener instalado primero Node.js antes de instalar el CLI de Angular
 - [SQL Server](https://www.microsoft.com/es-es/sql-server/).
 
 ## Ejecución
+- PD: Esta aplicación se encuentra alojada servidores gratuitos (Netlify en el caso de Angular, y Somee, para la API en .NET y la base de datos de SQL Server), si deseas probar la aplicacion alojada.
+    - <b>Angular:</b> https://main--work-flow-project-tracker.netlify.app/ <br />
+    - <b>API:</b> http://www.projecttracker.somee.com/api/
 - Una vez instalados los programas requeridos, clonas este repositorio y lo guardas en la carpeta de tu preferencia. Si utilizas la aplicacion de consola **git**, podrás clonar el proyecto con el siguiente comando:
 ```console
 git clone https://github.com/MegaPredator360/ProjectTracker_CS_Angular.git
